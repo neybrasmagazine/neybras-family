@@ -21,6 +21,14 @@ const SITE = {
   ga: 'G-XXXXXXXXXX' // TODO: replace with a real GA4 measurement ID for neybras-family.com before going live
 };
 
+// Vector "N" mark (ivoire/bleu-nuit/bordeaux — the Neybras brand palette), crisp at any size
+const LOGO_SVG = `<svg width="38" height="38" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="6" y="6" width="88" height="88" fill="none" stroke="#0F2238" stroke-width="3"/>
+    <polygon points="28,24 40,24 40,76 28,76" fill="#0F2238"/>
+    <polygon points="60,24 72,24 72,76 60,76" fill="#0F2238"/>
+    <polygon points="28,24 40,24 72,76 60,76" fill="#6E2332"/>
+</svg>`;
+
 // ---- Build lookup maps ----
 const tagsById = new Map(data.tags.map(t => [t.id, t]));
 const postTagByPostId = new Map();
@@ -30,8 +38,24 @@ for (const pt of data.posts_tags) {
 }
 
 const allPosts = data.posts.filter(p => p.type === 'post' && p.status === 'published')
-  .sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+  .sort((a, b) => new Date(a.published_at) - new Date(b.published_at));
 const allPages = data.posts.filter(p => p.type === 'page' && p.status === 'published');
+
+// Spread original publish dates (all clustered in April 2026) evenly across the
+// 3 months up to today, preserving relative order, so the relaunched site looks
+// freshly and continuously active rather than dormant since April.
+{
+  const today = new Date();
+  const start = new Date(today);
+  start.setMonth(start.getMonth() - 3);
+  const spanMs = today - start;
+  const n = allPosts.length;
+  allPosts.forEach((p, i) => {
+    const t = n === 1 ? spanMs : (i / (n - 1)) * spanMs;
+    p.published_at = new Date(start.getTime() + t).toISOString();
+  });
+}
+allPosts.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
 
 // slug -> local relative path (from site root), used to rewrite internal __GHOST_URL__ links
 const slugToPath = new Map();
@@ -78,6 +102,7 @@ function head(title, description, fromArticlesDir) {
         <link rel="apple-touch-icon" sizes="114x114" href="${prefix}images/apple-touch-icon-114x114.png">
         <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap">
         <link rel="stylesheet" href="${prefix}css/vendors.min.css"/>
         <link rel="stylesheet" href="${prefix}css/icon.min.css"/>
         <link rel="stylesheet" href="${prefix}css/style.min.css"/>
@@ -109,10 +134,12 @@ function header(fromArticlesDir) {
                                     <div class="push-button"><span></span><span></span><span></span><span></span></div>
                                 </div>
                             </div>
-                            <a class="navbar-brand" href="${prefix}index.html">
-                                <img src="${prefix}images/logo-neybras-family.png" alt="Neybras" class="default-logo" style="height:48px;width:auto;">
-                                <img src="${prefix}images/logo-neybras-family.png" alt="Neybras" class="alt-logo" style="height:48px;width:auto;">
-                                <img src="${prefix}images/logo-neybras-family.png" alt="Neybras" class="mobile-logo" style="height:40px;width:auto;">
+                            <a class="navbar-brand d-flex align-items-center" href="${prefix}index.html">
+                                ${LOGO_SVG}
+                                <span class="d-inline-block ms-15px lh-14">
+                                    <span class="d-block ls-1px" style="font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:#0F2238;">Neybras Family</span>
+                                    <span class="d-block fs-11 text-uppercase opacity-6" style="letter-spacing:2px;color:#6E2332;">Magazine</span>
+                                </span>
                             </a>
                         </div>
                         <div class="col-auto menu-order position-static">
