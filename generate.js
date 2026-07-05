@@ -437,9 +437,18 @@ function partnersCarousel() {
             </section>`;
 }
 
+// The Partenaires page's Ghost content included a media-kit rate card (per-format
+// pricing table) that doesn't belong on a public-facing site; pricing is on request.
+function stripPricingTable(html) {
+  return html
+    .replace(/<p><strong>Formats disponibles<\/strong><\/p>\s*/, '')
+    .replace(/<!--kg-card-begin: html-->[\s\S]*?<!--kg-card-end: html-->\s*/, '<p>Tarifs communiqués sur simple demande.</p>');
+}
+
 // ---- Static page ----
 function buildPage(page) {
-  const body = rewriteContent(page.html, false);
+  const rawHtml = page.slug === 'partenaires' ? stripPricingTable(page.html) : page.html;
+  const body = rewriteContent(rawHtml, false);
   return `${head(`${page.title} — ${SITE.title}`, page.custom_excerpt || SITE.description, false)}
 ${header(false)}
             <section class="top-space-margin">
