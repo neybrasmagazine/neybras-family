@@ -203,7 +203,7 @@ function footer(fromArticlesDir) {
                     <div class="footer-bottom pt-6">
                         <div class="row justify-content-center">
                             <div class="col-12 last-paragraph-no-margin text-center mb-30px">
-                                <p class="fs-15 text-dark-gray">&copy; ${new Date().getFullYear()} Neybras Family Magazine — Tous droits réservés.</p>
+                                <p class="fs-15 text-dark-gray">&copy; ${new Date().getFullYear()} Neybras Publishing SARLAU — Tous droits réservés.</p>
                                 <a href="${prefix}mentions-legales.html" class="fs-14 text-dark-gray text-decoration-line-bottom">Mentions légales</a>
                             </div>
                             <div class="col-12 text-center">
@@ -414,6 +414,29 @@ ${relatedHtml}
 ${footer(true)}`;
 }
 
+// Companies displayed in the "Ils nous font confiance" logo carousel (partenaires page only)
+const PARTNERS = [
+  { name: 'Château de Chenonceau', logo: 'images/partners/chenonceau.png', url: 'https://www.chenonceau.com/' },
+  { name: 'Neybras Magazine', logo: 'images/partners/neybras-magazine.png', url: 'https://neybras-magazine.com/' },
+  { name: 'Neybras', logo: 'images/partners/neybras.png', url: 'https://neybras.com/' }
+];
+
+function partnersCarousel() {
+  const logos = PARTNERS.map(p => `
+                            <a href="${p.url}" target="_blank" rel="noopener" class="d-inline-flex align-items-center justify-content-center mx-40px" title="${p.name}">
+                                <img src="${p.logo}" alt="${p.name}" style="max-height:56px;max-width:160px;width:auto;object-fit:contain;">
+                            </a>`).join('');
+  return `
+            <section class="bg-very-light-gray pt-8 pb-8">
+                <div class="container">
+                    <p class="text-uppercase fw-600 text-center fs-13 mb-30px" style="letter-spacing:3px;color:#6E2332;">Ils nous font confiance</p>
+                    <div class="d-flex flex-nowrap overflow-auto align-items-center justify-content-start justify-content-lg-center" style="gap:10px;">
+                        ${logos}
+                    </div>
+                </div>
+            </section>`;
+}
+
 // ---- Static page ----
 function buildPage(page) {
   const body = rewriteContent(page.html, false);
@@ -437,6 +460,7 @@ ${header(false)}
                     </div>
                 </div>
             </section>
+${page.slug === 'partenaires' ? partnersCarousel() : ''}
 ${footer(false)}`;
 }
 
