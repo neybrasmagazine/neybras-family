@@ -238,6 +238,29 @@ function footer(fromArticlesDir) {
 // not a mechanical excerpt of the article). Keyed by slug; falls back to a plain
 // truncation until each one is written and approved.
 const EXCERPTS = {
+  'escapades-familiales-maroc-budget-3000-mad': "Cascades, océan, oasis, médinas : le Maroc regorge d'escapades familiales sous les 3 000 MAD. Laquelle de ces 10 adresses correspond à votre budget week-end ?",
+  'cout-education-privee-maroc-budget': "Entre préscolaire et diplôme, l'éducation privée peut coûter jusqu'à 900 000 MAD par enfant au Maroc. Voici comment les familles CSP+ planifient réellement ce budget.",
+  'divorce-maroc-moudawana-procedures-droits': "Depuis la réforme de 2004, la Moudawana prévoit plusieurs voies de divorce, aux conséquences patrimoniales très différentes. Laquelle protège le mieux vos droits ?",
+  'nutrition-familiale-maroc-petit-budget': "37 % du budget des familles marocaines part dans l'alimentation — sans que cela rime avec équilibre nutritionnel. La cuisine traditionnelle cache une solution simple.",
+  'equilibre-travail-famille-maroc-strategies': "Le taux d'activité des femmes marocaines stagne à 20 %, l'un des plus faibles au monde. Certaines solutions existent déjà dans la loi.",
+  'etudes-etranger-maroc-guide-preparation': "Chaque année, des milliers de bacheliers marocains partent étudier à l'étranger — certains reviennent dès la première année. Ce qui fait la différence.",
+  'orientation-bac-universite-publique-privee-maroc': "Le choix entre université publique et privée est souvent pris dans l'urgence, sous pression sociale. Le bon critère n'est pourtant pas celui qu'on croit.",
+  'reduire-charges-foyer-maroc-astuces-economies': "Les charges fixes absorbent jusqu'à 35 % des revenus d'un foyer marocain — sans qu'aucun contrat n'ait jamais été renégocié. 10 leviers chiffrés pour inverser la tendance.",
+  'week-ends-nature-casablanca-escapades-famille': "À moins de 30 minutes de Casablanca, un poumon vert gratuit attend les familles en mal de nature. 7 autres échappées sont à moins de 2 heures.",
+  'confiance-en-soi-enfant-maroc': "Un enfant confiant n'est pas celui qui réussit tout, mais celui qui ose échouer. 5 techniques, déjà testées par des familles marocaines.",
+  'strategie-financiere-famille-maroc-plan': "Structurer les finances d'un foyer n'est plus réservé aux grandes fortunes marocaines — c'est devenu une nécessité pour tous. Par où commencer, concrètement.",
+  'erreurs-financieres-familles-maroc-pieges': "De l'absence d'épargne de précaution au surendettement immobilier, certaines erreurs reviennent sans cesse chez les familles marocaines. 7 pièges à repérer à temps.",
+  'finance-patrimoine-familial-maroc-strategies': "De la gestion budgétaire quotidienne à la transmission patrimoniale : notre rubrique décrypte ce qui compte vraiment pour les familles marocaines CSP+.",
+  'garde-enfants-hadana-maroc-conditions': "La Moudawana place la mère en tête de la garde des enfants — à condition de respecter des règles précises. Leur non-respect peut tout remettre en cause.",
+  'pension-alimentaire-nafaqa-maroc-calcul': "Ne pas payer la pension alimentaire est une infraction pénale au Maroc. Pourtant, faire exécuter un jugement de nafaqa reste l'un des plus grands défis judiciaires.",
+  'autorite-parentale-wilaya-tutelle-maroc': "La wilaya, tutelle légale sur l'enfant mineur, ne s'arrête pas à la séparation des parents. Comment l'autorité se partage réellement après un divorce.",
+  'heritage-succession-droit-musulman-maroc': "Le droit successoral marocain repose sur deux mécanismes bien distincts de répartition du patrimoine. Les ignorer expose les héritiers à l'indivision et aux conflits.",
+  'responsabilite-ecoles-privees-maroc-accidents': "Un accident scolaire n'engage pas la responsabilité de l'établissement de la même façon selon qu'il est public ou privé. Ce que la loi prévoit réellement.",
+  'education-numerique-maroc-etat-lieux': "La pandémie a révélé une fracture numérique persistante entre zones urbaines et rurales, écoles privées et publiques. L'état réel de l'EdTech marocaine.",
+  'congelation-ovocytes-maroc-preservation-fertilite': "Entre projets de vie et horloge biologique, la congélation d'ovocytes redéfinit la liberté reproductive des femmes marocaines. Comment fonctionne cette technique en plein essor.",
+  // Corrigés (forme) suite à relecture :
+  'epargne-enfants-maroc-placements-strategie': "1 000 MAD épargnés chaque mois dès la naissance peuvent devenir plus de 324 000 MAD au bac de votre enfant. Voici le calcul — et pourquoi si peu de familles l'utilisent.",
+  'intelligence-artificielle-maroc-etat-lieux': "UM6P, ENSIAS, EMI : les universités marocaines accélèrent sur l'intelligence artificielle. Mais entre les laboratoires et les salles de classe, l'écart se creuse.",
 };
 
 // ---- Article card (used on homepage + category pages) ----
