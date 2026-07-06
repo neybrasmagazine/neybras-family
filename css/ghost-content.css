@@ -2,6 +2,11 @@
    on large screens (Crafto's box-layout width calc doesn't account for it). */
 html, body { max-width: 100%; overflow-x: hidden; }
 
+/* Tighten nav-link spacing — with 9 items (Accueil + 7 catégories + À propos), Crafto's
+   default 20px side padding per link overflows well before common desktop widths. */
+.navbar.header-light .navbar-nav .nav-link { padding: 10px 10px !important; }
+@media (min-width: 1200px) { .navbar.header-light .navbar-nav .nav-link { padding: 10px 13px !important; } }
+
 /* Cap article card thumbnails — Crafto's default blog-image height balloons to match
    the sibling text column, making cards feel oversized once real (longer) copy is dropped in. */
 .blog-wrapper .blog-image { height: 260px !important; }

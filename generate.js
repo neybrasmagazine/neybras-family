@@ -96,10 +96,8 @@ function head(title, description, fromArticlesDir) {
         <meta name="author" content="Neybras Family">
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <meta name="description" content="${description}">
-        <link rel="shortcut icon" href="${prefix}images/favicon.png">
-        <link rel="apple-touch-icon" href="${prefix}images/apple-touch-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="${prefix}images/apple-touch-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="${prefix}images/apple-touch-icon-114x114.png">
+        <link rel="icon" type="image/svg+xml" href="${prefix}images/favicon.svg">
+        <link rel="apple-touch-icon" href="${prefix}images/favicon.svg">
         <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap">
@@ -479,23 +477,36 @@ ${page.slug === 'partenaires' ? partnersCarousel() : ''}
 ${footer(false)}`;
 }
 
+// GitHub Pages serves foo.html when foo is requested, so internal links can
+// drop the extension for clean URLs — the files on disk stay named *.html.
+function stripHtmlExt(html) {
+  html = html.replace(/(href="[^"]+?)\.html(#[^"]*)?"/g, '$1$2"');
+  // href="index" / href="../index" -> href="" / href="../" (directory index, no filename needed)
+  html = html.replace(/href="([^"]*)index"/g, 'href="$1"');
+  return html;
+}
+
+function write(filePath, html) {
+  fs.writeFileSync(filePath, stripHtmlExt(html));
+}
+
 // ---- Write files ----
 fs.mkdirSync(path.join(ROOT, 'articles'), { recursive: true });
 
-fs.writeFileSync(path.join(ROOT, 'index.html'), buildIndex());
+write(path.join(ROOT, 'index.html'), buildIndex());
 console.log('wrote index.html');
 
 for (const tag of data.tags) {
-  fs.writeFileSync(path.join(ROOT, `categorie-${tag.slug}.html`), buildCategoryPage(tag));
+  write(path.join(ROOT, `categorie-${tag.slug}.html`), buildCategoryPage(tag));
 }
 console.log(`wrote ${data.tags.length} category pages`);
 
 for (const post of allPosts) {
-  fs.writeFileSync(path.join(ROOT, 'articles', `${post.slug}.html`), buildArticlePage(post));
+  write(path.join(ROOT, 'articles', `${post.slug}.html`), buildArticlePage(post));
 }
 console.log(`wrote ${allPosts.length} article pages`);
 
 for (const page of allPages) {
-  fs.writeFileSync(path.join(ROOT, `${page.slug}.html`), buildPage(page));
+  write(path.join(ROOT, `${page.slug}.html`), buildPage(page));
 }
 console.log(`wrote ${allPages.length} static pages`);
