@@ -1,3 +1,11 @@
+/* Prevent the header search widget from pushing the page wider than the viewport
+   on large screens (Crafto's box-layout width calc doesn't account for it). */
+html, body { max-width: 100%; overflow-x: hidden; }
+
+/* Cap article card thumbnails — Crafto's default blog-image height balloons to match
+   the sibling text column, making cards feel oversized once real (longer) copy is dropped in. */
+.blog-wrapper .blog-image { height: 260px !important; }
+
 /* Typography/layout tweaks for Ghost-exported article & page content dropped into Crafto */
 .article-body img { max-width: 100%; height: auto; border-radius: 4px; margin: 20px 0; }
 .article-body h2 { margin-top: 45px; }
