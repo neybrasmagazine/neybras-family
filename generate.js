@@ -99,8 +99,8 @@ function head(title, description, fromArticlesDir, canonicalPath = '', extraHead
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <meta name="description" content="${description}">
         <link rel="canonical" href="${SITE.domain}/${canonicalPath}">
-        <link rel="icon" type="image/svg+xml" href="${prefix}images/favicon.svg">
-        <link rel="apple-touch-icon" href="${prefix}images/favicon.svg">
+        <link rel="icon" type="image/png" href="${prefix}images/favicon.png">
+        <link rel="apple-touch-icon" href="${prefix}images/apple-touch-icon.png">
         <link rel="manifest" href="${prefix}site.webmanifest">
         <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
