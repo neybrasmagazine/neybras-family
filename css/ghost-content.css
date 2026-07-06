@@ -7,6 +7,11 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .navbar.header-light .navbar-nav .nav-link { padding: 10px 10px !important; }
 @media (min-width: 1200px) { .navbar.header-light .navbar-nav .nav-link { padding: 10px 13px !important; } }
 
+/* Crafto's default h1 (70px desktop / 52.5px mobile) is oversized for editorial page
+   titles (category/article/page headers) — bring it down ~45% to a magazine scale. */
+h1.alt-font { font-size: 38px; line-height: 1.2; }
+@media (max-width: 767px) { h1.alt-font { font-size: 28px; } }
+
 /* Cap article card thumbnails — Crafto's default blog-image height balloons to match
    the sibling text column, making cards feel oversized once real (longer) copy is dropped in. */
 .blog-wrapper .blog-image { height: 260px !important; }

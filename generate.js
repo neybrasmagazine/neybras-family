@@ -12,7 +12,7 @@ const data = JSON.parse(fs.readFileSync(EXPORT_PATH, 'utf8')).db[0].data;
 const SITE = {
   title: 'Neybras Family Magazine',
   description: "Le média des familles marocaines exigeantes. Éducation, argent, décisions familiales — sans bruit.",
-  domain: 'https://www.neybras-family.com',
+  domain: 'https://neybras-family.com', // canonical host — www redirects here (see CNAME + GitHub Pages config)
   social: {
     facebook: 'https://web.facebook.com/profile.php?id=61580744324089',
     instagram: 'https://instagram.com/neybrasfamily',
@@ -79,13 +79,15 @@ function rewriteContent(html, fromArticlesDir) {
 function imagePath(ghostUrl, fromArticlesDir) {
   if (!ghostUrl) return null;
   const prefix = fromArticlesDir ? '../' : '';
-  return ghostUrl.replace('__GHOST_URL__/content/images/', `${prefix}images/content/`);
+  return ghostUrl
+    .replace('__GHOST_URL__/content/images/', `${prefix}images/content/`)
+    .replace(/\.(jpe?g|png)$/i, '.webp');
 }
 
 const dateFmt = iso => new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 
 // ---- Shared chrome (header / footer) ----
-function head(title, description, fromArticlesDir) {
+function head(title, description, fromArticlesDir, canonicalPath = '', extraHead = '') {
   const prefix = fromArticlesDir ? '../' : '';
   return `<!doctype html>
 <html class="no-js" lang="fr">
@@ -96,8 +98,10 @@ function head(title, description, fromArticlesDir) {
         <meta name="author" content="Neybras Family">
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <meta name="description" content="${description}">
+        <link rel="canonical" href="${SITE.domain}/${canonicalPath}">
         <link rel="icon" type="image/svg+xml" href="${prefix}images/favicon.svg">
         <link rel="apple-touch-icon" href="${prefix}images/favicon.svg">
+        <link rel="manifest" href="${prefix}site.webmanifest">
         <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap">
@@ -114,6 +118,7 @@ function head(title, description, fromArticlesDir) {
           gtag('js', new Date());
           gtag('config', '${SITE.ga}');
         </script>
+        ${extraHead}
     </head>
     <body data-mobile-nav-style="classic">
         <div class="box-layout">`;
@@ -238,23 +243,48 @@ function articleCard(post, fromArticlesDir) {
   return `
         <li class="grid-item">
             <div class="blog-box d-lg-flex d-block flex-row h-100 overflow-hidden box-shadow-double-large">
-                <div class="blog-image w-45 md-w-100 cover-background" style="background-image: url('${img}')">
+                <div class="blog-image w-45 md-w-100 position-relative overflow-hidden">
+                    <img src="${img}" alt="${post.title}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                     <a href="${href}" class="blog-post-image-overlay"></a>
                 </div>
                 <div class="blog-content w-55 md-w-100 p-50px bg-white d-flex flex-column justify-content-center align-items-start lg-p-30px last-paragraph-no-margin">
                     ${tag ? `<a href="${prefix}categorie-${tag.slug}.html" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">${tag.name}</a>` : ''}
                     <a href="${href}" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">${post.title}</a>
                     <p>${excerpt}</p>
-                    <span class="fs-13 text-uppercase opacity-7 mt-15px d-block">${dateFmt(post.published_at)}</span>
+                    <span class="fs-13 text-uppercase opacity-7 mt-15px d-block">Par Rédaction Neybras Family &middot; ${dateFmt(post.published_at)}</span>
                 </div>
             </div>
         </li>`;
 }
 
+// ---- Pagination ----
+const PAGE_SIZE = 12;
+function paginate(items, pageSize = PAGE_SIZE) {
+  const pages = [];
+  for (let i = 0; i < items.length; i += pageSize) pages.push(items.slice(i, i + pageSize));
+  return pages.length ? pages : [[]];
+}
+// basePath: e.g. "" for homepage (-> page-2, page-3) or "categorie-droit" (-> categorie-droit-2, ...)
+function paginationNav(basePath, pageNum, totalPages) {
+  if (totalPages <= 1) return '';
+  const urlFor = n => n === 1 ? (basePath || 'index') : `${basePath || 'page'}-${n}`;
+  const prev = pageNum > 1 ? `<a href="${urlFor(pageNum - 1)}.html" class="btn btn-transparent-dark-gray border-2 btn-rounded btn-small text-uppercase fw-700">← Articles précédents</a>` : '';
+  const next = pageNum < totalPages ? `<a href="${urlFor(pageNum + 1)}.html" class="btn btn-dark-gray btn-rounded btn-small text-uppercase fw-700">Articles suivants →</a>` : '';
+  return `
+            <section class="pt-0">
+                <div class="container">
+                    <div class="row justify-content-center align-items-center" style="gap:15px;">
+                        ${prev}
+                        <span class="fs-13 text-uppercase opacity-6">Page ${pageNum} / ${totalPages}</span>
+                        ${next}
+                    </div>
+                </div>
+            </section>`;
+}
+
 // ---- Homepage ----
-function buildIndex() {
-  const featured = allPosts.slice(0, 3);
-  const rest = allPosts.slice(3);
+function buildIndex(pageNum, totalPages, pageItems) {
+  const featured = pageNum === 1 ? allPosts.slice(0, 3) : [];
 
   const heroSlides = featured.map(post => {
     const tag = (postTagByPostId.get(post.id) || [])[0];
@@ -277,15 +307,14 @@ function buildIndex() {
                                         </div>`;
   }).join('\n');
 
-  const cards = rest.map(p => articleCard(p, false)).join('\n');
+  const cards = pageItems.map(p => articleCard(p, false)).join('\n');
 
   const categoryLinks = data.tags.map(t => `
                         <div class="col-6 col-md-3 mb-30px text-center">
                             <a href="categorie-${t.slug}.html" class="btn btn-transparent-dark-gray border-2 btn-rounded btn-small text-uppercase fw-700 w-100">${t.name}</a>
                         </div>`).join('\n');
 
-  return `${head(SITE.title, SITE.description, false)}
-${header(false)}
+  const heroSection = pageNum === 1 ? `
             <section class="p-0 top-space-margin overflow-hidden pb-25px">
                 <div class="container-fluid p-0">
                     <div class="row align-items-center">
@@ -310,8 +339,15 @@ ${heroSlides}
 ${categoryLinks}
                     </div>
                 </div>
-            </section>
-            <section class="pt-0">
+            </section>` : '';
+
+  const canonicalPath = pageNum === 1 ? '' : `page-${pageNum}`;
+
+  return `${head(pageNum === 1 ? SITE.title : `Derniers articles — page ${pageNum} — ${SITE.title}`, SITE.description, false, canonicalPath)}
+${header(false)}
+            <h1 class="visually-hidden">Neybras Family — Magazine famille, éducation et vie quotidienne au Maroc</h1>
+${heroSection}
+            <section class="${pageNum === 1 ? 'pt-0' : 'top-space-margin'}">
                 <div class="container">
                     <div class="row justify-content-center mb-2">
                         <div class="col-12 text-center">
@@ -328,14 +364,17 @@ ${cards}
                     </div>
                 </div>
             </section>
+${paginationNav('', pageNum, totalPages)}
 ${footer(false)}`;
 }
 
 // ---- Category (tag archive) pages ----
-function buildCategoryPage(tag) {
-  const posts = allPosts.filter(p => (postTagByPostId.get(p.id) || []).some(t => t.id === tag.id));
-  const cards = posts.map(p => articleCard(p, false)).join('\n');
-  return `${head(`${tag.name} — ${SITE.title}`, `Articles ${tag.name} — ${SITE.description}`, false)}
+function buildCategoryPage(tag, pageNum, totalPages, pageItems) {
+  const cards = pageItems.map(p => articleCard(p, false)).join('\n');
+  const basePath = `categorie-${tag.slug}`;
+  const canonicalPath = pageNum === 1 ? basePath : `${basePath}-${pageNum}`;
+  const title = pageNum === 1 ? `${tag.name} — ${SITE.title}` : `${tag.name} — page ${pageNum} — ${SITE.title}`;
+  return `${head(title, `Articles ${tag.name} — ${SITE.description}`, false, canonicalPath)}
 ${header(false)}
             <section class="top-space-margin">
                 <div class="container">
@@ -354,6 +393,7 @@ ${cards || '<li class="text-center">Aucun article pour le moment.</li>'}
                     </div>
                 </div>
             </section>
+${paginationNav(basePath, pageNum, totalPages)}
 ${footer(false)}`;
 }
 
@@ -361,10 +401,43 @@ ${footer(false)}`;
 function buildArticlePage(post) {
   const tag = (postTagByPostId.get(post.id) || [])[0];
   const img = imagePath(post.feature_image, true);
+  const absImg = post.feature_image
+    ? post.feature_image.replace('__GHOST_URL__/content/images/', `${SITE.domain}/images/content/`).replace(/\.(jpe?g|png)$/i, '.webp')
+    : `${SITE.domain}/images/favicon.svg`;
   const body = rewriteContent(post.html, true);
   const related = allPosts.filter(p => p.id !== post.id && tag && (postTagByPostId.get(p.id) || []).some(t => t.id === tag.id)).slice(0, 2);
   const relatedHtml = related.map(p => articleCard(p, true)).join('\n');
-  return `${head(`${post.title} — ${SITE.title}`, post.custom_excerpt || SITE.description, true)}
+  const canonicalPath = `articles/${post.slug}`;
+  const excerpt = post.custom_excerpt || (post.plaintext || '').slice(0, 160).trim();
+
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: excerpt,
+    image: [absImg],
+    datePublished: post.published_at,
+    dateModified: post.updated_at || post.published_at,
+    author: { '@type': 'Organization', name: 'Neybras Family Magazine' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Neybras Publishing SARLAU',
+      logo: { '@type': 'ImageObject', url: `${SITE.domain}/images/favicon.svg` }
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE.domain}/${canonicalPath}` }
+  };
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${SITE.domain}/` },
+      ...(tag ? [{ '@type': 'ListItem', position: 2, name: tag.name, item: `${SITE.domain}/categorie-${tag.slug}` }] : []),
+      { '@type': 'ListItem', position: tag ? 3 : 2, name: post.title, item: `${SITE.domain}/${canonicalPath}` }
+    ]
+  };
+  const extraHead = `<script type="application/ld+json">${JSON.stringify(articleSchema)}</script>\n        <script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>`;
+
+  return `${head(`${post.title} — ${SITE.title}`, excerpt || SITE.description, true, canonicalPath, extraHead)}
 ${header(true)}
             <section class="top-space-margin">
                 <div class="container">
@@ -422,7 +495,7 @@ const PARTNERS = [
 function partnersCarousel() {
   const logos = PARTNERS.map(p => `
                             <a href="${p.url}" target="_blank" rel="noopener" class="d-inline-flex align-items-center justify-content-center mx-40px" title="${p.name}">
-                                <img src="${p.logo}" alt="${p.name}" style="max-height:56px;max-width:160px;width:auto;object-fit:contain;">
+                                <img src="${p.logo}" alt="${p.name}" loading="lazy" style="max-height:56px;max-width:160px;width:auto;object-fit:contain;">
                             </a>`).join('');
   return `
             <section class="bg-very-light-gray pt-8 pb-8">
@@ -453,7 +526,7 @@ function buildPage(page) {
   if (page.slug === 'partenaires') rawHtml = stripPricingTable(rawHtml);
   if (page.slug === 'a-propos') rawHtml = A_PROPOS_CONTACT_HTML;
   const body = rewriteContent(rawHtml, false);
-  return `${head(`${page.title} — ${SITE.title}`, page.custom_excerpt || SITE.description, false)}
+  return `${head(`${page.title} — ${SITE.title}`, page.custom_excerpt || SITE.description, false, page.slug)}
 ${header(false)}
             <section class="top-space-margin">
                 <div class="container">
@@ -481,8 +554,9 @@ ${footer(false)}`;
 // drop the extension for clean URLs — the files on disk stay named *.html.
 function stripHtmlExt(html) {
   html = html.replace(/(href="[^"]+?)\.html(#[^"]*)?"/g, '$1$2"');
-  // href="index" / href="../index" -> href="" / href="../" (directory index, no filename needed)
-  html = html.replace(/href="([^"]*)index"/g, 'href="$1"');
+  // href="index" / href="../index" -> href="/" (root-absolute — safe from any page,
+  // unlike href="" which just reloads whatever page it's written on).
+  html = html.replace(/href="(?:\.\.\/)?index"/g, 'href="/"');
   return html;
 }
 
@@ -493,13 +567,28 @@ function write(filePath, html) {
 // ---- Write files ----
 fs.mkdirSync(path.join(ROOT, 'articles'), { recursive: true });
 
-write(path.join(ROOT, 'index.html'), buildIndex());
-console.log('wrote index.html');
-
-for (const tag of data.tags) {
-  write(path.join(ROOT, `categorie-${tag.slug}.html`), buildCategoryPage(tag));
+{
+  const indexPages = paginate(allPosts.slice(3));
+  indexPages.forEach((pageItems, i) => {
+    const pageNum = i + 1;
+    const fileName = pageNum === 1 ? 'index.html' : `page-${pageNum}.html`;
+    write(path.join(ROOT, fileName), buildIndex(pageNum, indexPages.length, pageItems));
+  });
+  console.log(`wrote index.html + ${indexPages.length - 1} pagination page(s)`);
 }
-console.log(`wrote ${data.tags.length} category pages`);
+
+let categoryPageCount = 0;
+for (const tag of data.tags) {
+  const posts = allPosts.filter(p => (postTagByPostId.get(p.id) || []).some(t => t.id === tag.id));
+  const tagPages = paginate(posts);
+  tagPages.forEach((pageItems, i) => {
+    const pageNum = i + 1;
+    const fileName = pageNum === 1 ? `categorie-${tag.slug}.html` : `categorie-${tag.slug}-${pageNum}.html`;
+    write(path.join(ROOT, fileName), buildCategoryPage(tag, pageNum, tagPages.length, pageItems));
+    categoryPageCount++;
+  });
+}
+console.log(`wrote ${categoryPageCount} category page file(s) across ${data.tags.length} categories`);
 
 for (const post of allPosts) {
   write(path.join(ROOT, 'articles', `${post.slug}.html`), buildArticlePage(post));

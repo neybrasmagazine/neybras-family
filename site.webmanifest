@@ -1,0 +1,10 @@
+{
+  "name": "Neybras Family Magazine",
+  "short_name": "Neybras Family",
+  "icons": [
+    { "src": "/images/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "theme_color": "#0F2238",
+  "background_color": "#F6F2EA",
+  "display": "standalone"
+}
