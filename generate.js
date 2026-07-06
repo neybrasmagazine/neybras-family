@@ -445,9 +445,15 @@ function stripPricingTable(html) {
     .replace(/<!--kg-card-begin: html-->[\s\S]*?<!--kg-card-end: html-->\s*/, '<p>Tarifs communiqués sur simple demande.</p>');
 }
 
+// The À propos page is reduced to a single, clean contact point per request —
+// no leftover editorial links from the old Ghost content.
+const A_PROPOS_CONTACT_HTML = `<h3>Nous contacter</h3><p>Vous êtes annonceur, partenaire, ou vous souhaitez simplement nous écrire ?</p><p>📧 <a href="mailto:marketing@neybras-magazine.com">marketing@neybras-magazine.com</a></p>`;
+
 // ---- Static page ----
 function buildPage(page) {
-  const rawHtml = page.slug === 'partenaires' ? stripPricingTable(page.html) : page.html;
+  let rawHtml = page.html;
+  if (page.slug === 'partenaires') rawHtml = stripPricingTable(rawHtml);
+  if (page.slug === 'a-propos') rawHtml = A_PROPOS_CONTACT_HTML;
   const body = rewriteContent(rawHtml, false);
   return `${head(`${page.title} — ${SITE.title}`, page.custom_excerpt || SITE.description, false)}
 ${header(false)}
