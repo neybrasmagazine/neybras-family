@@ -261,6 +261,16 @@ const EXCERPTS = {
   // Corrigés (forme) suite à relecture :
   'epargne-enfants-maroc-placements-strategie': "1 000 MAD épargnés chaque mois dès la naissance peuvent devenir plus de 324 000 MAD au bac de votre enfant. Voici le calcul — et pourquoi si peu de familles l'utilisent.",
   'intelligence-artificielle-maroc-etat-lieux': "UM6P, ENSIAS, EMI : les universités marocaines accélèrent sur l'intelligence artificielle. Mais entre les laboratoires et les salles de classe, l'écart se creuse.",
+  // Revus après vérification des sources dans le corps de l'article :
+  'langlais-pour-lenfant-la-competence-cle-du-futur': "Le français reste la langue de l'administration au Maroc — mais l'anglais est devenu le vrai passeport pour les formations internationales. Comment l'installer sans forcer.",
+  'competences-futures-enfant-maroc': "Beaucoup des métiers de demain n'existent pas encore. 7 compétences déterminent déjà qui sera prêt à les occuper — et qui ne le sera pas.",
+  'creativite-enfant-activites-intelligence': "Dans un monde où les machines automatisent la logique, la créativité reste l'une des compétences les moins enseignées à l'école. 12 activités changent la donne à la maison.",
+  'cyberharcelement-enfants-maroc-protection': "Plus de 80 % des enfants marocains de 10 à 17 ans utilisent Internet, selon l'ANRT et l'UNICEF. Ce que ça change pour la protection numérique en famille.",
+  'budget-familial-maroc-methodes-outils': "Selon le HCP, l'alimentation et le logement absorbent l'essentiel du budget des ménages marocains. Ce que ce constat national révèle sur la vraie marge de manœuvre des familles.",
+  // Jamais couverts par la relecture — à confirmer à l'occasion, pas de statistique
+  // contestée dans ceux-là donc appliqués par défaut :
+  'calendrier-vaccinal-enfant-maroc-vaccins': "Le programme national de vaccination couvre 11 maladies, gratuitement, de la naissance au bac. Le calendrier complet des rendez-vous à ne jamais manquer.",
+  'outils-numeriques-reussite-scolaire-recherche': "Les outils numériques améliorent-ils vraiment les résultats scolaires ? La recherche répond — mais à une condition précise que peu de familles respectent.",
 };
 
 // ---- Article card (used on homepage + category pages) ----
