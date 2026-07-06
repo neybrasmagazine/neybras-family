@@ -18,16 +18,10 @@ const SITE = {
     instagram: 'https://instagram.com/neybrasfamily',
     linkedin: 'https://linkedin.com/company/neybrasfamily/'
   },
-  ga: 'G-XXXXXXXXXX' // TODO: replace with a real GA4 measurement ID for neybras-family.com before going live
+  ga: 'G-XXXXXXXXXX', // TODO: replace with a real GA4 measurement ID for neybras-family.com before going live
+  // Sampled directly from the real brand asset (site-dalal/images/Neybras Family Logo.png)
+  prune: '#7A5268'
 };
-
-// Vector "N" mark (ivoire/bleu-nuit/bordeaux — the Neybras brand palette), crisp at any size
-const LOGO_SVG = `<svg width="38" height="38" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <rect x="6" y="6" width="88" height="88" fill="none" stroke="#0F2238" stroke-width="3"/>
-    <polygon points="28,24 40,24 40,76 28,76" fill="#0F2238"/>
-    <polygon points="60,24 72,24 72,76 60,76" fill="#0F2238"/>
-    <polygon points="28,24 40,24 72,76 60,76" fill="#6E2332"/>
-</svg>`;
 
 // ---- Build lookup maps ----
 const tagsById = new Map(data.tags.map(t => [t.id, t]));
@@ -85,6 +79,10 @@ function imagePath(ghostUrl, fromArticlesDir) {
 }
 
 const dateFmt = iso => new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+const readingTime = post => {
+  const words = (post.plaintext || '').split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / 200));
+};
 
 // ---- Shared chrome (header / footer) ----
 function head(title, description, fromArticlesDir, canonicalPath = '', extraHead = '') {
@@ -138,10 +136,10 @@ function header(fromArticlesDir) {
                                 </div>
                             </div>
                             <a class="navbar-brand d-flex align-items-center" href="${prefix}index.html">
-                                ${LOGO_SVG}
+                                <img src="${prefix}images/favicon.png" alt="Neybras Family" width="40" height="40" style="border-radius:6px;">
                                 <span class="d-inline-block ms-15px lh-14">
-                                    <span class="d-block ls-1px" style="font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:#0F2238;">Neybras Family</span>
-                                    <span class="d-block fs-11 text-uppercase opacity-6" style="letter-spacing:2px;color:#6E2332;">Magazine</span>
+                                    <span class="d-block ls-1px" style="font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:${SITE.prune};">Neybras Family</span>
+                                    <span class="d-block fs-11 text-uppercase opacity-6" style="letter-spacing:2px;">Magazine</span>
                                 </span>
                             </a>
                         </div>
@@ -205,6 +203,9 @@ function footer(fromArticlesDir) {
                 <div class="container position-relative">
                     <div class="footer-bottom pt-6">
                         <div class="row justify-content-center">
+                            <div class="col-12 text-center mb-15px">
+                                <span class="fs-11 text-uppercase fw-600 d-inline-block px-15px py-5px border-radius-20px" style="letter-spacing:1.5px;color:${SITE.prune};border:1px solid ${SITE.prune};">Neybras Média Group</span>
+                            </div>
                             <div class="col-12 last-paragraph-no-margin text-center mb-30px">
                                 <p class="fs-15 text-dark-gray">&copy; ${new Date().getFullYear()} Neybras Publishing SARLAU — Tous droits réservés.</p>
                                 <a href="${prefix}mentions-legales.html" class="fs-14 text-dark-gray text-decoration-line-bottom">Mentions légales</a>
@@ -251,7 +252,7 @@ function articleCard(post, fromArticlesDir) {
                     ${tag ? `<a href="${prefix}categorie-${tag.slug}.html" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">${tag.name}</a>` : ''}
                     <a href="${href}" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">${post.title}</a>
                     <p>${excerpt}</p>
-                    <span class="fs-13 text-uppercase opacity-7 mt-15px d-block">Par Rédaction Neybras Family &middot; ${dateFmt(post.published_at)}</span>
+                    <span class="fs-13 text-uppercase opacity-7 mt-15px d-block">Par Rédaction Neybras Family &middot; ${dateFmt(post.published_at)} &middot; ${readingTime(post)} min de lecture</span>
                 </div>
             </div>
         </li>`;
@@ -285,27 +286,30 @@ function paginationNav(basePath, pageNum, totalPages) {
 // ---- Homepage ----
 function buildIndex(pageNum, totalPages, pageItems) {
   const featured = pageNum === 1 ? allPosts.slice(0, 3) : [];
+  const [dominant, ...secondary] = featured;
 
-  const heroSlides = featured.map(post => {
+  const heroTile = (post, isDominant) => {
     const tag = (postTagByPostId.get(post.id) || [])[0];
     const img = imagePath(post.feature_image, false);
     return `
-                                        <div class="swiper-slide">
-                                            <div class="interactive-banner-style-09 position-relative overflow-hidden">
-                                                <img class="w-100" src="${img}" alt="${post.title}" />
-                                                <div class="opacity-full-dark bg-gradient-bottom-dark-transparent"></div>
-                                                <div class="image-content h-100 w-100 p-10 xl-p-30px sm-pe-15px sm-ps-15px text-center d-flex justify-content-end align-items-end flex-column">
-                                                    <div class="w-100">
-                                                        ${tag ? `<a href="categorie-${tag.slug}.html" class="btn btn-medium btn-rounded btn-box-shadow btn-white text-uppercase fw-700 ps-15px pe-15px pt-5px pb-5px lh-16 mb-20px">${tag.name}</a>` : ''}
-                                                        <div class="alt-font fw-700 sliding-box-title mb-10px w-80 xl-w-100 md-w-90 sm-w-70 xs-w-100 mx-auto"><a href="articles/${post.slug}.html" class="text-white alt-font fw-600 fs-40 lg-fs-24 ls-minus-1px lg-ls-0px">${post.title}</a></div>
-                                                        <div class="d-flex justify-content-center align-items-center xs-lh-22">
-                                                            <div class="ms-10px me-10px"><span class="fs-13 text-uppercase text-white opacity-7">${dateFmt(post.published_at)}</span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>`;
-  }).join('\n');
+                        <a href="articles/${post.slug}.html" class="d-block position-relative overflow-hidden hero-tile ${isDominant ? 'hero-tile-dominant' : 'hero-tile-secondary'}">
+                            <img src="${img}" alt="${post.title}" class="hero-tile-img" />
+                            <div class="opacity-full-dark bg-gradient-bottom-dark-transparent"></div>
+                            <div class="position-absolute bottom-0 start-0 w-100 p-30px sm-p-20px text-white">
+                                ${tag ? `<span class="btn btn-very-small btn-rounded btn-white text-uppercase fw-700 mb-10px d-inline-block">${tag.name}</span>` : ''}
+                                <div class="alt-font fw-700 text-white ${isDominant ? 'fs-32 sm-fs-22' : 'fs-18'} ls-minus-1px mb-5px">${post.title}</div>
+                                <span class="fs-12 text-uppercase text-white opacity-7">${dateFmt(post.published_at)} &middot; ${readingTime(post)} min de lecture</span>
+                            </div>
+                        </a>`;
+  };
+
+  const heroMarkup = dominant ? `
+                    <div class="col-lg-7 hero-dominant-col mb-2 mb-lg-0">
+${heroTile(dominant, true)}
+                    </div>
+                    <div class="col-lg-5 d-flex flex-column hero-secondary-col" style="gap:8px;">
+${secondary.map(p => heroTile(p, false)).join('\n')}
+                    </div>` : '';
 
   const cards = pageItems.map(p => articleCard(p, false)).join('\n');
 
@@ -317,14 +321,8 @@ function buildIndex(pageNum, totalPages, pageItems) {
   const heroSection = pageNum === 1 ? `
             <section class="p-0 top-space-margin overflow-hidden pb-25px">
                 <div class="container-fluid p-0">
-                    <div class="row align-items-center">
-                        <div class="col-12">
-                            <div class="swiper magic-cursor base-color" data-slider-options='{ "slidesPerView": 1, "spaceBetween": 25, "loop": true, "autoplay": { "delay": 6000, "disableOnInteraction": false }, "breakpoints": { "992": { "slidesPerView": 3 }, "768": { "slidesPerView": 2 }, "320": { "slidesPerView": 1 } }, "effect": "slide" }'>
-                                <div class="swiper-wrapper">
-${heroSlides}
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row g-2">
+${heroMarkup}
                     </div>
                 </div>
             </section>
@@ -443,7 +441,7 @@ ${header(true)}
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-10 text-center">
-                            <span class="fs-18 mb-3 d-inline-block">Par <span class="text-dark-gray fw-500">Rédaction Neybras Family</span>${tag ? ` &middot; <a href="../categorie-${tag.slug}.html" class="text-dark-gray fw-500 text-decoration-line-bottom">${tag.name}</a>` : ''} &middot; ${dateFmt(post.published_at)}</span>
+                            <span class="fs-18 mb-3 d-inline-block">Par <span class="text-dark-gray fw-500">Rédaction Neybras Family</span>${tag ? ` &middot; <a href="../categorie-${tag.slug}.html" class="text-dark-gray fw-500 text-decoration-line-bottom">${tag.name}</a>` : ''} &middot; ${dateFmt(post.published_at)} &middot; ${readingTime(post)} min de lecture</span>
                             <h1 class="alt-font fw-700 text-dark-gray ls-minus-2px mb-0">${post.title}</h1>
                         </div>
                     </div>
@@ -500,7 +498,7 @@ function partnersCarousel() {
   return `
             <section class="bg-very-light-gray pt-8 pb-8">
                 <div class="container">
-                    <p class="text-uppercase fw-600 text-center fs-13 mb-30px" style="letter-spacing:3px;color:#6E2332;">Ils nous font confiance</p>
+                    <p class="text-uppercase fw-600 text-center fs-13 mb-30px" style="letter-spacing:3px;color:${SITE.prune};">Ils nous font confiance</p>
                     <div class="d-flex flex-nowrap overflow-auto align-items-center justify-content-start justify-content-lg-center" style="gap:10px;">
                         ${logos}
                     </div>

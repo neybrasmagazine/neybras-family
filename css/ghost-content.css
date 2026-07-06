@@ -7,10 +7,47 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .navbar.header-light .navbar-nav .nav-link { padding: 10px 10px !important; }
 @media (min-width: 1200px) { .navbar.header-light .navbar-nav .nav-link { padding: 10px 13px !important; } }
 
-/* Crafto's default h1 (70px desktop / 52.5px mobile) is oversized for editorial page
-   titles (category/article/page headers) — bring it down ~45% to a magazine scale. */
-h1.alt-font { font-size: 38px; line-height: 1.2; }
-@media (max-width: 767px) { h1.alt-font { font-size: 28px; } }
+/* ==== Unified type scale ====
+   Crafto's default headings (h1 70px, h2 55px, h3 45px) are oversized for editorial
+   content — centralize a magazine-appropriate scale here instead of per-file values. */
+:root {
+  --fs-h1: 38px;
+  --fs-h1-sm: 28px;
+  --fs-h2: 28px;
+  --fs-h2-sm: 22px;
+  --fs-h3: 20px;
+  --fs-h3-sm: 18px;
+  --fs-card-title: 20px;
+  --fs-body: 16px;
+}
+h1.alt-font { font-size: var(--fs-h1); line-height: 1.2; }
+h2.alt-font, .article-body h2, .search-form-box h2 { font-size: var(--fs-h2); line-height: 1.3; }
+.article-body h3 { font-size: var(--fs-h3); line-height: 1.35; }
+.card-title { font-size: var(--fs-card-title) !important; line-height: 1.3; }
+@media (max-width: 767px) {
+  h1.alt-font { font-size: var(--fs-h1-sm); }
+  h2.alt-font, .article-body h2 { font-size: var(--fs-h2-sm); }
+  .article-body h3 { font-size: var(--fs-h3-sm); }
+}
+
+/* Homepage hero: 1 dominant story (~60% width) + 2 secondary stories, replacing the
+   old 3-equal-slide carousel so the most recent/important story reads as such. */
+.hero-tile-img { width: 100%; height: 100%; object-fit: cover; }
+.hero-tile-dominant { height: 320px; }
+.hero-tile-secondary { height: 156px; }
+@media (min-width: 992px) {
+  .hero-tile-dominant { height: 560px; }
+  .hero-secondary-col { height: 560px; }
+  .hero-tile-secondary { height: calc(50% - 4px); }
+}
+
+/* Sober hover feedback on article cards — a slight lift + deeper shadow (not also a
+   zoom, to keep it calm). Crafto's own .btn/.nav-link hovers (background/color swap
+   via var(--base-color)) already cover buttons and nav links, so left untouched. */
+.blog-box { transition: transform .25s ease, box-shadow .25s ease; }
+.blog-box:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(0,0,0,0.14); }
+.hero-tile { transition: box-shadow .25s ease; }
+.hero-tile:hover { box-shadow: 0 14px 34px rgba(0,0,0,0.22); }
 
 /* Cap article card thumbnails — Crafto's default blog-image height balloons to match
    the sibling text column, making cards feel oversized once real (longer) copy is dropped in. */
