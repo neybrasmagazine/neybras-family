@@ -271,6 +271,9 @@ const EXCERPTS = {
   // contestée dans ceux-là donc appliqués par défaut :
   'calendrier-vaccinal-enfant-maroc-vaccins': "Le programme national de vaccination couvre 11 maladies, gratuitement, de la naissance au bac. Le calendrier complet des rendez-vous à ne jamais manquer.",
   'outils-numeriques-reussite-scolaire-recherche': "Les outils numériques améliorent-ils vraiment les résultats scolaires ? La recherche répond — mais à une condition précise que peu de familles respectent.",
+  // Vérifié : chantier réglementaire réel (BAM) mais toujours en cours, pas "acté" —
+  // "tournant historique" aurait surpromis. Voir source ajoutée en bas de l'article.
+  'fintech-maroc-mobile-banking-crowdfunding': "Bank Al-Maghrib pousse l'interopérabilité du paiement mobile — mais l'usage commercial reste sous les 10 % des transactions. Ce que ça change déjà pour les familles, et ce qui reste à venir.",
 };
 
 // ---- Article card (used on homepage + category pages) ----
