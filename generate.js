@@ -234,13 +234,19 @@ function footer(fromArticlesDir) {
 </html>`;
 }
 
+// Hand-written teasers (curiosity-gap, 2 sentences / ~25-30 words, one striking fact —
+// not a mechanical excerpt of the article). Keyed by slug; falls back to a plain
+// truncation until each one is written and approved.
+const EXCERPTS = {
+};
+
 // ---- Article card (used on homepage + category pages) ----
 function articleCard(post, fromArticlesDir) {
   const tag = (postTagByPostId.get(post.id) || [])[0];
   const img = imagePath(post.feature_image, fromArticlesDir) || 'https://placehold.co/600x415';
   const prefix = fromArticlesDir ? '../' : '';
   const href = `${prefix}articles/${post.slug}.html`;
-  const excerpt = post.custom_excerpt || (post.plaintext || '').slice(0, 140).trim() + '…';
+  const excerpt = EXCERPTS[post.slug] || post.custom_excerpt || (post.plaintext || '').slice(0, 140).trim() + '…';
   return `
         <li class="grid-item">
             <div class="blog-box d-lg-flex d-block flex-row h-100 overflow-hidden box-shadow-double-large">
@@ -252,7 +258,7 @@ function articleCard(post, fromArticlesDir) {
                     ${tag ? `<a href="${prefix}categorie-${tag.slug}.html" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">${tag.name}</a>` : ''}
                     <a href="${href}" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">${post.title}</a>
                     <p>${excerpt}</p>
-                    <span class="fs-13 text-uppercase opacity-7 mt-15px d-block">Par Rédaction Neybras Family &middot; ${dateFmt(post.published_at)} &middot; ${readingTime(post)} min de lecture</span>
+                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; ${dateFmt(post.published_at)} &middot; ${readingTime(post)} min de lecture</span>
                 </div>
             </div>
         </li>`;
