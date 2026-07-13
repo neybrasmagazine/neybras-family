@@ -1,0 +1,826 @@
+<!doctype html>
+<html class="no-js" lang="fr">
+    <head>
+        <title>Orientation Post-Bac 2026 au Maroc : Fais le Test Gratuit et Trouve ta Filière | Neybras Family</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="author" content="Neybras Family">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <meta name="description" content="Bac 2026 en poche ? Découvre en 2 minutes quelle filière te correspond parmi Sciences, Business, Droit, Santé, Technique ou Créatif, et reçois ton résultat détaillé gratuitement par email.">
+        <link rel="canonical" href="https://neybras-family.com/quiz-orientation-post-bac-2026">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+        <link rel="manifest" href="site.webmanifest">
+
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://neybras-family.com/quiz-orientation-post-bac-2026">
+        <meta property="og:site_name" content="Neybras Family">
+        <meta property="og:locale" content="fr_FR">
+        <meta property="og:title" content="Orientation Post-Bac 2026 au Maroc : Fais le Test Gratuit et Trouve ta Filière">
+        <meta property="og:description" content="Bac 2026 en poche ? Découvre en 2 minutes quelle filière te correspond parmi Sciences, Business, Droit, Santé, Technique ou Créatif, et reçois ton résultat détaillé gratuitement par email.">
+        <meta property="og:image" content="https://neybras-family.com/images/favicon.png">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap">
+        <link rel="stylesheet" href="css/vendors.min.css"/>
+        <link rel="stylesheet" href="css/icon.min.css"/>
+        <link rel="stylesheet" href="css/style.min.css"/>
+        <link rel="stylesheet" href="css/responsive.min.css"/>
+        <link rel="stylesheet" href="demos/magazine/magazine.css" />
+        <link rel="stylesheet" href="css/ghost-content.css" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        </script>
+
+        <style>
+          /* Quiz "orientation post-bac" — fully scoped under #nf-quiz so it cannot
+             bleed into (or be overridden by) the site's Bootstrap/Crafto chrome.
+             Several class names below (card, nav, btn, progress) would otherwise
+             collide with Bootstrap component classes already loaded sitewide. */
+          #nf-quiz{
+            --sand: #EDE4D3;
+            --sand-deep: #E2D5BD;
+            --ink: #2B241D;
+            --ink-soft: #6b6155;
+            --teal: #1B4B5A;
+            --teal-deep: #12333e;
+            --saffron: #E0954C;
+            --saffron-deep: #c97b34;
+            --plum: #5B2A4D;
+            --card: #FFFDF8;
+            --display: 'Fraunces', Georgia, serif;
+            --body: 'Inter', system-ui, -apple-system, sans-serif;
+            --radius: 14px;
+          }
+
+          #nf-quiz, #nf-quiz *{ box-sizing: border-box; }
+
+          #nf-quiz{
+            background: var(--sand);
+            background-image:
+              radial-gradient(circle at 15% 8%, rgba(27,75,90,0.06) 0, transparent 45%),
+              radial-gradient(circle at 88% 92%, rgba(224,149,76,0.10) 0, transparent 40%);
+            color: var(--ink);
+            font-family: var(--body);
+            display:flex;
+            align-items:flex-start;
+            justify-content:center;
+            padding: 48px 16px 64px;
+          }
+
+          #nf-quiz .qz-wrap{ width:100%; max-width: 620px; margin:0; }
+
+          #nf-quiz .qz-eyebrow{
+            font-family: var(--body);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--teal);
+            text-align:center;
+            margin-bottom: 10px;
+          }
+
+          #nf-quiz h1.qz-title{
+            font-family: var(--display);
+            font-weight: 600;
+            font-size: clamp(26px, 5vw, 36px);
+            line-height: 1.15;
+            text-align:center;
+            margin: 0 0 6px;
+            color: var(--teal-deep);
+          }
+
+          #nf-quiz p.qz-sub{
+            text-align:center;
+            color: var(--ink-soft);
+            font-size: 15px;
+            margin: 0 0 28px;
+          }
+
+          #nf-quiz .qz-progress{
+            display:flex;
+            justify-content:center;
+            gap: 10px;
+            margin-bottom: 30px;
+          }
+          #nf-quiz .qz-tile{
+            width: 14px; height:14px;
+            background: var(--card);
+            border: 1.5px solid var(--sand-deep);
+            transform: rotate(45deg);
+            border-radius: 3px;
+            transition: background .3s ease, border-color .3s ease, transform .3s ease;
+          }
+          #nf-quiz .qz-tile.qz-done{ background: var(--teal); border-color: var(--teal); }
+          #nf-quiz .qz-tile.qz-active{ background: var(--saffron); border-color: var(--saffron); transform: rotate(45deg) scale(1.2); }
+
+          #nf-quiz .qz-card{
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: 0 1px 2px rgba(43,36,29,0.04), 0 10px 30px rgba(43,36,29,0.08);
+            padding: 32px 28px;
+            position:relative;
+          }
+
+          #nf-quiz .qz-qnum{
+            font-family: var(--display);
+            font-style: italic;
+            color: var(--saffron-deep);
+            font-size: 14px;
+            margin-bottom: 6px;
+          }
+
+          #nf-quiz legend.qz-qtext{
+            font-family: var(--display);
+            font-weight: 600;
+            font-size: clamp(19px, 3.2vw, 22px);
+            line-height: 1.3;
+            color: var(--ink);
+            padding:0;
+            margin-bottom: 20px;
+          }
+
+          #nf-quiz fieldset{ border:none; padding:0; margin:0; }
+
+          #nf-quiz .qz-options{ display:flex; flex-direction:column; gap:10px; }
+
+          #nf-quiz .qz-opt{ position:relative; }
+          #nf-quiz .qz-opt input{
+            position:absolute;
+            opacity:0;
+            width:100%; height:100%;
+            top:0; left:0;
+            cursor:pointer;
+            margin:0;
+          }
+          #nf-quiz .qz-opt label{
+            display:block;
+            padding: 14px 16px;
+            border: 1.5px solid var(--sand-deep);
+            border-left: 4px solid var(--sand-deep);
+            border-radius: 10px;
+            font-size: 15px;
+            line-height:1.4;
+            cursor:pointer;
+            transition: border-color .18s ease, background .18s ease, transform .1s ease;
+            background: #fff;
+          }
+          #nf-quiz .qz-opt input:checked + label{
+            border-color: var(--teal);
+            border-left-color: var(--teal);
+            background: rgba(27,75,90,0.06);
+            font-weight: 600;
+          }
+          #nf-quiz .qz-opt input:focus-visible + label{
+            outline: 2px solid var(--saffron);
+            outline-offset: 2px;
+          }
+          #nf-quiz .qz-opt label:hover{ transform: translateX(2px); }
+
+          #nf-quiz .qz-nav{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-top: 26px;
+          }
+          #nf-quiz .qz-btn-text{
+            background:none; border:none;
+            color: var(--ink-soft);
+            font-family: var(--body);
+            font-size: 14px;
+            cursor:pointer;
+            padding: 8px 4px;
+          }
+          #nf-quiz .qz-btn-text:disabled{ opacity:0; pointer-events:none; }
+
+          #nf-quiz .qz-btn{
+            background: var(--teal);
+            color: #fff;
+            border:none;
+            font-family: var(--body);
+            font-weight:600;
+            font-size: 15px;
+            padding: 12px 26px;
+            border-radius: 999px;
+            cursor:pointer;
+            transition: background .18s ease, transform .1s ease;
+          }
+          #nf-quiz .qz-btn:hover{ background: var(--teal-deep); }
+          #nf-quiz .qz-btn:disabled{ background: var(--sand-deep); color: var(--ink-soft); cursor:not-allowed; }
+          #nf-quiz .qz-btn.qz-saffron{ background: var(--saffron); }
+          #nf-quiz .qz-btn.qz-saffron:hover{ background: var(--saffron-deep); }
+
+          #nf-quiz .qz-screen{ display:none; }
+          #nf-quiz .qz-screen.qz-active{ display:block; animation: qz-rise .35s ease; }
+          @keyframes qz-rise{ from{ opacity:0; transform: translateY(8px);} to{ opacity:1; transform:none; } }
+
+          #nf-quiz .qz-gate-head{ text-align:center; margin-bottom: 22px; }
+          #nf-quiz .qz-gate-head .qz-stamp{
+            font-family: var(--display);
+            font-style: italic;
+            color: var(--saffron-deep);
+            font-size: 14px;
+          }
+          #nf-quiz .qz-gate-head h2{
+            font-family: var(--display);
+            font-weight: 600;
+            font-size: clamp(22px, 4vw, 27px);
+            color: var(--teal-deep);
+            margin: 6px 0 8px;
+          }
+          #nf-quiz .qz-gate-head p{ color: var(--ink-soft); font-size: 14.5px; margin:0; }
+
+          #nf-quiz .qz-envelope-zone{
+            display:flex;
+            justify-content:center;
+            margin: 26px 0 22px;
+          }
+          #nf-quiz .qz-envelope{
+            width: 190px;
+            height: 128px;
+            position:relative;
+          }
+          #nf-quiz .qz-env-body{
+            position:absolute; inset:0;
+            background: var(--card);
+            border: 1.5px solid var(--sand-deep);
+            border-radius: 8px;
+          }
+          #nf-quiz .qz-env-flap{
+            position:absolute;
+            top:0; left:0; right:0;
+            height: 64px;
+            background: var(--plum);
+            clip-path: polygon(0 0, 50% 78%, 100% 0);
+            border-radius: 8px 8px 0 0;
+            transform-origin: top center;
+            transition: transform .6s cubic-bezier(.6,-0.28,.4,1.4);
+          }
+          #nf-quiz .qz-envelope.qz-opened .qz-env-flap{ transform: rotateX(180deg); }
+          #nf-quiz .qz-env-seal{
+            position:absolute;
+            top: 30px; left:50%; transform: translateX(-50%);
+            width: 34px; height:34px;
+            border-radius:50%;
+            background: var(--saffron);
+            display:flex; align-items:center; justify-content:center;
+            font-family: var(--display);
+            font-weight:600;
+            color:#fff;
+            font-size: 13px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            transition: opacity .25s ease;
+          }
+          #nf-quiz .qz-envelope.qz-opened .qz-env-seal{ opacity:0; }
+          #nf-quiz .qz-env-card{
+            position:absolute;
+            left: 14px; right:14px; bottom: 10px;
+            top: 46px;
+            background: #fff;
+            border: 1px solid var(--sand-deep);
+            border-radius: 6px;
+            opacity:0;
+            transform: translateY(6px);
+            transition: opacity .4s ease .25s, transform .4s ease .25s;
+            display:flex; align-items:center; justify-content:center;
+            font-size: 11px;
+            color: var(--ink-soft);
+            text-align:center;
+            padding: 4px;
+          }
+          #nf-quiz .qz-envelope.qz-opened .qz-env-card{ opacity:1; transform:none; }
+
+          #nf-quiz .qz-form-row{ margin-bottom: 14px; }
+          #nf-quiz .qz-form-row label{
+            display:block;
+            font-size: 13px;
+            font-weight:600;
+            color: var(--ink);
+            margin-bottom: 6px;
+          }
+          #nf-quiz .qz-form-row input[type="text"], #nf-quiz .qz-form-row input[type="email"]{
+            width:100%;
+            padding: 12px 14px;
+            border: 1.5px solid var(--sand-deep);
+            border-radius: 10px;
+            font-family: var(--body);
+            font-size: 15px;
+            background:#fff;
+            color: var(--ink);
+          }
+          #nf-quiz .qz-form-row input:focus-visible{ outline: 2px solid var(--teal); outline-offset:1px; }
+
+          #nf-quiz .qz-consent{
+            font-size: 12px;
+            color: var(--ink-soft);
+            line-height:1.5;
+            margin: 4px 0 20px;
+          }
+
+          #nf-quiz .qz-cta-full{ width:100%; padding: 14px; font-size:16px; }
+
+          #nf-quiz .qz-result-icon{
+            width: 64px; height:64px;
+            border-radius:50%;
+            background: var(--teal);
+            display:flex; align-items:center; justify-content:center;
+            color:#fff;
+            font-family: var(--display);
+            font-size: 26px;
+            margin: 0 auto 16px;
+          }
+          #nf-quiz .qz-result-title{
+            font-family: var(--display);
+            font-weight:600;
+            font-size: clamp(24px, 4.5vw, 30px);
+            text-align:center;
+            color: var(--teal-deep);
+            margin: 0 0 10px;
+          }
+          #nf-quiz .qz-result-desc{ text-align:center; color: var(--ink-soft); font-size:15px; margin: 0 0 22px; line-height:1.55; }
+          #nf-quiz .qz-result-tracks{
+            background: var(--sand);
+            border-radius: 10px;
+            padding: 16px 18px;
+            margin-bottom: 22px;
+          }
+          #nf-quiz .qz-result-tracks .qz-label{
+            font-size: 12px;
+            font-weight:700;
+            letter-spacing:.06em;
+            text-transform:uppercase;
+            color: var(--teal);
+            margin-bottom: 8px;
+          }
+          #nf-quiz .qz-result-tracks ul{ margin:0; padding-left: 18px; }
+          #nf-quiz .qz-result-tracks li{ font-size: 14.5px; margin-bottom: 4px; color: var(--ink); }
+          #nf-quiz .qz-sent-note{
+            text-align:center;
+            font-size: 13px;
+            color: var(--ink-soft);
+            margin-top: 4px;
+          }
+
+          @media (prefers-reduced-motion: reduce){
+            #nf-quiz .qz-screen.qz-active{ animation:none; }
+            #nf-quiz .qz-env-flap, #nf-quiz .qz-env-seal, #nf-quiz .qz-env-card{ transition:none; }
+          }
+        </style>
+    </head>
+    <body data-mobile-nav-style="classic">
+        <div class="box-layout">
+
+            <header>
+                <nav class="navbar navbar-expand-lg bg-white header-light disable-fixed">
+                    <div class="container-fluid">
+                        <div class="col-auto col-xxl-3 col-lg-2 me-lg-0 me-auto">
+                            <div class="header-icon">
+                                <div class="header-push-button icon">
+                                    <div class="push-button"><span></span><span></span><span></span><span></span></div>
+                                </div>
+                            </div>
+                            <a class="navbar-brand d-flex align-items-center" href="/">
+                                <img src="images/favicon.png" alt="Neybras Family" width="40" height="40" style="border-radius:6px;">
+                                <span class="d-inline-block ms-15px lh-14">
+                                    <span class="d-block ls-1px" style="font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:#7A5268;">Neybras Family</span>
+                                    <span class="d-block fs-11 text-uppercase opacity-6" style="letter-spacing:2px;">Magazine</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="col-auto menu-order position-static">
+                            <button class="navbar-toggler float-start" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
+                                    <li class="nav-item"><a href="categorie-finance" class="nav-link">Finance</a></li>
+<li class="nav-item"><a href="categorie-education" class="nav-link">Éducation</a></li>
+<li class="nav-item"><a href="categorie-droit" class="nav-link">Droit</a></li>
+<li class="nav-item"><a href="categorie-sante-bien-etre" class="nav-link">Santé & Bien-être</a></li>
+<li class="nav-item"><a href="categorie-lifestyle-famille" class="nav-link">Lifestyle & Famille</a></li>
+<li class="nav-item"><a href="categorie-voyage-decouverte" class="nav-link">Voyage & Découverte</a></li>
+<li class="nav-item"><a href="categorie-tech" class="nav-link">Tech</a></li>
+                                    <li class="nav-item"><a href="a-propos" class="nav-link">À propos</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-auto col-xxl-3 col-xl-2 text-end md-pe-0">
+                            <div class="header-icon">
+                                <div class="header-search-icon icon d-none d-md-flex">
+                                    <a href="#" class="search-form-icon header-search-form fw-800 text-uppercase"><i class="feather icon-feather-search text-dark-gray align-middle me-5px xl-me-0"></i><span class="fs-15 align-middle d-none d-xxl-inline-block">Rechercher</span></a>
+                                    <div class="search-form-wrapper">
+                                        <button title="Fermer" type="button" class="search-close">×</button>
+                                        <form id="search-form" role="search" method="get" class="search-form text-left" onsubmit="return false;">
+                                            <div class="search-form-box">
+                                                <h2 class="text-dark-gray text-center mb-4 fw-700 ls-minus-2px">Que recherchez-vous ?</h2>
+                                                <input class="search-input border-color-dark-gray" placeholder="Entrez un mot-clé..." name="s" type="text" autocomplete="off">
+                                                <button type="submit" class="search-button"><i class="feather icon-feather-search" aria-hidden="true"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <div class="push-menu push-menu-style-2 ps-50px pe-50px pt-4 pb-4 bg-white">
+                    <span class="close-menu text-dark-gray text-dark-gray-hover"><i class="fa-solid fa-xmark fs-20"></i></span>
+                    <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                        <div class="hamburger-menu menu-list-wrapper w-90 lg-w-100 lg-no-margin" data-scroll-options='{ "theme": "light" }'>
+                            <ul class="text-dark-gray menu-item-list alt-font fw-700 ls-minus-1px">
+                                <li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
+                                <li class="nav-item"><a href="categorie-finance" class="nav-link">Finance</a></li>
+<li class="nav-item"><a href="categorie-education" class="nav-link">Éducation</a></li>
+<li class="nav-item"><a href="categorie-droit" class="nav-link">Droit</a></li>
+<li class="nav-item"><a href="categorie-sante-bien-etre" class="nav-link">Santé & Bien-être</a></li>
+<li class="nav-item"><a href="categorie-lifestyle-famille" class="nav-link">Lifestyle & Famille</a></li>
+<li class="nav-item"><a href="categorie-voyage-decouverte" class="nav-link">Voyage & Découverte</a></li>
+<li class="nav-item"><a href="categorie-tech" class="nav-link">Tech</a></li>
+                                <li class="nav-item"><a href="a-propos" class="nav-link">À propos</a></li>
+                            </ul>
+                        </div>
+                        <div class="text-center elements-social social-icon-style-04">
+                            <ul class="medium-icon dark">
+                                <li class="mx-0"><a class="facebook" href="https://web.facebook.com/profile.php?id=61580744324089" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i><span></span></a></li>
+                                <li class="mx-0"><a class="instagram" href="https://instagram.com/neybrasfamily" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i><span></span></a></li>
+                                <li class="mx-0"><a class="linkedin" href="https://linkedin.com/company/neybrasfamily/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i><span></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="top-space-margin pt-0">
+                <div id="nf-quiz">
+                <div class="qz-wrap">
+
+                  <div class="qz-eyebrow">Neybras Family</div>
+                  <h1 class="qz-title">Quelle filière post-bac te correspond ?</h1>
+                  <p class="qz-sub">6 questions, 2 minutes. Ton résultat détaillé t'attend à la fin.</p>
+
+                  <div class="qz-progress" id="qz-progress"></div>
+
+                  <div class="qz-card">
+
+                    <!-- QUIZ SCREEN -->
+                    <div class="qz-screen qz-active" id="qz-screen-quiz">
+                      <form id="qz-quizForm">
+                        <div class="qz-qnum" id="qz-qnum">Question 1 / 6</div>
+                        <fieldset>
+                          <legend class="qz-qtext" id="qz-qtext"></legend>
+                          <div class="qz-options" id="qz-options"></div>
+                        </fieldset>
+                        <div class="qz-nav">
+                          <button type="button" class="qz-btn-text" id="qz-backBtn">← Précédent</button>
+                          <button type="button" class="qz-btn" id="qz-nextBtn" disabled>Suivant</button>
+                        </div>
+                      </form>
+                    </div>
+
+                    <!-- EMAIL GATE SCREEN -->
+                    <div class="qz-screen" id="qz-screen-gate">
+                      <div class="qz-gate-head">
+                        <div class="qz-stamp">Ton profil est prêt</div>
+                        <h2>On a scellé ton résultat</h2>
+                        <p>Entre ton prénom et ton email pour l'ouvrir et le recevoir gratuitement.</p>
+                      </div>
+
+                      <div class="qz-envelope-zone">
+                        <div class="qz-envelope" id="qz-envelope">
+                          <div class="qz-env-body"></div>
+                          <div class="qz-env-flap"></div>
+                          <div class="qz-env-seal">NF</div>
+                          <div class="qz-env-card">Ton profil d'orientation</div>
+                        </div>
+                      </div>
+
+                      <form id="qz-gateForm" method="POST">
+                        <div class="qz-form-row">
+                          <label for="qz-firstName">Prénom</label>
+                          <input type="text" id="qz-firstName" name="prenom" placeholder="Ton prénom" required>
+                        </div>
+                        <div class="qz-form-row">
+                          <label for="qz-email">Email</label>
+                          <input type="email" id="qz-email" name="email" placeholder="ton@email.com" required>
+                        </div>
+                        <input type="hidden" name="quiz" value="Orientation post-bac 2026">
+                        <input type="hidden" id="qz-profileField" name="profil_resultat" value="">
+                        <p class="qz-consent">En validant, tu acceptes de recevoir ton résultat et, occasionnellement, les actualités orientation de Neybras Family. Désinscription possible à tout moment.</p>
+                        <button type="submit" class="qz-btn qz-saffron qz-cta-full">Recevoir mon résultat gratuit</button>
+                      </form>
+                    </div>
+
+                    <!-- RESULT SCREEN -->
+                    <div class="qz-screen" id="qz-screen-result">
+                      <div class="qz-result-icon" id="qz-resultIcon">—</div>
+                      <h2 class="qz-result-title" id="qz-resultTitle"></h2>
+                      <p class="qz-result-desc" id="qz-resultDesc"></p>
+                      <div class="qz-result-tracks">
+                        <div class="qz-label">Filières à explorer en priorité</div>
+                        <ul id="qz-resultTracks"></ul>
+                      </div>
+                      <p class="qz-sent-note" id="qz-sentNote"></p>
+                    </div>
+
+                  </div>
+                </div>
+                </div>
+            </section>
+
+            <footer class="bg-very-light-gray">
+                <div class="container position-relative">
+                    <div class="footer-bottom pt-6">
+                        <div class="row justify-content-center">
+                            <div class="col-12 text-center mb-15px">
+                                <span class="fs-11 text-uppercase fw-600 d-inline-block px-15px py-5px border-radius-20px" style="letter-spacing:1.5px;color:#7A5268;border:1px solid #7A5268;">Neybras Média Group</span>
+                            </div>
+                            <div class="col-12 last-paragraph-no-margin text-center mb-30px">
+                                <p class="fs-15 text-dark-gray">&copy; 2026 Neybras Publishing SARLAU — Tous droits réservés.</p>
+                                <a href="mentions-legales" class="fs-14 text-dark-gray text-decoration-line-bottom">Mentions légales</a>
+                            </div>
+                            <div class="col-12 text-center">
+                                <div class="elements-social social-icon-style-02">
+                                    <ul class="large-icon dark">
+                                        <li><a class="facebook" href="https://web.facebook.com/profile.php?id=61580744324089" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                        <li><a class="instagram" href="https://instagram.com/neybrasfamily" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a></li>
+                                        <li><a class="linkedin" href="https://linkedin.com/company/neybrasfamily/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <div class="scroll-progress d-none d-xxl-block">
+            <a href="#" class="scroll-top" aria-label="scroll"><span class="scroll-text">Scroll</span><span class="scroll-line"><span class="scroll-point"></span></span></a>
+        </div>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/vendors.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script>
+        (function(){
+          const questions = [
+            {
+              text: "Face à un problème à résoudre, tu préfères…",
+              options: [
+                { label: "Calculer, démontrer, structurer un raisonnement", key: "sci" },
+                { label: "Négocier, organiser, trouver le bon compromis", key: "com" },
+                { label: "Argumenter et défendre un point de vue", key: "droit" },
+                { label: "Observer le corps humain et agir concrètement", key: "sante" },
+                { label: "Fabriquer, réparer, expérimenter avec les mains", key: "pro" },
+                { label: "Imaginer, raconter, créer une image", key: "art" }
+              ]
+            },
+            {
+              text: "Ta matière préférée au lycée ?",
+              options: [
+                { label: "Mathématiques ou Physique-Chimie", key: "sci" },
+                { label: "Économie et Gestion", key: "com" },
+                { label: "Philosophie, Droit ou Histoire", key: "droit" },
+                { label: "SVT ou Biologie", key: "sante" },
+                { label: "Technologie ou Dessin industriel", key: "pro" },
+                { label: "Arts plastiques, Français ou Langues", key: "art" }
+              ]
+            },
+            {
+              text: "Le rythme d'études qui te correspond le mieux ?",
+              options: [
+                { label: "Long et exigeant, sans problème (CPGE, ingénieur)", key: "sci" },
+                { label: "Un mélange théorie/pratique, avec des stages", key: "com" },
+                { label: "Des études longues, beaucoup de lecture", key: "droit" },
+                { label: "Encadré et exigeant, avec de la pratique clinique", key: "sante" },
+                { label: "Court et très concret, vite sur le terrain", key: "pro" },
+                { label: "Libre et créatif, avec de l'expérimentation", key: "art" }
+              ]
+            },
+            {
+              text: "Ce qui te motive le plus dans un futur métier ?",
+              options: [
+                { label: "Résoudre des problèmes complexes", key: "sci" },
+                { label: "Diriger, entreprendre, prendre des responsabilités", key: "com" },
+                { label: "Défendre une cause, avoir un impact social", key: "droit" },
+                { label: "Aider les autres au quotidien, concrètement", key: "sante" },
+                { label: "La sécurité de l'emploi et un vrai savoir-faire", key: "pro" },
+                { label: "Exprimer une vision, créer quelque chose d'unique", key: "art" }
+              ]
+            },
+            {
+              text: "Étudier à l'étranger, pour toi c'est…",
+              options: [
+                { label: "Un vrai projet — je vise une grande école internationale", key: "sci" },
+                { label: "Une option si l'occasion se présente (business school)", key: "com" },
+                { label: "Peu probable, je préfère le système francophone marocain", key: "droit" },
+                { label: "Pas une priorité, je veux exercer au Maroc", key: "sante" },
+                { label: "Pas dans mes plans, je veux vite travailler", key: "pro" },
+                { label: "Oui, pour m'ouvrir à d'autres univers créatifs", key: "art" }
+              ]
+            },
+            {
+              text: "Dans 10 ans, tu te vois plutôt…",
+              options: [
+                { label: "Ingénieur(e) ou chercheur(euse)", key: "sci" },
+                { label: "À la tête de ta propre entreprise", key: "com" },
+                { label: "Avocat(e), magistrat(e) ou dans une institution", key: "droit" },
+                { label: "Médecin, pharmacien(ne) ou soignant(e)", key: "sante" },
+                { label: "Expert(e) technique reconnu(e) dans ton domaine", key: "pro" },
+                { label: "Créatif(ve), dans la communication ou les médias", key: "art" }
+              ]
+            }
+          ];
+
+          const profiles = {
+            sci: {
+              icon: "Σ",
+              title: "Profil Scientifique & Ingénieur",
+              desc: "Tu raisonnes par la logique et tu n'as pas peur des études longues. Les filières techniques et scientifiques exigeantes sont ton terrain naturel.",
+              tracks: ["CPGE (MPSI, PCSI, TSI)", "ENSA / ENSAM — écoles d'ingénieurs", "FST — Facultés des Sciences et Techniques", "Écoles d'ingénieurs privées (EMSI, EMINES, EHEI)"]
+            },
+            com: {
+              icon: "€",
+              title: "Profil Business & Gestion",
+              desc: "Tu aimes organiser, convaincre et prendre des initiatives. Le monde de la gestion et de l'entrepreneuriat te correspond.",
+              tracks: ["ENCG (TAFEM)", "ISCAE / HEM / ESCA — écoles de commerce", "FSJES — Économie et Gestion", "BTS ou DUT Commerce"]
+            },
+            droit: {
+              icon: "§",
+              title: "Profil Droit & Sciences Humaines",
+              desc: "Tu argumentes, tu lis, tu défends des idées. Le droit et les sciences humaines te donneront le cadre pour porter une cause.",
+              tracks: ["Facultés de Droit (FSJES)", "CPGE Lettres", "ISIC Rabat — journalisme", "King Fahd Tanger — traduction/interprétariat"]
+            },
+            sante: {
+              icon: "+",
+              title: "Profil Santé & Soin",
+              desc: "Aider concrètement, au contact des gens, c'est ce qui te fait avancer. Les métiers de la santé sont faits pour toi.",
+              tracks: ["Médecine / Pharmacie / Dentaire", "ISPITS — instituts paramédicaux", "UM6SS Casablanca (médecine privée)", "Facultés des Sciences de la Santé"]
+            },
+            pro: {
+              icon: "⚙",
+              title: "Profil Technique & Professionnel",
+              desc: "Tu veux du concret, un vrai savoir-faire et une insertion rapide. Les formations techniques courtes te mèneront droit au but.",
+              tracks: ["OFPPT — formation professionnelle", "BTS et instituts techniques spécialisés", "Concours techniques post-bac courts", "Alternance en entreprise"]
+            },
+            art: {
+              icon: "✎",
+              title: "Profil Créatif & Communication",
+              desc: "Tu vois le monde à travers une idée, une image, une histoire à raconter. La création et la communication sont ton terrain de jeu.",
+              tracks: ["Écoles d'art et de design", "Communication et médias", "ISIC Rabat — journalisme", "Programmes créatifs à l'étranger"]
+            }
+          };
+
+          // Un endpoint Formspree distinct par profil = une autoréponse personnalisée par profil.
+          // Remplace chaque valeur par l'ID réel du formulaire Formspree correspondant (créés dans le même projet Formspree).
+          const formIds = {
+            sci:   "YOUR_FORM_ID_SCI",
+            com:   "YOUR_FORM_ID_COM",
+            droit: "YOUR_FORM_ID_DROIT",
+            sante: "YOUR_FORM_ID_SANTE",
+            pro:   "YOUR_FORM_ID_PRO",
+            art:   "YOUR_FORM_ID_ART"
+          };
+
+          const scores = { sci:0, com:0, droit:0, sante:0, pro:0, art:0 };
+          const answers = new Array(questions.length).fill(null);
+          let current = 0;
+
+          const progressEl = document.getElementById('qz-progress');
+          const qnumEl = document.getElementById('qz-qnum');
+          const qtextEl = document.getElementById('qz-qtext');
+          const optionsEl = document.getElementById('qz-options');
+          const backBtn = document.getElementById('qz-backBtn');
+          const nextBtn = document.getElementById('qz-nextBtn');
+
+          function buildProgress(){
+            progressEl.innerHTML = '';
+            questions.forEach(() => {
+              const t = document.createElement('div');
+              t.className = 'qz-tile';
+              progressEl.appendChild(t);
+            });
+          }
+
+          function updateProgress(){
+            const tiles = progressEl.querySelectorAll('.qz-tile');
+            tiles.forEach((t, i) => {
+              t.classList.remove('qz-done','qz-active');
+              if (i < current) t.classList.add('qz-done');
+              else if (i === current) t.classList.add('qz-active');
+            });
+          }
+
+          function renderQuestion(){
+            const q = questions[current];
+            qnumEl.textContent = `Question ${current + 1} / ${questions.length}`;
+            qtextEl.textContent = q.text;
+            optionsEl.innerHTML = '';
+            q.options.forEach((opt, idx) => {
+              const wrap = document.createElement('div');
+              wrap.className = 'qz-opt';
+              const id = `qz-q${current}_o${idx}`;
+              wrap.innerHTML = `
+                <input type="radio" name="qz-q${current}" id="${id}" value="${opt.key}">
+                <label for="${id}">${opt.label}</label>
+              `;
+              optionsEl.appendChild(wrap);
+            });
+            if (answers[current]){
+              const input = optionsEl.querySelector(`input[value="${answers[current]}"]`);
+              if (input) input.checked = true;
+              nextBtn.disabled = false;
+            } else {
+              nextBtn.disabled = true;
+            }
+            backBtn.disabled = current === 0;
+            nextBtn.textContent = current === questions.length - 1 ? 'Voir mon résultat' : 'Suivant';
+            updateProgress();
+          }
+
+          document.getElementById('qz-quizForm').addEventListener('change', (e) => {
+            if (e.target.name === `qz-q${current}`){
+              answers[current] = e.target.value;
+              nextBtn.disabled = false;
+            }
+          });
+
+          nextBtn.addEventListener('click', () => {
+            if (!answers[current]) return;
+            if (current < questions.length - 1){
+              current++;
+              renderQuestion();
+            } else {
+              computeResult();
+              showScreen('qz-screen-gate');
+            }
+          });
+
+          backBtn.addEventListener('click', () => {
+            if (current > 0){
+              current--;
+              renderQuestion();
+            }
+          });
+
+          let winningProfile = null;
+
+          function computeResult(){
+            Object.keys(scores).forEach(k => scores[k] = 0);
+            answers.forEach(a => { if (a) scores[a]++; });
+            winningProfile = Object.keys(scores).reduce((a,b) => scores[a] >= scores[b] ? a : b);
+            document.getElementById('qz-profileField').value = profiles[winningProfile].title;
+          }
+
+          function showScreen(id){
+            document.querySelectorAll('#nf-quiz .qz-screen').forEach(s => s.classList.remove('qz-active'));
+            document.getElementById(id).classList.add('qz-active');
+          }
+
+          function renderResult(email){
+            const p = profiles[winningProfile];
+            document.getElementById('qz-resultIcon').textContent = p.icon;
+            document.getElementById('qz-resultTitle').textContent = p.title;
+            document.getElementById('qz-resultDesc').textContent = p.desc;
+            const list = document.getElementById('qz-resultTracks');
+            list.innerHTML = '';
+            p.tracks.forEach(t => {
+              const li = document.createElement('li');
+              li.textContent = t;
+              list.appendChild(li);
+            });
+            document.getElementById('qz-sentNote').textContent = email
+              ? `Ton résultat détaillé vient aussi d'être envoyé à ${email}.`
+              : '';
+          }
+
+          document.getElementById('qz-gateForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            const envelope = document.getElementById('qz-envelope');
+            const email = document.getElementById('qz-email').value;
+            envelope.classList.add('qz-opened');
+            setTimeout(() => {
+              renderResult(email);
+              showScreen('qz-screen-result');
+            }, 850);
+
+            // Chaque profil a son propre formulaire Formspree, donc sa propre autoréponse personnalisée.
+            const endpoint = `https://formspree.io/f/${formIds[winningProfile]}`;
+            fetch(endpoint, {
+              method: 'POST',
+              body: new FormData(this),
+              headers: { 'Accept': 'application/json' }
+            }).catch(() => { /* la démo continue même si l'envoi réseau échoue en aperçu */ });
+          });
+
+          buildProgress();
+          renderQuestion();
+        })();
+        </script>
+    </body>
+</html>
