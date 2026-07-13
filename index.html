@@ -157,16 +157,15 @@
             </section>
 
             <section class="pt-0 pb-0">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-10">
-                            <div class="d-flex sm-flex-column align-items-center justify-content-between p-30px sm-p-20px border-radius-6px mb-30px" style="background:#7A5268;gap:20px;">
-                                <div class="text-white text-center text-lg-start">
-                                    <span class="fs-12 text-uppercase fw-700 opacity-8 d-block mb-5px" style="letter-spacing:1.5px;">Spécial Bac 2026</span>
-                                    <span class="d-block alt-font fw-700 fs-22 sm-fs-18 ls-minus-1px">Résultats du bac en poche ? Découvre ta voie en 2 minutes.</span>
-                                </div>
-                                <a href="quiz-orientation-post-bac-2026" class="btn btn-white btn-rounded btn-small text-uppercase fw-700 flex-shrink-0">Faire le test →</a>
+                <div class="container-fluid p-0">
+                    <div class="position-relative overflow-hidden mb-30px" id="bacBanner" style="background:#7A5268 radial-gradient(circle at 18% 15%, rgba(240,194,75,.28), transparent 45%), radial-gradient(circle at 85% 88%, rgba(242,120,159,.2), transparent 42%);">
+                        <canvas id="bacFireworks" class="position-absolute top-0 start-0 w-100 h-100" aria-hidden="true" style="pointer-events:none;"></canvas>
+                        <div class="d-flex sm-flex-column align-items-center justify-content-between position-relative p-30px sm-p-20px" style="gap:20px;z-index:1;">
+                            <div class="text-white text-center text-lg-start">
+                                <span class="fs-12 text-uppercase fw-700 opacity-8 d-block mb-5px" style="letter-spacing:1.5px;">Spécial Bac 2026</span>
+                                <span class="d-block alt-font fw-700 fs-22 sm-fs-18 ls-minus-1px">Résultats du bac en poche ? Découvre ta voie en 2 minutes.</span>
                             </div>
+                            <a href="quiz-orientation-post-bac-2026" class="btn btn-white btn-rounded btn-small text-uppercase fw-700 flex-shrink-0 position-relative" style="z-index:1;">Faire le test →</a>
                         </div>
                     </div>
                 </div>
@@ -449,5 +448,95 @@
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/vendors.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
+        <script>
+        (function(){
+          const banner = document.getElementById('bacBanner');
+          const canvas = document.getElementById('bacFireworks');
+          if (!banner || !canvas || !canvas.getContext) return;
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+          const ctx = canvas.getContext('2d');
+          const colors = ['#F0C24B', '#FFFFFF', '#F2789F', '#7FD9C4', '#F0954C'];
+          let w = 0, h = 0, particles = [], running = false, rafId = null, burstTimer = null;
+
+          function resize(){
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            w = banner.clientWidth;
+            h = banner.clientHeight;
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+            canvas.style.width = w + 'px';
+            canvas.style.height = h + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          }
+
+          function spawnBurst(){
+            if (!w || !h) return;
+            const x = w * (0.15 + Math.random() * 0.7);
+            const y = h * (0.2 + Math.random() * 0.5);
+            const count = 20 + Math.floor(Math.random() * 10);
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            for (let i = 0; i < count; i++){
+              const angle = (Math.PI * 2 * i) / count + Math.random() * 0.3;
+              const speed = 1.1 + Math.random() * 2.1;
+              particles.push({
+                x, y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                life: 1,
+                decay: 0.014 + Math.random() * 0.012,
+                color,
+                size: 1.4 + Math.random() * 1.4
+              });
+            }
+          }
+
+          function tick(){
+            ctx.clearRect(0, 0, w, h);
+            particles.forEach(p => {
+              p.x += p.vx;
+              p.y += p.vy;
+              p.vy += 0.03;
+              p.life -= p.decay;
+              ctx.globalAlpha = Math.max(p.life, 0);
+              ctx.fillStyle = p.color;
+              ctx.beginPath();
+              ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+              ctx.fill();
+            });
+            particles = particles.filter(p => p.life > 0);
+            ctx.globalAlpha = 1;
+            if (running) rafId = requestAnimationFrame(tick);
+          }
+
+          function start(){
+            if (running) return;
+            resize();
+            running = true;
+            tick();
+            spawnBurst();
+            burstTimer = setInterval(() => {
+              spawnBurst();
+              if (Math.random() < 0.4) setTimeout(spawnBurst, 200 + Math.random() * 250);
+            }, 1400);
+          }
+
+          function stop(){
+            running = false;
+            if (rafId) cancelAnimationFrame(rafId);
+            if (burstTimer) clearInterval(burstTimer);
+            particles = [];
+            ctx.clearRect(0, 0, w, h);
+          }
+
+          window.addEventListener('resize', () => { if (running) resize(); });
+
+          document.addEventListener('visibilitychange', () => {
+            if (document.hidden) stop(); else start();
+          });
+
+          start();
+        })();
+        </script>
     </body>
 </html>
