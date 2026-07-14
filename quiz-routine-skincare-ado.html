@@ -1,0 +1,751 @@
+<!doctype html>
+<html class="no-js" lang="fr">
+    <head>
+        <title>Quelle Routine Skincare pour mon Ado ? Quiz Gratuit + Guide PDF | Neybras Family</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="author" content="Neybras Family">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <meta name="description" content="En 2 minutes, découvre la routine skincare adaptée à ton ado (10 ans et plus) : minimaliste, anti-imperfections en douceur ou protection solaire prioritaire. Reçois le guide complet gratuit par email.">
+        <link rel="canonical" href="https://neybras-family.com/quiz-routine-skincare-ado">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+        <link rel="manifest" href="site.webmanifest">
+
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://neybras-family.com/quiz-routine-skincare-ado">
+        <meta property="og:site_name" content="Neybras Family">
+        <meta property="og:locale" content="fr_FR">
+        <meta property="og:title" content="Quelle Routine Skincare pour mon Ado ? Quiz Gratuit + Guide PDF">
+        <meta property="og:description" content="En 2 minutes, découvre la routine skincare adaptée à ton ado : minimaliste, anti-imperfections en douceur ou protection solaire prioritaire.">
+        <meta property="og:image" content="https://neybras-family.com/images/favicon.png">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+        <link rel="stylesheet" href="css/vendors.min.css"/>
+        <link rel="stylesheet" href="css/icon.min.css"/>
+        <link rel="stylesheet" href="css/style.min.css"/>
+        <link rel="stylesheet" href="css/responsive.min.css"/>
+        <link rel="stylesheet" href="demos/magazine/magazine.css" />
+        <link rel="stylesheet" href="css/ghost-content.css" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        </script>
+
+        <style>
+          /* Quiz "routine skincare ado" — entièrement scopé sous #nf-skinquiz
+             pour ne jamais entrer en collision avec le Bootstrap/Crafto du site
+             (qui définit déjà .card, .progress, .btn, .nav comme classes de
+             composants globales). Toutes les classes du quiz commencent par "sk-".
+             Ne jamais styler body/* directement : ça déborderait sur le reste
+             de la page une fois ce bloc collé dans une page Crefto existante. */
+          #nf-skinquiz{
+            --mauve: #7A5268;
+            --mauve-dark: #5E3E50;
+            --mauve-light: #A87D93;
+            --gris: #D9D9D9;
+            --gris-clair: #F4F1F3;
+            --creme: #FBF9FA;
+            --encre: #2E2430;
+            --or-doux: #C9A26B;
+            --display: 'Georgia', 'Iowan Old Style', serif;
+            --body: 'Helvetica Neue', Arial, sans-serif;
+          }
+
+          #nf-skinquiz, #nf-skinquiz *{ box-sizing: border-box; }
+
+          #nf-skinquiz{
+            font-family: var(--body);
+            background: linear-gradient(180deg, var(--creme) 0%, var(--gris-clair) 100%);
+            color: var(--encre);
+            display:flex;
+            justify-content:center;
+            padding: 40px 16px 56px;
+          }
+
+          #nf-skinquiz .sk-wrap{ width:100%; max-width: 560px; }
+
+          #nf-skinquiz .sk-eyebrow{
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--mauve);
+            font-weight: 600;
+            text-align:center;
+            margin-bottom: 8px;
+          }
+
+          #nf-skinquiz h1.sk-title{
+            font-family: var(--display);
+            font-weight: 400;
+            font-size: clamp(24px, 5vw, 32px);
+            line-height: 1.2;
+            text-align:center;
+            color: var(--mauve-dark);
+            margin: 0 0 8px;
+          }
+
+          #nf-skinquiz p.sk-sub{
+            text-align:center;
+            font-size: 14.5px;
+            color: #6b5c66;
+            max-width: 420px;
+            margin: 0 auto 26px;
+            line-height: 1.5;
+          }
+
+          #nf-skinquiz .sk-progress-track{
+            width:100%;
+            height: 8px;
+            background: var(--gris-clair);
+            border: 1px solid var(--gris);
+            border-radius: 999px;
+            overflow:hidden;
+            margin-bottom: 8px;
+          }
+          #nf-skinquiz .sk-progress-fill{
+            height:100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--mauve-light), var(--mauve));
+            border-radius: 999px;
+            transition: width .35s ease;
+          }
+          #nf-skinquiz .sk-progress-label{
+            font-size: 12px;
+            color: #9b8a94;
+            text-align:center;
+            margin-bottom: 26px;
+          }
+
+          #nf-skinquiz .sk-card{
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 1px 2px rgba(46,36,48,0.05), 0 12px 32px rgba(46,36,48,0.08);
+            padding: 30px 26px;
+            position:relative;
+          }
+
+          #nf-skinquiz .sk-qnum{
+            font-family: var(--display);
+            font-style: italic;
+            color: var(--or-doux);
+            font-size: 13px;
+            margin-bottom: 6px;
+          }
+
+          #nf-skinquiz legend.sk-qtext{
+            font-family: var(--display);
+            font-weight: 400;
+            font-size: clamp(18px, 3.2vw, 21px);
+            line-height: 1.35;
+            color: var(--encre);
+            padding:0;
+            margin-bottom: 18px;
+          }
+
+          #nf-skinquiz fieldset{ border:none; padding:0; margin:0; }
+
+          #nf-skinquiz .sk-options{ display:flex; flex-direction:column; gap:10px; }
+          #nf-skinquiz .sk-opt{ position:relative; }
+          #nf-skinquiz .sk-opt input{
+            position:absolute; opacity:0; width:100%; height:100%; top:0; left:0; cursor:pointer; margin:0;
+          }
+          #nf-skinquiz .sk-opt label{
+            display:block;
+            padding: 13px 16px;
+            border: 1.5px solid var(--gris);
+            border-left: 4px solid var(--gris);
+            border-radius: 10px;
+            font-size: 14.5px;
+            line-height:1.4;
+            cursor:pointer;
+            transition: border-color .18s ease, background .18s ease, transform .1s ease;
+            background: #fff;
+          }
+          #nf-skinquiz .sk-opt input:checked + label{
+            border-color: var(--mauve);
+            border-left-color: var(--mauve);
+            background: rgba(122,82,104,0.06);
+            font-weight: 600;
+          }
+          #nf-skinquiz .sk-opt input:focus-visible + label{
+            outline: 2px solid var(--or-doux);
+            outline-offset: 2px;
+          }
+          #nf-skinquiz .sk-opt label:hover{ transform: translateX(2px); }
+
+          #nf-skinquiz .sk-nav{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-top: 24px;
+          }
+          #nf-skinquiz .sk-btn-text{
+            background:none; border:none;
+            color: #9b8a94;
+            font-family: var(--body);
+            font-size: 14px;
+            cursor:pointer;
+            padding: 8px 4px;
+          }
+          #nf-skinquiz .sk-btn-text:disabled{ opacity:0; pointer-events:none; }
+
+          #nf-skinquiz .sk-btn{
+            background: var(--mauve);
+            color:#fff;
+            border:none;
+            font-family: var(--body);
+            font-weight:600;
+            font-size: 14.5px;
+            padding: 12px 26px;
+            border-radius: 999px;
+            cursor:pointer;
+            transition: background .18s ease;
+          }
+          #nf-skinquiz .sk-btn:hover{ background: var(--mauve-dark); }
+          #nf-skinquiz .sk-btn:disabled{ background: var(--gris); color:#a89ba3; cursor:not-allowed; }
+          #nf-skinquiz .sk-btn.sk-gold{ background: var(--or-doux); }
+          #nf-skinquiz .sk-btn.sk-gold:hover{ background: #b08c58; }
+          #nf-skinquiz .sk-cta-full{ width:100%; padding:14px; font-size:15.5px; }
+
+          #nf-skinquiz .sk-screen{ display:none; }
+          #nf-skinquiz .sk-screen.sk-active{ display:block; animation: sk-rise .35s ease; }
+          @keyframes sk-rise{ from{opacity:0; transform: translateY(8px);} to{opacity:1; transform:none;} }
+
+          #nf-skinquiz .sk-gate-head{ text-align:center; margin-bottom: 20px; }
+          #nf-skinquiz .sk-gate-head .sk-stamp{
+            font-family: var(--display);
+            font-style: italic;
+            color: var(--or-doux);
+            font-size: 13px;
+          }
+          #nf-skinquiz .sk-gate-head h2{
+            font-family: var(--display);
+            font-weight: 400;
+            font-size: clamp(20px, 4vw, 25px);
+            color: var(--mauve-dark);
+            margin: 6px 0 8px;
+          }
+          #nf-skinquiz .sk-gate-head p{ color:#6b5c66; font-size:14px; margin:0; }
+
+          #nf-skinquiz .sk-envelope-zone{ display:flex; justify-content:center; margin: 22px 0 20px; }
+          #nf-skinquiz .sk-envelope{ width:180px; height:120px; position:relative; }
+          #nf-skinquiz .sk-env-body{ position:absolute; inset:0; background:var(--creme); border:1.5px solid var(--gris); border-radius:8px; }
+          #nf-skinquiz .sk-env-flap{
+            position:absolute; top:0; left:0; right:0; height:60px;
+            background: var(--mauve);
+            clip-path: polygon(0 0, 50% 78%, 100% 0);
+            border-radius: 8px 8px 0 0;
+            transform-origin: top center;
+            transition: transform .6s cubic-bezier(.6,-0.28,.4,1.4);
+          }
+          #nf-skinquiz .sk-envelope.sk-opened .sk-env-flap{ transform: rotateX(180deg); }
+          #nf-skinquiz .sk-env-seal{
+            position:absolute; top:28px; left:50%; transform: translateX(-50%);
+            width:32px; height:32px; border-radius:50%;
+            background: var(--or-doux);
+            display:flex; align-items:center; justify-content:center;
+            font-family: var(--display); font-weight:600; color:#fff; font-size:12px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            transition: opacity .25s ease;
+          }
+          #nf-skinquiz .sk-envelope.sk-opened .sk-env-seal{ opacity:0; }
+          #nf-skinquiz .sk-env-card{
+            position:absolute; left:13px; right:13px; bottom:9px; top:44px;
+            background:#fff; border:1px solid var(--gris); border-radius:6px;
+            opacity:0; transform: translateY(6px);
+            transition: opacity .4s ease .25s, transform .4s ease .25s;
+            display:flex; align-items:center; justify-content:center;
+            font-size:10.5px; color:#9b8a94; text-align:center; padding:4px;
+          }
+          #nf-skinquiz .sk-envelope.sk-opened .sk-env-card{ opacity:1; transform:none; }
+
+          #nf-skinquiz .sk-form-row{ margin-bottom: 14px; }
+          #nf-skinquiz .sk-form-row label{
+            display:block; font-size:13px; font-weight:600; color: var(--encre); margin-bottom:6px;
+          }
+          #nf-skinquiz .sk-form-row input[type="text"], #nf-skinquiz .sk-form-row input[type="email"]{
+            width:100%; padding: 12px 14px;
+            border: 1.5px solid var(--gris); border-radius: 10px;
+            font-family: var(--body); font-size: 14.5px;
+            background:#fff; color: var(--encre);
+          }
+          #nf-skinquiz .sk-form-row input:focus-visible{ outline: 2px solid var(--mauve); outline-offset:1px; }
+
+          #nf-skinquiz .sk-consent{ font-size: 12px; color:#9b8a94; line-height:1.5; margin: 4px 0 18px; }
+
+          #nf-skinquiz .sk-result-icon{
+            width:60px; height:60px; border-radius:50%;
+            background: var(--mauve);
+            display:flex; align-items:center; justify-content:center;
+            color:#fff; font-family: var(--display); font-size:24px;
+            margin: 0 auto 16px;
+          }
+          #nf-skinquiz .sk-result-title{
+            font-family: var(--display); font-weight:400;
+            font-size: clamp(22px, 4.5vw, 27px);
+            text-align:center; color: var(--mauve-dark);
+            margin: 0 0 10px;
+          }
+          #nf-skinquiz .sk-result-desc{ text-align:center; color:#6b5c66; font-size:14.5px; margin:0 0 22px; line-height:1.55; }
+          #nf-skinquiz .sk-result-steps{
+            background: var(--gris-clair);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 22px;
+          }
+          #nf-skinquiz .sk-result-steps .sk-label{
+            font-size: 11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+            color: var(--mauve); margin-bottom: 10px;
+          }
+          #nf-skinquiz .sk-step{
+            display:flex; gap: 10px; align-items:flex-start;
+            font-size: 14px; color: var(--encre); margin-bottom: 10px;
+          }
+          #nf-skinquiz .sk-step:last-child{ margin-bottom:0; }
+          #nf-skinquiz .sk-step-num{
+            flex:none;
+            width: 22px; height:22px; border-radius:50%;
+            background: var(--mauve); color:#fff;
+            font-size:11px; font-weight:700;
+            display:flex; align-items:center; justify-content:center;
+            margin-top: 1px;
+          }
+          #nf-skinquiz .sk-sent-note{ text-align:center; font-size:12.5px; color:#9b8a94; margin-top:4px; }
+
+          @media (prefers-reduced-motion: reduce){
+            #nf-skinquiz .sk-screen.sk-active{ animation:none; }
+            #nf-skinquiz .sk-env-flap, #nf-skinquiz .sk-env-seal, #nf-skinquiz .sk-env-card{ transition:none; }
+          }
+        </style>
+    </head>
+    <body data-mobile-nav-style="classic">
+        <div class="box-layout">
+
+            <header>
+                <nav class="navbar navbar-expand-lg bg-white header-light disable-fixed">
+                    <div class="container-fluid">
+                        <div class="col-auto col-xxl-3 col-lg-2 me-lg-0 me-auto">
+                            <div class="header-icon">
+                                <div class="header-push-button icon">
+                                    <div class="push-button"><span></span><span></span><span></span><span></span></div>
+                                </div>
+                            </div>
+                            <a class="navbar-brand d-flex align-items-center" href="/">
+                                <img src="images/favicon.png" alt="Neybras Family" width="40" height="40" style="border-radius:6px;">
+                                <span class="d-inline-block ms-15px lh-14">
+                                    <span class="d-block ls-1px" style="font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:#7A5268;">Neybras Family</span>
+                                    <span class="d-block fs-11 text-uppercase opacity-6" style="letter-spacing:2px;">Magazine</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="col-auto menu-order position-static">
+                            <button class="navbar-toggler float-start" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
+                                    <li class="nav-item"><a href="categorie-finance" class="nav-link">Finance</a></li>
+<li class="nav-item"><a href="categorie-education" class="nav-link">Éducation</a></li>
+<li class="nav-item"><a href="categorie-droit" class="nav-link">Droit</a></li>
+<li class="nav-item"><a href="categorie-sante-bien-etre" class="nav-link">Santé & Bien-être</a></li>
+<li class="nav-item"><a href="categorie-lifestyle-famille" class="nav-link">Lifestyle & Famille</a></li>
+<li class="nav-item"><a href="categorie-voyage-decouverte" class="nav-link">Voyage & Découverte</a></li>
+<li class="nav-item"><a href="categorie-tech" class="nav-link">Tech</a></li>
+                                    <li class="nav-item"><a href="a-propos" class="nav-link">À propos</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-auto col-xxl-3 col-xl-2 text-end md-pe-0">
+                            <div class="header-icon">
+                                <div class="header-search-icon icon d-none d-md-flex">
+                                    <a href="#" class="search-form-icon header-search-form fw-800 text-uppercase"><i class="feather icon-feather-search text-dark-gray align-middle me-5px xl-me-0"></i><span class="fs-15 align-middle d-none d-xxl-inline-block">Rechercher</span></a>
+                                    <div class="search-form-wrapper">
+                                        <button title="Fermer" type="button" class="search-close">×</button>
+                                        <form id="search-form" role="search" method="get" class="search-form text-left" onsubmit="return false;">
+                                            <div class="search-form-box">
+                                                <h2 class="text-dark-gray text-center mb-4 fw-700 ls-minus-2px">Que recherchez-vous ?</h2>
+                                                <input class="search-input border-color-dark-gray" placeholder="Entrez un mot-clé..." name="s" type="text" autocomplete="off">
+                                                <button type="submit" class="search-button"><i class="feather icon-feather-search" aria-hidden="true"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <div class="push-menu push-menu-style-2 ps-50px pe-50px pt-4 pb-4 bg-white">
+                    <span class="close-menu text-dark-gray text-dark-gray-hover"><i class="fa-solid fa-xmark fs-20"></i></span>
+                    <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                        <div class="hamburger-menu menu-list-wrapper w-90 lg-w-100 lg-no-margin" data-scroll-options='{ "theme": "light" }'>
+                            <ul class="text-dark-gray menu-item-list alt-font fw-700 ls-minus-1px">
+                                <li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
+                                <li class="nav-item"><a href="categorie-finance" class="nav-link">Finance</a></li>
+<li class="nav-item"><a href="categorie-education" class="nav-link">Éducation</a></li>
+<li class="nav-item"><a href="categorie-droit" class="nav-link">Droit</a></li>
+<li class="nav-item"><a href="categorie-sante-bien-etre" class="nav-link">Santé & Bien-être</a></li>
+<li class="nav-item"><a href="categorie-lifestyle-famille" class="nav-link">Lifestyle & Famille</a></li>
+<li class="nav-item"><a href="categorie-voyage-decouverte" class="nav-link">Voyage & Découverte</a></li>
+<li class="nav-item"><a href="categorie-tech" class="nav-link">Tech</a></li>
+                                <li class="nav-item"><a href="a-propos" class="nav-link">À propos</a></li>
+                            </ul>
+                        </div>
+                        <div class="text-center elements-social social-icon-style-04">
+                            <ul class="medium-icon dark">
+                                <li class="mx-0"><a class="facebook" href="https://web.facebook.com/profile.php?id=61580744324089" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i><span></span></a></li>
+                                <li class="mx-0"><a class="instagram" href="https://instagram.com/neybrasfamily" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i><span></span></a></li>
+                                <li class="mx-0"><a class="linkedin" href="https://linkedin.com/company/neybrasfamily/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i><span></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="top-space-margin pt-0">
+                <div id="nf-skinquiz">
+                <div class="sk-wrap">
+
+                  <div class="sk-eyebrow">Santé & Bien-être · Neybras Family</div>
+                  <h1 class="sk-title">Quelle routine skincare pour mon ado ?</h1>
+                  <p class="sk-sub">6 questions, 2 minutes. Une routine simple et rassurante, sans pression esthétique.</p>
+
+                  <div class="sk-progress-track"><div class="sk-progress-fill" id="sk-progressFill"></div></div>
+                  <div class="sk-progress-label" id="sk-progressLabel">Question 1 / 6</div>
+
+                  <div class="sk-card">
+
+                    <!-- QUIZ SCREEN -->
+                    <div class="sk-screen sk-active" id="sk-screen-quiz">
+                      <form id="sk-quizForm">
+                        <div class="sk-qnum" id="sk-qnum">Question 1</div>
+                        <fieldset>
+                          <legend class="sk-qtext" id="sk-qtext"></legend>
+                          <div class="sk-options" id="sk-options"></div>
+                        </fieldset>
+                        <div class="sk-nav">
+                          <button type="button" class="sk-btn-text" id="sk-backBtn">← Précédent</button>
+                          <button type="button" class="sk-btn" id="sk-nextBtn" disabled>Suivant</button>
+                        </div>
+                      </form>
+                    </div>
+
+                    <!-- EMAIL GATE SCREEN -->
+                    <div class="sk-screen" id="sk-screen-gate">
+                      <div class="sk-gate-head">
+                        <div class="sk-stamp">Sa routine est prête</div>
+                        <h2>On a préparé son profil</h2>
+                        <p>Entre ton prénom et ton email pour recevoir le guide complet gratuit en PDF.</p>
+                      </div>
+
+                      <div class="sk-envelope-zone">
+                        <div class="sk-envelope" id="sk-envelope">
+                          <div class="sk-env-body"></div>
+                          <div class="sk-env-flap"></div>
+                          <div class="sk-env-seal">NF</div>
+                          <div class="sk-env-card">Ton guide routine skincare</div>
+                        </div>
+                      </div>
+
+                      <form id="sk-gateForm" method="POST">
+                        <div class="sk-form-row">
+                          <label for="sk-firstName">Prénom</label>
+                          <input type="text" id="sk-firstName" name="prenom" placeholder="Ton prénom" required>
+                        </div>
+                        <div class="sk-form-row">
+                          <label for="sk-email">Email</label>
+                          <input type="email" id="sk-email" name="email" placeholder="ton@email.com" required>
+                        </div>
+                        <input type="hidden" name="quiz" value="Routine skincare ado">
+                        <input type="hidden" id="sk-profileField" name="profil_resultat" value="">
+                        <p class="sk-consent">En validant, tu acceptes de recevoir le guide complet de la routine et, occasionnellement, les actualités bien-être de Neybras Family. Désinscription possible à tout moment.</p>
+                        <button type="submit" class="sk-btn sk-gold sk-cta-full">Recevoir le guide gratuit (PDF)</button>
+                      </form>
+                    </div>
+
+                    <!-- RESULT SCREEN -->
+                    <div class="sk-screen" id="sk-screen-result">
+                      <div class="sk-result-icon" id="sk-resultIcon">—</div>
+                      <h2 class="sk-result-title" id="sk-resultTitle"></h2>
+                      <p class="sk-result-desc" id="sk-resultDesc"></p>
+                      <div class="sk-result-steps">
+                        <div class="sk-label">Sa routine en 3 gestes</div>
+                        <div id="sk-resultSteps"></div>
+                      </div>
+                      <p class="sk-sent-note" id="sk-sentNote"></p>
+                    </div>
+
+                  </div>
+                </div>
+                </div>
+            </section>
+
+            <footer class="bg-very-light-gray">
+                <div class="container position-relative">
+                    <div class="footer-bottom pt-6">
+                        <div class="row justify-content-center">
+                            <div class="col-12 text-center mb-15px">
+                                <span class="fs-11 text-uppercase fw-600 d-inline-block px-15px py-5px border-radius-20px" style="letter-spacing:1.5px;color:#7A5268;border:1px solid #7A5268;">Neybras Média Group</span>
+                            </div>
+                            <div class="col-12 last-paragraph-no-margin text-center mb-30px">
+                                <p class="fs-15 text-dark-gray">&copy; 2026 Neybras Publishing SARLAU — Tous droits réservés.</p>
+                                <a href="mentions-legales" class="fs-14 text-dark-gray text-decoration-line-bottom">Mentions légales</a>
+                            </div>
+                            <div class="col-12 text-center">
+                                <div class="elements-social social-icon-style-02">
+                                    <ul class="large-icon dark">
+                                        <li><a class="facebook" href="https://web.facebook.com/profile.php?id=61580744324089" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                        <li><a class="instagram" href="https://instagram.com/neybrasfamily" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a></li>
+                                        <li><a class="linkedin" href="https://linkedin.com/company/neybrasfamily/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <div class="scroll-progress d-none d-xxl-block">
+            <a href="#" class="scroll-top" aria-label="scroll"><span class="scroll-text">Scroll</span><span class="scroll-line"><span class="scroll-point"></span></span></a>
+        </div>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/vendors.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script>
+        (function(){
+          // ============================================================
+          // QUESTIONS — à modifier librement ici. Chaque option a une "key"
+          // qui correspond à l'un des 3 profils définis plus bas (min / imp / sol).
+          // ============================================================
+          const questions = [
+            {
+              text: "Quel âge a ton ado ?",
+              options: [
+                { label: "Moins de 12 ans", key: "min" },
+                { label: "12 à 15 ans", key: "imp" },
+                { label: "16 ans et plus", key: "sol" }
+              ]
+            },
+            {
+              text: "Comment décrirais-tu sa peau ?",
+              options: [
+                { label: "Normale, sans souci particulier", key: "min" },
+                { label: "Grasse ou sujette aux petits boutons", key: "imp" },
+                { label: "Sensible, elle rougit ou tire facilement au soleil", key: "sol" }
+              ]
+            },
+            {
+              text: "Sa préoccupation principale en ce moment ?",
+              options: [
+                { label: "Aucune en particulier, juste envie de bien faire", key: "min" },
+                { label: "Des boutons ou points noirs qui reviennent souvent", key: "imp" },
+                { label: "Coups de soleil ou peau qui tiraille après la plage/piscine", key: "sol" }
+              ]
+            },
+            {
+              text: "Ses habitudes actuelles côté soin de la peau ?",
+              options: [
+                { label: "Il/elle ne fait quasiment rien pour l'instant", key: "min" },
+                { label: "Il/elle a déjà essayé plusieurs produits sans grand résultat", key: "imp" },
+                { label: "Il/elle passe beaucoup de temps dehors (sport, plage, trajets)", key: "sol" }
+              ]
+            },
+            {
+              text: "Toi, en tant que parent, tu préfères…",
+              options: [
+                { label: "Commencer doucement, avec 2-3 gestes simples", key: "min" },
+                { label: "L'accompagner vers une routine un peu plus poussée", key: "imp" },
+                { label: "Prioriser sa protection contre le soleil", key: "sol" }
+              ]
+            },
+            {
+              text: "Ton objectif principal pour lui/elle ?",
+              options: [
+                { label: "Installer de bonnes habitudes, sans plus", key: "min" },
+                { label: "L'aider à retrouver confiance en sa peau", key: "imp" },
+                { label: "Éviter les dégâts du soleil sur le long terme", key: "sol" }
+              ]
+            }
+          ];
+
+          // ============================================================
+          // PROFILS DE RÉSULTAT — 3 routines possibles, chacune en 3 gestes.
+          // ============================================================
+          const profiles = {
+            min: {
+              icon: "①",
+              title: "Routine Minimaliste",
+              desc: "Pas besoin de sur-médicaliser : sa peau va bien. Quelques gestes simples suffisent pour installer de bonnes habitudes, sans pression.",
+              steps: [
+                "Nettoyant doux, matin et soir (sans savon agressif)",
+                "Crème hydratante légère",
+                "Protection solaire SPF30 les jours d'exposition"
+              ]
+            },
+            imp: {
+              icon: "②",
+              title: "Routine Douce Anti-Imperfections",
+              desc: "Les petits boutons font partie de l'adolescence — pas de panique. Une routine douce et régulière aide sa peau sans l'agresser ni la sur-traiter.",
+              steps: [
+                "Nettoyant purifiant, sans agresser la peau",
+                "Soin ciblé léger sur les zones à imperfections",
+                "Hydratant non comédogène + protection solaire le jour"
+              ]
+            },
+            sol: {
+              icon: "③",
+              title: "Routine Protection Solaire Prioritaire",
+              desc: "Vu son mode de vie ou sa sensibilité, l'enjeu principal est de bien la protéger du soleil, dès maintenant et sur la durée.",
+              steps: [
+                "Nettoyant doux au quotidien",
+                "Hydratant apaisant",
+                "Crème solaire SPF50, à renouveler toutes les 2h en exposition"
+              ]
+            }
+          };
+
+          // Un endpoint Formspree distinct par profil = une autoréponse (email PDF)
+          // personnalisée par profil. Remplace chaque valeur par l'ID réel du
+          // formulaire Formspree correspondant (créés dans le même projet Formspree
+          // que le quiz orientation post-bac).
+          const formIds = {
+            min: "YOUR_FORM_ID_MIN",
+            imp: "YOUR_FORM_ID_IMP",
+            sol: "YOUR_FORM_ID_SOL"
+          };
+
+          const scores = { min: 0, imp: 0, sol: 0 };
+          const answers = new Array(questions.length).fill(null);
+          let current = 0;
+          let winningProfile = null;
+
+          const progressFill = document.getElementById('sk-progressFill');
+          const progressLabel = document.getElementById('sk-progressLabel');
+          const qnumEl = document.getElementById('sk-qnum');
+          const qtextEl = document.getElementById('sk-qtext');
+          const optionsEl = document.getElementById('sk-options');
+          const backBtn = document.getElementById('sk-backBtn');
+          const nextBtn = document.getElementById('sk-nextBtn');
+
+          function updateProgress(){
+            const pct = Math.round(((current) / questions.length) * 100);
+            progressFill.style.width = pct + '%';
+            progressLabel.textContent = `Question ${current + 1} / ${questions.length}`;
+          }
+
+          function renderQuestion(){
+            const q = questions[current];
+            qnumEl.textContent = `Question ${current + 1}`;
+            qtextEl.textContent = q.text;
+            optionsEl.innerHTML = '';
+            q.options.forEach((opt, idx) => {
+              const wrap = document.createElement('div');
+              wrap.className = 'sk-opt';
+              const id = `sk-q${current}_o${idx}`;
+              wrap.innerHTML = `
+                <input type="radio" name="sk-q${current}" id="${id}" value="${opt.key}">
+                <label for="${id}">${opt.label}</label>
+              `;
+              optionsEl.appendChild(wrap);
+            });
+            if (answers[current]){
+              const input = optionsEl.querySelector(`input[value="${answers[current]}"]`);
+              if (input) input.checked = true;
+              nextBtn.disabled = false;
+            } else {
+              nextBtn.disabled = true;
+            }
+            backBtn.disabled = current === 0;
+            nextBtn.textContent = current === questions.length - 1 ? 'Voir sa routine' : 'Suivant';
+            updateProgress();
+          }
+
+          document.getElementById('sk-quizForm').addEventListener('change', (e) => {
+            if (e.target.name === `sk-q${current}`){
+              answers[current] = e.target.value;
+              nextBtn.disabled = false;
+            }
+          });
+
+          nextBtn.addEventListener('click', () => {
+            if (!answers[current]) return;
+            if (current < questions.length - 1){
+              current++;
+              renderQuestion();
+            } else {
+              progressFill.style.width = '100%';
+              progressLabel.textContent = `Question ${questions.length} / ${questions.length}`;
+              computeResult();
+              showScreen('sk-screen-gate');
+            }
+          });
+
+          backBtn.addEventListener('click', () => {
+            if (current > 0){
+              current--;
+              renderQuestion();
+            }
+          });
+
+          function computeResult(){
+            Object.keys(scores).forEach(k => scores[k] = 0);
+            answers.forEach(a => { if (a) scores[a]++; });
+            winningProfile = Object.keys(scores).reduce((a, b) => scores[a] >= scores[b] ? a : b);
+            document.getElementById('sk-profileField').value = profiles[winningProfile].title;
+          }
+
+          function showScreen(id){
+            document.querySelectorAll('#nf-skinquiz .sk-screen').forEach(s => s.classList.remove('sk-active'));
+            document.getElementById(id).classList.add('sk-active');
+          }
+
+          function renderResult(email){
+            const p = profiles[winningProfile];
+            document.getElementById('sk-resultIcon').textContent = p.icon;
+            document.getElementById('sk-resultTitle').textContent = p.title;
+            document.getElementById('sk-resultDesc').textContent = p.desc;
+            const stepsEl = document.getElementById('sk-resultSteps');
+            stepsEl.innerHTML = '';
+            p.steps.forEach((step, i) => {
+              const row = document.createElement('div');
+              row.className = 'sk-step';
+              row.innerHTML = `<span class="sk-step-num">${i + 1}</span><span>${step}</span>`;
+              stepsEl.appendChild(row);
+            });
+            document.getElementById('sk-sentNote').textContent = email
+              ? `Le guide complet vient aussi d'être envoyé à ${email}.`
+              : '';
+          }
+
+          document.getElementById('sk-gateForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            const envelope = document.getElementById('sk-envelope');
+            const email = document.getElementById('sk-email').value;
+            envelope.classList.add('sk-opened');
+            setTimeout(() => {
+              renderResult(email);
+              showScreen('sk-screen-result');
+            }, 850);
+
+            // Chaque profil a son propre formulaire Formspree, donc sa propre
+            // autoréponse personnalisée (guide PDF adapté au profil obtenu).
+            const endpoint = `https://formspree.io/f/${formIds[winningProfile]}`;
+            fetch(endpoint, {
+              method: 'POST',
+              body: new FormData(this),
+              headers: { 'Accept': 'application/json' }
+            }).catch(() => { /* le quiz continue même si l'envoi réseau échoue en aperçu */ });
+          });
+
+          renderQuestion();
+        })();
+        </script>
+    </body>
+</html>

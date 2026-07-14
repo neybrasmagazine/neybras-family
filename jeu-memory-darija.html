@@ -1,0 +1,582 @@
+<!doctype html>
+<html class="no-js" lang="fr">
+    <head>
+        <title>Memory Darija : Jeu de Mémoire Gratuit pour Apprendre le Darija en Famille | Neybras Family</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="author" content="Neybras Family">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <meta name="description" content="Un jeu de mémoire gratuit pour retrouver les paires de mots darija en famille : fruits, objets du quotidien, émotions, membres de la famille. À jouer à deux, parents et enfants, directement dans le navigateur.">
+        <link rel="canonical" href="https://neybras-family.com/jeu-memory-darija">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+        <link rel="manifest" href="site.webmanifest">
+
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://neybras-family.com/jeu-memory-darija">
+        <meta property="og:site_name" content="Neybras Family">
+        <meta property="og:locale" content="fr_FR">
+        <meta property="og:title" content="Memory Darija : Jeu de Mémoire Gratuit pour Apprendre le Darija en Famille">
+        <meta property="og:description" content="Retrouve les paires de mots darija en famille : fruits, objets du quotidien, émotions, membres de la famille. Gratuit, sans inscription.">
+        <meta property="og:image" content="https://neybras-family.com/images/favicon.png">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+        <link rel="stylesheet" href="css/vendors.min.css"/>
+        <link rel="stylesheet" href="css/icon.min.css"/>
+        <link rel="stylesheet" href="css/style.min.css"/>
+        <link rel="stylesheet" href="css/responsive.min.css"/>
+        <link rel="stylesheet" href="demos/magazine/magazine.css" />
+        <link rel="stylesheet" href="css/ghost-content.css" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        </script>
+
+        <style>
+          /* Memory Darija — entièrement scopé sous #nf-memory pour ne jamais
+             se mélanger avec le Bootstrap/Crafto du site (le thème définit déjà
+             .card, .stat, .actions, etc. comme classes de composants globales).
+             Toutes les classes du jeu commencent par "mem-". Ne jamais styler
+             body/*  directement ici : ça déborderait sur le reste de la page
+             une fois ce bloc collé dans une page Crefto existante. */
+          #nf-memory{
+            --mauve: #7A5268;
+            --mauve-dark: #5E3E50;
+            --mauve-light: #A87D93;
+            --gris: #D9D9D9;
+            --gris-clair: #F4F1F3;
+            --creme: #FBF9FA;
+            --encre: #2E2430;
+            --or-doux: #C9A26B;
+          }
+
+          #nf-memory, #nf-memory *{ box-sizing: border-box; }
+
+          #nf-memory{
+            font-family: 'Georgia', 'Iowan Old Style', serif;
+            background: linear-gradient(180deg, var(--creme) 0%, var(--gris-clair) 100%);
+            color: var(--encre);
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding: 40px 16px 56px;
+          }
+
+          #nf-memory .mem-wrap{ width:100%; max-width: 640px; }
+
+          #nf-memory .mem-header{ text-align:center; margin-bottom: 24px; }
+
+          #nf-memory .mem-eyebrow{
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--mauve);
+            font-weight: 600;
+            margin-bottom: 8px;
+          }
+
+          #nf-memory h1.mem-title{
+            font-size: 30px;
+            margin: 0 0 8px;
+            color: var(--mauve-dark);
+            font-weight: 400;
+            line-height: 1.2;
+          }
+
+          #nf-memory .mem-sub{
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14.5px;
+            color: #6b5c66;
+            max-width: 420px;
+            margin: 0 auto;
+            line-height: 1.5;
+          }
+
+          #nf-memory .mem-stats{
+            display:flex;
+            justify-content:center;
+            gap: 28px;
+            margin: 22px 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+          }
+          #nf-memory .mem-stat{ text-align:center; }
+          #nf-memory .mem-stat-value{
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--mauve-dark);
+            display:block;
+          }
+          #nf-memory .mem-stat-label{
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #9b8a94;
+          }
+
+          #nf-memory .mem-board{
+            display:grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 8px;
+          }
+
+          #nf-memory .mem-card{
+            aspect-ratio: 3 / 4;
+            perspective: 800px;
+            cursor:pointer;
+          }
+          #nf-memory .mem-card-inner{
+            position:relative;
+            width:100%;
+            height:100%;
+            transition: transform .5s cubic-bezier(.4,.2,.2,1);
+            transform-style: preserve-3d;
+          }
+          #nf-memory .mem-card.mem-flipped .mem-card-inner,
+          #nf-memory .mem-card.mem-matched .mem-card-inner{
+            transform: rotateY(180deg);
+          }
+
+          #nf-memory .mem-card-face{
+            position:absolute;
+            width:100%;
+            height:100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            box-shadow: 0 2px 6px rgba(94,62,80,0.15);
+          }
+
+          #nf-memory .mem-card-back{
+            background: linear-gradient(135deg, var(--mauve) 0%, var(--mauve-dark) 100%);
+            position:relative;
+            overflow:hidden;
+          }
+          #nf-memory .mem-card-back::before{
+            content:'';
+            position:absolute;
+            width:140%; height:140%;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1.5px, transparent 1.5px);
+            background-size: 16px 16px;
+            top:-20%; left:-20%;
+          }
+          #nf-memory .mem-card-back::after{
+            content: '✦';
+            color: rgba(255,255,255,0.55);
+            font-size: 22px;
+          }
+
+          #nf-memory .mem-card-front{
+            background: #fff;
+            border: 1.5px solid var(--gris);
+            transform: rotateY(180deg);
+            flex-direction: column;
+            padding: 6px;
+            text-align:center;
+          }
+
+          #nf-memory .mem-card.mem-matched .mem-card-front{
+            border-color: var(--or-doux);
+            background: #FFFBF3;
+          }
+
+          #nf-memory .mem-card-emoji{
+            font-size: clamp(22px, 6vw, 32px);
+            line-height:1;
+            margin-bottom: 4px;
+          }
+          #nf-memory .mem-card-word{
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 700;
+            font-size: clamp(10px, 2.6vw, 13px);
+            color: var(--mauve-dark);
+            line-height: 1.15;
+          }
+
+          #nf-memory .mem-actions{
+            display:flex;
+            justify-content:center;
+            margin-top: 26px;
+          }
+
+          #nf-memory .mem-btn-replay{
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: var(--mauve);
+            color:#fff;
+            border:none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor:pointer;
+            transition: background .2s;
+          }
+          #nf-memory .mem-btn-replay:hover{ background: var(--mauve-dark); }
+
+          #nf-memory .mem-win-overlay{
+            position: fixed;
+            inset:0;
+            background: rgba(46,36,48,0.55);
+            display:none;
+            align-items:center;
+            justify-content:center;
+            padding: 20px;
+            z-index: 2000;
+          }
+          #nf-memory .mem-win-overlay.mem-show{ display:flex; }
+
+          #nf-memory .mem-win-card{
+            background: var(--creme);
+            border-radius: 18px;
+            padding: 36px 28px;
+            text-align:center;
+            max-width: 360px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+          }
+          #nf-memory .mem-win-card .mem-eyebrow{ display:flex; justify-content:center; }
+          #nf-memory .mem-win-card h2{
+            font-size: 24px;
+            color: var(--mauve-dark);
+            margin: 6px 0 10px;
+            font-weight: 400;
+          }
+          #nf-memory .mem-win-card p{
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
+            color: #6b5c66;
+            line-height: 1.5;
+            margin: 0 0 22px;
+          }
+
+          @media (max-width: 400px){
+            #nf-memory .mem-board{ gap: 8px; }
+            #nf-memory .mem-stats{ gap: 18px; }
+          }
+
+          @media (prefers-reduced-motion: reduce){
+            #nf-memory .mem-card-inner{ transition:none; }
+          }
+        </style>
+    </head>
+    <body data-mobile-nav-style="classic">
+        <div class="box-layout">
+
+            <header>
+                <nav class="navbar navbar-expand-lg bg-white header-light disable-fixed">
+                    <div class="container-fluid">
+                        <div class="col-auto col-xxl-3 col-lg-2 me-lg-0 me-auto">
+                            <div class="header-icon">
+                                <div class="header-push-button icon">
+                                    <div class="push-button"><span></span><span></span><span></span><span></span></div>
+                                </div>
+                            </div>
+                            <a class="navbar-brand d-flex align-items-center" href="/">
+                                <img src="images/favicon.png" alt="Neybras Family" width="40" height="40" style="border-radius:6px;">
+                                <span class="d-inline-block ms-15px lh-14">
+                                    <span class="d-block ls-1px" style="font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:#7A5268;">Neybras Family</span>
+                                    <span class="d-block fs-11 text-uppercase opacity-6" style="letter-spacing:2px;">Magazine</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="col-auto menu-order position-static">
+                            <button class="navbar-toggler float-start" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
+                                    <li class="nav-item"><a href="categorie-finance" class="nav-link">Finance</a></li>
+<li class="nav-item"><a href="categorie-education" class="nav-link">Éducation</a></li>
+<li class="nav-item"><a href="categorie-droit" class="nav-link">Droit</a></li>
+<li class="nav-item"><a href="categorie-sante-bien-etre" class="nav-link">Santé & Bien-être</a></li>
+<li class="nav-item"><a href="categorie-lifestyle-famille" class="nav-link">Lifestyle & Famille</a></li>
+<li class="nav-item"><a href="categorie-voyage-decouverte" class="nav-link">Voyage & Découverte</a></li>
+<li class="nav-item"><a href="categorie-tech" class="nav-link">Tech</a></li>
+                                    <li class="nav-item"><a href="a-propos" class="nav-link">À propos</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-auto col-xxl-3 col-xl-2 text-end md-pe-0">
+                            <div class="header-icon">
+                                <div class="header-search-icon icon d-none d-md-flex">
+                                    <a href="#" class="search-form-icon header-search-form fw-800 text-uppercase"><i class="feather icon-feather-search text-dark-gray align-middle me-5px xl-me-0"></i><span class="fs-15 align-middle d-none d-xxl-inline-block">Rechercher</span></a>
+                                    <div class="search-form-wrapper">
+                                        <button title="Fermer" type="button" class="search-close">×</button>
+                                        <form id="search-form" role="search" method="get" class="search-form text-left" onsubmit="return false;">
+                                            <div class="search-form-box">
+                                                <h2 class="text-dark-gray text-center mb-4 fw-700 ls-minus-2px">Que recherchez-vous ?</h2>
+                                                <input class="search-input border-color-dark-gray" placeholder="Entrez un mot-clé..." name="s" type="text" autocomplete="off">
+                                                <button type="submit" class="search-button"><i class="feather icon-feather-search" aria-hidden="true"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <div class="push-menu push-menu-style-2 ps-50px pe-50px pt-4 pb-4 bg-white">
+                    <span class="close-menu text-dark-gray text-dark-gray-hover"><i class="fa-solid fa-xmark fs-20"></i></span>
+                    <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                        <div class="hamburger-menu menu-list-wrapper w-90 lg-w-100 lg-no-margin" data-scroll-options='{ "theme": "light" }'>
+                            <ul class="text-dark-gray menu-item-list alt-font fw-700 ls-minus-1px">
+                                <li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
+                                <li class="nav-item"><a href="categorie-finance" class="nav-link">Finance</a></li>
+<li class="nav-item"><a href="categorie-education" class="nav-link">Éducation</a></li>
+<li class="nav-item"><a href="categorie-droit" class="nav-link">Droit</a></li>
+<li class="nav-item"><a href="categorie-sante-bien-etre" class="nav-link">Santé & Bien-être</a></li>
+<li class="nav-item"><a href="categorie-lifestyle-famille" class="nav-link">Lifestyle & Famille</a></li>
+<li class="nav-item"><a href="categorie-voyage-decouverte" class="nav-link">Voyage & Découverte</a></li>
+<li class="nav-item"><a href="categorie-tech" class="nav-link">Tech</a></li>
+                                <li class="nav-item"><a href="a-propos" class="nav-link">À propos</a></li>
+                            </ul>
+                        </div>
+                        <div class="text-center elements-social social-icon-style-04">
+                            <ul class="medium-icon dark">
+                                <li class="mx-0"><a class="facebook" href="https://web.facebook.com/profile.php?id=61580744324089" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i><span></span></a></li>
+                                <li class="mx-0"><a class="instagram" href="https://instagram.com/neybrasfamily" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i><span></span></a></li>
+                                <li class="mx-0"><a class="linkedin" href="https://linkedin.com/company/neybrasfamily/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i><span></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="top-space-margin pt-0">
+                <div id="nf-memory">
+                <div class="mem-wrap">
+
+                  <div class="mem-header">
+                    <div class="mem-eyebrow">Neybras Family · Darija du quotidien</div>
+                    <h1 class="mem-title">Memory Darija</h1>
+                    <p class="mem-sub">Retrouve les paires et retiens un mot darija par carte retournée. Un jeu à faire à deux, parent et enfant.</p>
+                  </div>
+
+                  <div class="mem-stats">
+                    <div class="mem-stat">
+                      <span class="mem-stat-value" id="mem-moves">0</span>
+                      <span class="mem-stat-label">Coups</span>
+                    </div>
+                    <div class="mem-stat">
+                      <span class="mem-stat-value" id="mem-timer">00:00</span>
+                      <span class="mem-stat-label">Temps</span>
+                    </div>
+                    <div class="mem-stat">
+                      <span class="mem-stat-value" id="mem-found">0/8</span>
+                      <span class="mem-stat-label">Paires</span>
+                    </div>
+                  </div>
+
+                  <div class="mem-board" id="mem-board"></div>
+
+                  <div class="mem-actions">
+                    <button type="button" class="mem-btn-replay" id="mem-replayBtn">Rejouer</button>
+                  </div>
+
+                </div>
+                </div>
+
+                <div class="mem-win-overlay" id="mem-winOverlay">
+                  <div class="mem-win-card">
+                    <div class="mem-eyebrow">Bravo</div>
+                    <h2 id="mem-winTitle">Tu as retenu 8 mots darija !</h2>
+                    <p id="mem-winText">En <span id="mem-winMoves">0</span> coups et <span id="mem-winTime">0:00</span>. Reviens demain pour 8 nouveaux mots.</p>
+                    <button type="button" class="mem-btn-replay" id="mem-winReplayBtn">Rejouer</button>
+                  </div>
+                </div>
+            </section>
+
+            <footer class="bg-very-light-gray">
+                <div class="container position-relative">
+                    <div class="footer-bottom pt-6">
+                        <div class="row justify-content-center">
+                            <div class="col-12 text-center mb-15px">
+                                <span class="fs-11 text-uppercase fw-600 d-inline-block px-15px py-5px border-radius-20px" style="letter-spacing:1.5px;color:#7A5268;border:1px solid #7A5268;">Neybras Média Group</span>
+                            </div>
+                            <div class="col-12 last-paragraph-no-margin text-center mb-30px">
+                                <p class="fs-15 text-dark-gray">&copy; 2026 Neybras Publishing SARLAU — Tous droits réservés.</p>
+                                <a href="mentions-legales" class="fs-14 text-dark-gray text-decoration-line-bottom">Mentions légales</a>
+                            </div>
+                            <div class="col-12 text-center">
+                                <div class="elements-social social-icon-style-02">
+                                    <ul class="large-icon dark">
+                                        <li><a class="facebook" href="https://web.facebook.com/profile.php?id=61580744324089" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                        <li><a class="instagram" href="https://instagram.com/neybrasfamily" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a></li>
+                                        <li><a class="linkedin" href="https://linkedin.com/company/neybrasfamily/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <div class="scroll-progress d-none d-xxl-block">
+            <a href="#" class="scroll-top" aria-label="scroll"><span class="scroll-text">Scroll</span><span class="scroll-line"><span class="scroll-point"></span></span></a>
+        </div>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/vendors.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script>
+        (function(){
+
+          /* ============================================================
+             LISTE DES MOTS DARIJA — à modifier librement ici.
+             Chaque paire = { word: "mot en darija (transcription)", emoji: "emoji représentatif" }
+             Le jeu prend automatiquement les PAIRS_COUNT premières paires de
+             cette liste. Pour renouveler le jeu chaque semaine, il suffit de
+             changer l'ordre ou le contenu des mots ci-dessous.
+          ============================================================ */
+          const DARIJA_WORDS = [
+            { word: "Khoya",     emoji: "👦" },  // frère
+            { word: "Khti",      emoji: "👧" },  // soeur
+            { word: "Ma",        emoji: "💧" },  // eau
+            { word: "Khoubz",    emoji: "🍞" },  // pain
+            { word: "Tomobil",   emoji: "🚗" },  // voiture
+            { word: "Dar",       emoji: "🏠" },  // maison
+            { word: "Chemch",    emoji: "☀️" },  // soleil
+            { word: "Qett",      emoji: "🐱" },  // chat
+            { word: "Tffaha",    emoji: "🍎" },  // pomme
+            { word: "Qmar",      emoji: "🌙" },  // lune
+          ];
+
+          const PAIRS_COUNT = 8;
+          let flipped = [];
+          let matchedCount = 0;
+          let moves = 0;
+          let timerInterval = null;
+          let seconds = 0;
+          let lockBoard = false;
+
+          const boardEl = document.getElementById('mem-board');
+          const movesEl = document.getElementById('mem-moves');
+          const timerEl = document.getElementById('mem-timer');
+          const foundEl = document.getElementById('mem-found');
+          const winOverlay = document.getElementById('mem-winOverlay');
+
+          function formatTime(s){
+            const m = Math.floor(s / 60).toString().padStart(2, '0');
+            const sec = (s % 60).toString().padStart(2, '0');
+            return `${m}:${sec}`;
+          }
+
+          function startTimer(){
+            clearInterval(timerInterval);
+            seconds = 0;
+            timerEl.textContent = '00:00';
+            timerInterval = setInterval(() => {
+              seconds++;
+              timerEl.textContent = formatTime(seconds);
+            }, 1000);
+          }
+
+          function shuffle(arr){
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--){
+              const j = Math.floor(Math.random() * (i + 1));
+              [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+          }
+
+          function buildBoard(){
+            boardEl.innerHTML = '';
+            matchedCount = 0;
+            moves = 0;
+            flipped = [];
+            lockBoard = false;
+            movesEl.textContent = '0';
+            foundEl.textContent = `0/${PAIRS_COUNT}`;
+            winOverlay.classList.remove('mem-show');
+
+            const selected = DARIJA_WORDS.slice(0, PAIRS_COUNT);
+            let deck = [...selected, ...selected].map((item, i) => ({ ...item, uid: i }));
+            deck = shuffle(deck);
+
+            deck.forEach((item) => {
+              const card = document.createElement('div');
+              card.className = 'mem-card';
+              card.dataset.word = item.word;
+              card.innerHTML = `
+                <div class="mem-card-inner">
+                  <div class="mem-card-face mem-card-back"></div>
+                  <div class="mem-card-face mem-card-front">
+                    <div class="mem-card-emoji">${item.emoji}</div>
+                    <div class="mem-card-word">${item.word}</div>
+                  </div>
+                </div>
+              `;
+              card.addEventListener('click', () => onCardClick(card));
+              boardEl.appendChild(card);
+            });
+
+            startTimer();
+          }
+
+          function onCardClick(card){
+            if (lockBoard) return;
+            if (card.classList.contains('mem-flipped') || card.classList.contains('mem-matched')) return;
+            if (flipped.length === 2) return;
+
+            card.classList.add('mem-flipped');
+            flipped.push(card);
+
+            if (flipped.length === 2){
+              moves++;
+              movesEl.textContent = moves;
+              lockBoard = true;
+              checkMatch();
+            }
+          }
+
+          function checkMatch(){
+            const [c1, c2] = flipped;
+            const isMatch = c1.dataset.word === c2.dataset.word;
+
+            if (isMatch){
+              setTimeout(() => {
+                c1.classList.add('mem-matched');
+                c2.classList.add('mem-matched');
+                flipped = [];
+                lockBoard = false;
+                matchedCount++;
+                foundEl.textContent = `${matchedCount}/${PAIRS_COUNT}`;
+                if (matchedCount === PAIRS_COUNT){
+                  endGame();
+                }
+              }, 500);
+            } else {
+              setTimeout(() => {
+                c1.classList.remove('mem-flipped');
+                c2.classList.remove('mem-flipped');
+                flipped = [];
+                lockBoard = false;
+              }, 900);
+            }
+          }
+
+          function endGame(){
+            clearInterval(timerInterval);
+            document.getElementById('mem-winMoves').textContent = moves;
+            document.getElementById('mem-winTime').textContent = formatTime(seconds);
+            setTimeout(() => winOverlay.classList.add('mem-show'), 400);
+          }
+
+          document.getElementById('mem-replayBtn').addEventListener('click', buildBoard);
+          document.getElementById('mem-winReplayBtn').addEventListener('click', buildBoard);
+
+          buildBoard();
+        })();
+        </script>
+    </body>
+</html>
