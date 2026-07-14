@@ -27,7 +27,21 @@
           gtag('js', new Date());
           gtag('config', 'G-XXXXXXXXXX');
         </script>
-        
+
+        <style>
+          .nf-promo-card{ display:flex; flex-direction:column; border-radius:14px; overflow:hidden; background:#fff; box-shadow:0 1px 2px rgba(46,36,48,.05), 0 10px 26px rgba(46,36,48,.08); transition:transform .18s ease, box-shadow .18s ease; }
+          .nf-promo-card:hover{ transform: translateY(-3px); box-shadow:0 4px 10px rgba(46,36,48,.08), 0 16px 34px rgba(46,36,48,.12); }
+          .nf-promo-visual{ position:relative; height:180px; background:linear-gradient(135deg,#7A5268 0%,#5E3E50 100%); display:flex; align-items:center; justify-content:center; }
+          .nf-promo-emoji{ font-size:56px; color:rgba(255,255,255,.9); }
+          .nf-promo-badge{ position:absolute; top:14px; left:14px; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:5px 12px; border-radius:20px; }
+          .nf-promo-badge-new{ background:#C9A26B; color:#fff; }
+          .nf-promo-badge-cat{ left:auto; right:14px; background:rgba(255,255,255,.92); color:#5E3E50; }
+          .nf-promo-body{ padding:22px 24px; flex:1; display:flex; flex-direction:column; }
+          .nf-promo-title{ font-family:'Fraunces',serif; font-weight:600; font-size:19px; color:#2E2430; margin-bottom:8px; line-height:1.3; }
+          .nf-promo-excerpt{ font-size:14px; color:#6b5c66; line-height:1.5; margin:0 0 14px; flex:1; }
+          .nf-promo-meta{ font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#7A5268; font-weight:600; }
+          @media (max-width:767px){ .nf-promo-visual{ height:140px; } .nf-promo-emoji{ font-size:44px; } }
+        </style>
     </head>
     <body data-mobile-nav-style="classic">
         <div class="box-layout">
@@ -166,6 +180,46 @@
                                 <span class="d-block alt-font fw-700 fs-22 sm-fs-18 ls-minus-1px">Résultats du bac en poche ? Découvre ta voie en 2 minutes.</span>
                             </div>
                             <a href="quiz-orientation-post-bac-2026" class="btn btn-white btn-rounded btn-small text-uppercase fw-700 flex-shrink-0 position-relative" style="z-index:1;">Faire le test →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pt-0">
+                <div class="container">
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-12 text-center">
+                            <h2 class="alt-font text-dark-gray fw-700 ls-minus-1px">À essayer en famille</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <a href="jeu-memory-darija" class="d-block nf-promo-card text-decoration-none h-100">
+                                <div class="nf-promo-visual">
+                                    <span class="nf-promo-badge nf-promo-badge-new">Nouveau</span>
+                                    <span class="nf-promo-badge nf-promo-badge-cat">Éducation</span>
+                                    <span class="nf-promo-emoji">✦</span>
+                                </div>
+                                <div class="nf-promo-body">
+                                    <div class="nf-promo-title">Memory Darija : le jeu pour retenir des mots en famille</div>
+                                    <p class="nf-promo-excerpt">8 paires à retrouver, un mot darija par carte retournée. Un jeu gratuit à faire à deux, parent et enfant.</p>
+                                    <span class="nf-promo-meta">Jeu gratuit · 5 min</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <a href="quiz-routine-skincare-ado" class="d-block nf-promo-card text-decoration-none h-100">
+                                <div class="nf-promo-visual">
+                                    <span class="nf-promo-badge nf-promo-badge-new">Nouveau</span>
+                                    <span class="nf-promo-badge nf-promo-badge-cat">Santé & Bien-être</span>
+                                    <span class="nf-promo-emoji">✧</span>
+                                </div>
+                                <div class="nf-promo-body">
+                                    <div class="nf-promo-title">Quelle routine skincare pour mon ado ?</div>
+                                    <p class="nf-promo-excerpt">6 questions pour découvrir la routine adaptée à son âge, et recevoir le guide complet gratuit par email.</p>
+                                    <span class="nf-promo-meta">Quiz gratuit · 2 min</span>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>

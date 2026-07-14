@@ -325,6 +325,62 @@ function paginationNav(basePath, pageNum, totalPages) {
             </section>`;
 }
 
+// ---- "À essayer en famille" promo block (homepage only) ----
+// Standalone interactive tools (games/quizzes) — not Ghost posts, so they're
+// curated here by hand. Add an entry to feature a new tool on the homepage.
+const TOOLS = [
+  {
+    href: 'jeu-memory-darija.html',
+    category: 'Éducation',
+    emoji: '✦',
+    title: 'Memory Darija : le jeu pour retenir des mots en famille',
+    excerpt: "8 paires à retrouver, un mot darija par carte retournée. Un jeu gratuit à faire à deux, parent et enfant.",
+    meta: 'Jeu gratuit · 5 min'
+  },
+  {
+    href: 'quiz-routine-skincare-ado.html',
+    category: 'Santé & Bien-être',
+    emoji: '✧',
+    title: 'Quelle routine skincare pour mon ado ?',
+    excerpt: "6 questions pour découvrir la routine adaptée à son âge, et recevoir le guide complet gratuit par email.",
+    meta: 'Quiz gratuit · 2 min'
+  }
+];
+
+function toolCard(tool) {
+  return `
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <a href="${tool.href}" class="d-block nf-promo-card text-decoration-none h-100">
+                                <div class="nf-promo-visual">
+                                    <span class="nf-promo-badge nf-promo-badge-new">Nouveau</span>
+                                    <span class="nf-promo-badge nf-promo-badge-cat">${tool.category}</span>
+                                    <span class="nf-promo-emoji">${tool.emoji}</span>
+                                </div>
+                                <div class="nf-promo-body">
+                                    <div class="nf-promo-title">${tool.title}</div>
+                                    <p class="nf-promo-excerpt">${tool.excerpt}</p>
+                                    <span class="nf-promo-meta">${tool.meta}</span>
+                                </div>
+                            </a>
+                        </div>`;
+}
+
+const TOOLS_STYLE = `
+        <style>
+          .nf-promo-card{ display:flex; flex-direction:column; border-radius:14px; overflow:hidden; background:#fff; box-shadow:0 1px 2px rgba(46,36,48,.05), 0 10px 26px rgba(46,36,48,.08); transition:transform .18s ease, box-shadow .18s ease; }
+          .nf-promo-card:hover{ transform: translateY(-3px); box-shadow:0 4px 10px rgba(46,36,48,.08), 0 16px 34px rgba(46,36,48,.12); }
+          .nf-promo-visual{ position:relative; height:180px; background:linear-gradient(135deg,#7A5268 0%,#5E3E50 100%); display:flex; align-items:center; justify-content:center; }
+          .nf-promo-emoji{ font-size:56px; color:rgba(255,255,255,.9); }
+          .nf-promo-badge{ position:absolute; top:14px; left:14px; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:5px 12px; border-radius:20px; }
+          .nf-promo-badge-new{ background:#C9A26B; color:#fff; }
+          .nf-promo-badge-cat{ left:auto; right:14px; background:rgba(255,255,255,.92); color:#5E3E50; }
+          .nf-promo-body{ padding:22px 24px; flex:1; display:flex; flex-direction:column; }
+          .nf-promo-title{ font-family:'Fraunces',serif; font-weight:600; font-size:19px; color:#2E2430; margin-bottom:8px; line-height:1.3; }
+          .nf-promo-excerpt{ font-size:14px; color:#6b5c66; line-height:1.5; margin:0 0 14px; flex:1; }
+          .nf-promo-meta{ font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#7A5268; font-weight:600; }
+          @media (max-width:767px){ .nf-promo-visual{ height:140px; } .nf-promo-emoji{ font-size:44px; } }
+        </style>`;
+
 // ---- Homepage ----
 function buildIndex(pageNum, totalPages, pageItems) {
   const featured = pageNum === 1 ? allPosts.slice(0, 3) : [];
@@ -360,6 +416,20 @@ ${secondary.map(p => heroTile(p, false)).join('\n')}
                             <a href="categorie-${t.slug}.html" class="btn btn-transparent-dark-gray border-2 btn-rounded btn-small text-uppercase fw-700 w-100">${t.name}</a>
                         </div>`).join('\n');
 
+  const toolsSection = pageNum === 1 ? `
+            <section class="pt-0">
+                <div class="container">
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-12 text-center">
+                            <h2 class="alt-font text-dark-gray fw-700 ls-minus-1px">À essayer en famille</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+${TOOLS.map(toolCard).join('\n')}
+                    </div>
+                </div>
+            </section>` : '';
+
   const heroSection = pageNum === 1 ? `
             <section class="p-0 top-space-margin overflow-hidden pb-25px">
                 <div class="container-fluid p-0">
@@ -368,6 +438,7 @@ ${heroMarkup}
                     </div>
                 </div>
             </section>
+${toolsSection}
             <section class="pt-0">
                 <div class="container">
                     <div class="row justify-content-center mb-4">
@@ -383,7 +454,7 @@ ${categoryLinks}
 
   const canonicalPath = pageNum === 1 ? '' : `page-${pageNum}`;
 
-  return `${head(pageNum === 1 ? SITE.title : `Derniers articles — page ${pageNum} — ${SITE.title}`, SITE.description, false, canonicalPath)}
+  return `${head(pageNum === 1 ? SITE.title : `Derniers articles — page ${pageNum} — ${SITE.title}`, SITE.description, false, canonicalPath, pageNum === 1 ? TOOLS_STYLE : '')}
 ${header(false)}
             <h1 class="visually-hidden">Neybras Family — Magazine famille, éducation et vie quotidienne au Maroc</h1>
 ${heroSection}
