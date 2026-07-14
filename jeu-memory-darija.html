@@ -129,37 +129,36 @@
 
           #nf-memory .mem-card{
             aspect-ratio: 3 / 4;
-            perspective: 800px;
             cursor:pointer;
           }
           #nf-memory .mem-card-inner{
             position:relative;
             width:100%;
             height:100%;
-            transition: transform .5s cubic-bezier(.4,.2,.2,1);
-            transform-style: preserve-3d;
-          }
-          #nf-memory .mem-card.mem-flipped .mem-card-inner,
-          #nf-memory .mem-card.mem-matched .mem-card-inner{
-            transform: rotateY(180deg);
           }
 
+          /* Fondu 2D (opacity/scale) plutôt qu'un flip 3D rotateY : le flip 3D
+             (transform 3D + backface-visibility) ne se rend pas de façon fiable
+             sur certaines cartes graphiques (notamment Intel intégré sous
+             Chromium/Edge), où le navigateur ignore silencieusement la
+             transformation — cartes qui restent visuellement "vides". Cette
+             version fonctionne partout, sans dépendre du rendu 3D du GPU. */
           #nf-memory .mem-card-face{
             position:absolute;
-            width:100%;
-            height:100%;
-            backface-visibility: hidden;
+            inset:0;
             border-radius: 12px;
             display:flex;
             align-items:center;
             justify-content:center;
             box-shadow: 0 2px 6px rgba(94,62,80,0.15);
+            transition: opacity .3s ease, transform .3s ease;
           }
 
           #nf-memory .mem-card-back{
             background: linear-gradient(135deg, var(--mauve) 0%, var(--mauve-dark) 100%);
-            position:relative;
             overflow:hidden;
+            opacity:1;
+            transform: scale(1);
           }
           #nf-memory .mem-card-back::before{
             content:'';
@@ -178,10 +177,22 @@
           #nf-memory .mem-card-front{
             background: #fff;
             border: 1.5px solid var(--gris);
-            transform: rotateY(180deg);
             flex-direction: column;
             padding: 6px;
             text-align:center;
+            opacity:0;
+            transform: scale(.92);
+          }
+
+          #nf-memory .mem-card.mem-flipped .mem-card-back,
+          #nf-memory .mem-card.mem-matched .mem-card-back{
+            opacity:0;
+            transform: scale(.92);
+          }
+          #nf-memory .mem-card.mem-flipped .mem-card-front,
+          #nf-memory .mem-card.mem-matched .mem-card-front{
+            opacity:1;
+            transform: scale(1);
           }
 
           #nf-memory .mem-card.mem-matched .mem-card-front{
@@ -264,7 +275,7 @@
           }
 
           @media (prefers-reduced-motion: reduce){
-            #nf-memory .mem-card-inner{ transition:none; }
+            #nf-memory .mem-card-face{ transition:none; }
           }
         </style>
     </head>
