@@ -332,7 +332,8 @@ const TOOLS = [
   {
     href: 'jeu-memory-darija.html',
     category: 'Éducation',
-    emoji: '✦',
+    image: 'images/jeu-memory-darija-cover.webp',
+    alt: 'Illustration du jeu Memory Darija',
     title: 'Memory Darija : le jeu pour retenir des mots en famille',
     excerpt: "8 paires à retrouver, un mot darija par carte retournée. Un jeu gratuit à faire à deux, parent et enfant.",
     meta: 'Jeu gratuit · 5 min'
@@ -340,7 +341,8 @@ const TOOLS = [
   {
     href: 'quiz-routine-skincare-ado.html',
     category: 'Santé & Bien-être',
-    emoji: '✧',
+    image: 'images/quiz-skincare-ado-cover.webp',
+    alt: 'Illustration du quiz routine skincare ado',
     title: 'Quelle routine skincare pour mon ado ?',
     excerpt: "6 questions pour découvrir la routine adaptée à son âge, et recevoir le guide complet gratuit par email.",
     meta: 'Quiz gratuit · 2 min'
@@ -352,9 +354,9 @@ function toolCard(tool) {
                         <div class="col-md-6 mb-3 mb-md-0">
                             <a href="${tool.href}" class="d-block nf-promo-card text-decoration-none h-100">
                                 <div class="nf-promo-visual">
+                                    <img src="${tool.image}" alt="${tool.alt}" loading="lazy">
                                     <span class="nf-promo-badge nf-promo-badge-new">Nouveau</span>
                                     <span class="nf-promo-badge nf-promo-badge-cat">${tool.category}</span>
-                                    <span class="nf-promo-emoji">${tool.emoji}</span>
                                 </div>
                                 <div class="nf-promo-body">
                                     <div class="nf-promo-title">${tool.title}</div>
@@ -369,16 +371,17 @@ const TOOLS_STYLE = `
         <style>
           .nf-promo-card{ display:flex; flex-direction:column; border-radius:14px; overflow:hidden; background:#fff; box-shadow:0 1px 2px rgba(46,36,48,.05), 0 10px 26px rgba(46,36,48,.08); transition:transform .18s ease, box-shadow .18s ease; }
           .nf-promo-card:hover{ transform: translateY(-3px); box-shadow:0 4px 10px rgba(46,36,48,.08), 0 16px 34px rgba(46,36,48,.12); }
-          .nf-promo-visual{ position:relative; height:180px; background:linear-gradient(135deg,#7A5268 0%,#5E3E50 100%); display:flex; align-items:center; justify-content:center; }
-          .nf-promo-emoji{ font-size:56px; color:rgba(255,255,255,.9); }
-          .nf-promo-badge{ position:absolute; top:14px; left:14px; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:5px 12px; border-radius:20px; }
+          .nf-promo-visual{ position:relative; height:180px; overflow:hidden; }
+          .nf-promo-visual img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+          .nf-promo-visual::after{ content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(46,36,48,0) 45%, rgba(46,36,48,.55) 100%); }
+          .nf-promo-badge{ position:absolute; top:14px; left:14px; z-index:2; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:5px 12px; border-radius:20px; }
           .nf-promo-badge-new{ background:#C9A26B; color:#fff; }
           .nf-promo-badge-cat{ left:auto; right:14px; background:rgba(255,255,255,.92); color:#5E3E50; }
           .nf-promo-body{ padding:22px 24px; flex:1; display:flex; flex-direction:column; }
           .nf-promo-title{ font-family:'Fraunces',serif; font-weight:600; font-size:19px; color:#2E2430; margin-bottom:8px; line-height:1.3; }
           .nf-promo-excerpt{ font-size:14px; color:#6b5c66; line-height:1.5; margin:0 0 14px; flex:1; }
           .nf-promo-meta{ font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#7A5268; font-weight:600; }
-          @media (max-width:767px){ .nf-promo-visual{ height:140px; } .nf-promo-emoji{ font-size:44px; } }
+          @media (max-width:767px){ .nf-promo-visual{ height:140px; } }
         </style>`;
 
 // ---- Homepage ----
