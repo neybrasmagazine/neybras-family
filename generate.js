@@ -333,6 +333,7 @@ const TOOLS = [
     href: 'jeu-memory-darija.html',
     category: 'Éducation',
     image: 'images/jeu-memory-darija-cover.webp',
+    imagePosition: '50% 15%', // garde la bulle darija entière visible + le visage de l'enfant
     alt: 'Illustration du jeu Memory Darija',
     title: 'Memory Darija : le jeu pour retenir des mots en famille',
     excerpt: "8 paires à retrouver, un mot darija par carte retournée. Un jeu gratuit à faire à deux, parent et enfant.",
@@ -342,6 +343,7 @@ const TOOLS = [
     href: 'quiz-routine-skincare-ado.html',
     category: 'Santé & Bien-être',
     image: 'images/quiz-skincare-ado-cover.webp',
+    imagePosition: '50% 0%', // garde le visage visible plutôt que la main/le menton
     alt: 'Illustration du quiz routine skincare ado',
     title: 'Quelle routine skincare pour mon ado ?',
     excerpt: "6 questions pour découvrir la routine adaptée à son âge, et recevoir le guide complet gratuit par email.",
@@ -354,7 +356,7 @@ function toolCard(tool) {
                         <div class="col-md-6 mb-3 mb-md-0">
                             <a href="${tool.href}" class="d-block nf-promo-card text-decoration-none h-100">
                                 <div class="nf-promo-visual">
-                                    <img src="${tool.image}" alt="${tool.alt}" loading="lazy">
+                                    <img src="${tool.image}" alt="${tool.alt}" loading="lazy" style="object-position:${tool.imagePosition};">
                                     <span class="nf-promo-badge nf-promo-badge-new">Nouveau</span>
                                     <span class="nf-promo-badge nf-promo-badge-cat">${tool.category}</span>
                                 </div>
