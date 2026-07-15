@@ -230,6 +230,21 @@ function footer(fromArticlesDir) {
         <script type="text/javascript" src="${prefix}js/jquery.js"></script>
         <script type="text/javascript" src="${prefix}js/vendors.min.js"></script>
         <script type="text/javascript" src="${prefix}js/main.js"></script>
+        <script>
+        (function(){
+          // Unique micro-interaction partagée (refonte premium) : fade-in discret au scroll
+          // pour les blocs .nf-fade-in (duo-photo À propos, grille destinations, avantages newsletter).
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          var targets = document.querySelectorAll('.nf-fade-in');
+          if (!targets.length || !('IntersectionObserver' in window)) return;
+          var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+              if (entry.isIntersecting) { entry.target.classList.add('nf-visible'); io.unobserve(entry.target); }
+            });
+          }, { threshold: 0.15 });
+          targets.forEach(function(el){ io.observe(el); });
+        })();
+        </script>
     </body>
 </html>`;
 }
@@ -455,6 +470,42 @@ ${toolsSection}
 ${categoryLinks}
                     </div>
                 </div>
+            </section>
+            <section class="bg-very-light-gray">
+                <div class="container">
+                    <div class="row justify-content-center mb-5 nf-fade-in">
+                        <div class="col-lg-7 text-center">
+                            <h2 class="alt-font text-dark-gray fw-700 ls-minus-1px mb-15px">Pourquoi s'abonner à la newsletter</h2>
+                            <p class="text-dark-gray">Un seul e-mail, chaque vendredi. Ce que vous y trouvez — rien de plus, rien de moins.</p>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <div class="nf-nl-benefits nf-fade-in">
+                                <div class="nf-nl-benefit">
+                                    <div class="nf-nl-icon"><i class="feather icon-feather-calendar"></i></div>
+                                    <h4>Un rythme, pas un flux</h4>
+                                    <p>Chaque vendredi, un seul e-mail — pas de notification permanente à gérer.</p>
+                                </div>
+                                <div class="nf-nl-benefit">
+                                    <div class="nf-nl-icon"><i class="feather icon-feather-check-circle"></i></div>
+                                    <h4>Sélectionné, pas généré</h4>
+                                    <p>Les articles sont choisis et écrits par la rédaction de Neybras Family, pas agrégés automatiquement.</p>
+                                </div>
+                                <div class="nf-nl-benefit">
+                                    <div class="nf-nl-icon"><i class="feather icon-feather-shield"></i></div>
+                                    <h4>Sans spam</h4>
+                                    <p>Désinscription en un clic, à tout moment. Votre adresse n'est ni revendue ni partagée.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mt-5">
+                        <div class="col-auto">
+                            <a href="#subscribe-popup" class="popup-with-zoom-anim btn btn-medium btn-rounded" style="background-color:${SITE.prune};color:#fff;">Je m'abonne</a>
+                        </div>
+                    </div>
+                </div>
             </section>` : '';
 
   const canonicalPath = pageNum === 1 ? '' : `page-${pageNum}`;
@@ -484,8 +535,37 @@ ${paginationNav('', pageNum, totalPages)}
 ${footer(false)}`;
 }
 
+// ---- Destination grid (catégorie Voyage & Découverte uniquement) ----
+// Pattern inspiré des grilles "prime destination" des thèmes voyage premium, recodé nativement
+// (aucun import Bootstrap supplémentaire) : photo réelle de l'article + titre en surimpression,
+// léger zoom au survol. Pas de prix, pas de disponibilité — uniquement le lieu et l'article associé.
+function destinationCard(post) {
+  const img = imagePath(post.feature_image, false) || 'https://placehold.co/600x800';
+  const tag = (postTagByPostId.get(post.id) || [])[0];
+  return `
+                        <a href="articles/${post.slug}.html" class="nf-destination-card nf-fade-in">
+                            <img src="${img}" alt="${post.title}" loading="lazy">
+                            <div class="nf-destination-label">
+                                ${tag ? `<span class="nf-dest-tag">${tag.name}</span>` : ''}
+                                <span class="nf-dest-title">${post.title}</span>
+                            </div>
+                        </a>`;
+}
+
+function destinationGrid(pageItems) {
+  return `
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="nf-destination-grid">
+${pageItems.map(destinationCard).join('\n')}
+                            </div>
+                        </div>
+                    </div>`;
+}
+
 // ---- Category (tag archive) pages ----
 function buildCategoryPage(tag, pageNum, totalPages, pageItems) {
+  const isVoyage = tag.slug === 'voyage-decouverte';
   const cards = pageItems.map(p => articleCard(p, false)).join('\n');
   const basePath = `categorie-${tag.slug}`;
   const canonicalPath = pageNum === 1 ? basePath : `${basePath}-${pageNum}`;
@@ -499,6 +579,8 @@ ${header(false)}
                             <h1 class="alt-font fw-700 text-dark-gray ls-minus-2px">${tag.name}</h1>
                         </div>
                     </div>
+                    ${isVoyage ? (pageItems.length ? destinationGrid(pageItems) : `
+                    <div class="row"><div class="col-12 text-center">Aucune destination pour le moment.</div></div>`) : `
                     <div class="row">
                         <div class="col-12 px-0">
                             <ul class="blog-side-image blog-wrapper grid grid-2col xs-grid-1col gutter-double-extra-large">
@@ -506,7 +588,7 @@ ${header(false)}
 ${cards || '<li class="text-center">Aucun article pour le moment.</li>'}
                             </ul>
                         </div>
-                    </div>
+                    </div>`}
                 </div>
             </section>
 ${paginationNav(basePath, pageNum, totalPages)}
@@ -601,9 +683,11 @@ ${relatedHtml}
 ${footer(true)}`;
 }
 
-// Companies displayed in the "Ils nous font confiance" logo carousel (partenaires page only)
+// Companies displayed in the "Ils nous font confiance" logo carousel (partenaires page only).
+// Château de Chenonceau removed 2026 — a Loire Valley château had no relevance to a Moroccan
+// CSP+ family audience; only real, coherent Neybras-family sister brands remain until genuine
+// external partners are confirmed.
 const PARTNERS = [
-  { name: 'Château de Chenonceau', logo: 'images/partners/chenonceau.png', url: 'https://www.chenonceau.com/' },
   { name: 'Neybras Magazine', logo: 'images/partners/neybras-magazine.png', url: 'https://neybras-magazine.com/' },
   { name: 'Neybras', logo: 'images/partners/neybras.png', url: 'https://neybras.com/' }
 ];
@@ -636,6 +720,35 @@ function stripPricingTable(html) {
 // no leftover editorial links from the old Ghost content.
 const A_PROPOS_CONTACT_HTML = `<h3>Nous contacter</h3><p>Vous êtes annonceur, partenaire, ou vous souhaitez simplement nous écrire ?</p><p>📧 <a href="mailto:marketing@neybras-magazine.com">marketing@neybras-magazine.com</a></p>`;
 
+// Real, verified numbers only — computed from allPosts/data.tags, never hand-typed,
+// so this can't silently drift into a fabricated stat as content grows.
+const A_PROPOS_STATS = { articles: allPosts.length, themes: data.tags.length };
+
+// Duo-photo + chiffre clé (pattern "About" recodé nativement, sans Bootstrap additionnel).
+// Photos en placeholder identifié tant que le shooting définitif n'est pas disponible.
+function aProposIntro() {
+  return `
+            <section class="pt-0">
+                <div class="container">
+                    <div class="nf-about-duo nf-fade-in">
+                        <div class="nf-about-photos">
+                            <div class="nf-about-photo nf-photo-back"><div class="nf-photo-placeholder"><span>Photo à venir</span></div></div>
+                            <div class="nf-about-photo nf-photo-front"><div class="nf-photo-placeholder"><span>Photo à venir</span></div></div>
+                            <div class="nf-about-stat">
+                                <span class="nf-stat-num">${A_PROPOS_STATS.articles}</span>
+                                <span class="nf-stat-label">Articles publiés</span>
+                            </div>
+                        </div>
+                        <div class="nf-about-text last-paragraph-no-margin article-body">
+                            <h3>Notre mission</h3>
+                            <p>Neybras Family est un média indépendant pour les familles marocaines qui veulent avancer sur ce qui compte&nbsp;: argent, éducation, parentalité, bien-être, voyages et intelligence artificielle. Lancé en avril 2026, le site couvre aujourd'hui ${A_PROPOS_STATS.themes} thématiques avec des conseils concrets, sans jargon ni bruit inutile.</p>
+                            <p>Le site est piloté par une rédaction resserrée — pas une salle de rédaction de plusieurs dizaines de journalistes. C'est un choix&nbsp;: mieux vaut peu d'articles bien sourcés qu'un flux permanent.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>`;
+}
+
 // ---- Static page ----
 function buildPage(page) {
   let rawHtml = page.html;
@@ -653,6 +766,7 @@ ${header(false)}
                     </div>
                 </div>
             </section>
+${page.slug === 'a-propos' ? aProposIntro() : ''}
             <section class="pt-0">
                 <div class="container">
                     <div class="row justify-content-center">

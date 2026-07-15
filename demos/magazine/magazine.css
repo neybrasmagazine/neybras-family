@@ -6,14 +6,71 @@
 /* variable */
 :root {
     --base-color: #7A5268;
-    --alt-font: 'Plus Jakarta Sans', serif; 
+    --alt-font: 'Plus Jakarta Sans', serif;
     --primary-font: 'Plus Jakarta Sans', sans-serif;
     --very-light-gray: #f9f5f3;
     --medium-gray: #828282;
+    /* ---- Neybras Family design tokens (refonte premium 2026) ---- */
+    --nf-mauve: #7A5268;              /* = --base-color, alias explicite pour les nouveaux composants */
+    --nf-gris-clair: #D9D9D9;
+    /* Vert réservé aux contenus piliers/evergreen (dossiers de référence mis à jour régulièrement).
+       Ne pas généraliser à d'autres blocs sans qu'un vrai contenu pilier existe : à ce jour, aucun
+       bloc du site n'utilise cette couleur, elle est seulement documentée ici pour la prochaine fois. */
+    --nf-sauge-reserved: #7A8E7A;
+    --nf-radius-card: 16px;
+    --nf-radius-pill: 999px;
+    --nf-space-card: 24px;
 }
 .top-55 {
     top: 55%;
 }
+
+/* ==========================================================================
+   Composants refonte premium — hero/featured (déjà géré par generate.js),
+   duo-photo À propos, grille destinations, grille avantages newsletter.
+   Recodés nativement (pas de Bootstrap additionnel), pensés pour rester
+   légers : une seule micro-interaction (fade-in ou zoom léger) par bloc.
+   ========================================================================== */
+
+/* ---- Bloc À propos : duo photo + chiffre clé ---- */
+.nf-about-duo { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
+.nf-about-photos { position: relative; flex: 1 1 420px; min-width: 300px; aspect-ratio: 1 / 1; }
+.nf-about-photo { position: absolute; border-radius: var(--nf-radius-card); overflow: hidden; box-shadow: 0 20px 50px rgba(122, 82, 104, .18); }
+.nf-about-photo img, .nf-about-photo .nf-photo-placeholder { width: 100%; height: 100%; display: block; object-fit: cover; }
+.nf-photo-back { width: 72%; height: 72%; top: 0; left: 0; }
+.nf-photo-front { width: 56%; height: 56%; bottom: 0; right: 0; border: 6px solid #fff; }
+.nf-about-stat { position: absolute; bottom: -22px; left: -22px; background: var(--nf-mauve); color: #fff; border-radius: var(--nf-radius-card); padding: 20px 24px; box-shadow: 0 16px 34px rgba(122, 82, 104, .35); z-index: 2; }
+.nf-about-stat .nf-stat-num { font-family: var(--alt-font); font-weight: 700; font-size: 32px; line-height: 1; display: block; }
+.nf-about-stat .nf-stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: .85; }
+.nf-about-text { flex: 1 1 420px; min-width: 300px; }
+@media (max-width: 767px) { .nf-about-duo { gap: 40px; } .nf-about-stat { left: 10px; bottom: -18px; padding: 14px 18px; } .nf-about-stat .nf-stat-num { font-size: 26px; } }
+
+/* Placeholder photo temporaire — traitement photographique (dégradé chaud), pas un pictogramme */
+.nf-photo-placeholder { background: linear-gradient(135deg, #EFE3E8 0%, var(--nf-gris-clair) 100%); display: flex; align-items: flex-end; justify-content: flex-start; padding: 14px; }
+.nf-photo-placeholder span { background: rgba(122, 82, 104, .92); color: #fff; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 5px 10px; border-radius: var(--nf-radius-pill); font-weight: 600; }
+
+/* ---- Grille destinations (catégorie Voyages) ---- */
+.nf-destination-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--nf-space-card); }
+.nf-destination-card { position: relative; display: block; aspect-ratio: 3 / 4; border-radius: var(--nf-radius-card); overflow: hidden; }
+.nf-destination-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.nf-destination-card:hover img { transform: scale(1.06); }
+.nf-destination-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(30, 20, 25, .85) 100%); }
+.nf-destination-label { position: absolute; left: 20px; right: 20px; bottom: 18px; z-index: 2; color: #fff; }
+.nf-destination-label .nf-dest-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: .85; display: block; margin-bottom: 4px; }
+.nf-destination-label .nf-dest-title { font-family: var(--alt-font); font-weight: 700; font-size: 18px; line-height: 1.3; }
+
+/* ---- Grille avantages newsletter ---- */
+.nf-nl-benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.nf-nl-benefit { text-align: center; padding: 0 10px; }
+.nf-nl-benefit .nf-nl-icon { width: 56px; height: 56px; border-radius: 50%; background: rgba(122, 82, 104, .08); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; color: var(--nf-mauve); font-size: 22px; }
+.nf-nl-benefit h4 { font-family: var(--alt-font); font-weight: 700; font-size: 17px; margin-bottom: 8px; }
+.nf-nl-benefit p { font-size: 14px; color: var(--medium-gray); line-height: 1.6; margin: 0; }
+@media (max-width: 767px) { .nf-nl-benefits { grid-template-columns: 1fr; gap: 30px; } }
+
+/* ---- Micro-interaction unique : fade-in discret au scroll (une seule par bloc) ---- */
+.nf-fade-in { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+.nf-fade-in.nf-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .nf-fade-in { opacity: 1; transform: none; transition: none; } }
 section {
     padding-top: 100px;
     padding-bottom: 100px;

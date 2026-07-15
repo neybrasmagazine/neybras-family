@@ -121,6 +121,26 @@
                     </div>
                 </div>
             </section>
+
+            <section class="pt-0">
+                <div class="container">
+                    <div class="nf-about-duo nf-fade-in">
+                        <div class="nf-about-photos">
+                            <div class="nf-about-photo nf-photo-back"><div class="nf-photo-placeholder"><span>Photo à venir</span></div></div>
+                            <div class="nf-about-photo nf-photo-front"><div class="nf-photo-placeholder"><span>Photo à venir</span></div></div>
+                            <div class="nf-about-stat">
+                                <span class="nf-stat-num">30</span>
+                                <span class="nf-stat-label">Articles publiés</span>
+                            </div>
+                        </div>
+                        <div class="nf-about-text last-paragraph-no-margin article-body">
+                            <h3>Notre mission</h3>
+                            <p>Neybras Family est un média indépendant pour les familles marocaines qui veulent avancer sur ce qui compte&nbsp;: argent, éducation, parentalité, bien-être, voyages et intelligence artificielle. Lancé en avril 2026, le site couvre aujourd'hui 7 thématiques avec des conseils concrets, sans jargon ni bruit inutile.</p>
+                            <p>Le site est piloté par une rédaction resserrée — pas une salle de rédaction de plusieurs dizaines de journalistes. C'est un choix&nbsp;: mieux vaut peu d'articles bien sourcés qu'un flux permanent.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <section class="pt-0">
                 <div class="container">
                     <div class="row justify-content-center">
@@ -163,5 +183,20 @@
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/vendors.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
+        <script>
+        (function(){
+          // Unique micro-interaction partagée (refonte premium) : fade-in discret au scroll
+          // pour les blocs .nf-fade-in (duo-photo À propos, grille destinations, avantages newsletter).
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          var targets = document.querySelectorAll('.nf-fade-in');
+          if (!targets.length || !('IntersectionObserver' in window)) return;
+          var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+              if (entry.isIntersecting) { entry.target.classList.add('nf-visible'); io.unobserve(entry.target); }
+            });
+          }, { threshold: 0.15 });
+          targets.forEach(function(el){ io.observe(el); });
+        })();
+        </script>
     </body>
 </html>

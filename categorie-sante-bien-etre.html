@@ -119,6 +119,7 @@
                             <h1 class="alt-font fw-700 text-dark-gray ls-minus-2px">Santé & Bien-être</h1>
                         </div>
                     </div>
+                    
                     <div class="row">
                         <div class="col-12 px-0">
                             <ul class="blog-side-image blog-wrapper grid grid-2col xs-grid-1col gutter-double-extra-large">
@@ -134,7 +135,7 @@
                     <a href="categorie-sante-bien-etre" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">Santé & Bien-être</a>
                     <a href="articles/congelation-ovocytes-maroc-preservation-fertilite" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">Congélation ovocytes Maroc : préservation fertilité féminine 2026</a>
                     <p>Entre projets de vie et horloge biologique, la congélation d'ovocytes redéfinit la liberté reproductive des femmes marocaines. Comment fonctionne cette technique en plein essor.</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 6 juillet 2026 &middot; 3 min de lecture</span>
+                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 15 juillet 2026 &middot; 3 min de lecture</span>
                 </div>
             </div>
         </li>
@@ -149,7 +150,7 @@
                     <a href="categorie-sante-bien-etre" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">Santé & Bien-être</a>
                     <a href="articles/nutrition-familiale-maroc-petit-budget" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">Nutrition familiale Maroc : bien manger petit budget 2026</a>
                     <p>37 % du budget des familles marocaines part dans l'alimentation — sans que cela rime avec équilibre nutritionnel. La cuisine traditionnelle cache une solution simple.</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 8 juin 2026 &middot; 3 min de lecture</span>
+                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 17 juin 2026 &middot; 3 min de lecture</span>
                 </div>
             </div>
         </li>
@@ -164,7 +165,7 @@
                     <a href="categorie-sante-bien-etre" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">Santé & Bien-être</a>
                     <a href="articles/calendrier-vaccinal-enfant-maroc-vaccins" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">Calendrier vaccinal enfant Maroc 2026 : vaccins obligatoires & bilans</a>
                     <p>Le programme national de vaccination couvre 11 maladies, gratuitement, de la naissance au bac. Le calendrier complet des rendez-vous à ne jamais manquer.</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 6 avril 2026 &middot; 3 min de lecture</span>
+                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 15 avril 2026 &middot; 3 min de lecture</span>
                 </div>
             </div>
         </li>
@@ -206,5 +207,20 @@
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/vendors.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
+        <script>
+        (function(){
+          // Unique micro-interaction partagée (refonte premium) : fade-in discret au scroll
+          // pour les blocs .nf-fade-in (duo-photo À propos, grille destinations, avantages newsletter).
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          var targets = document.querySelectorAll('.nf-fade-in');
+          if (!targets.length || !('IntersectionObserver' in window)) return;
+          var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+              if (entry.isIntersecting) { entry.target.classList.add('nf-visible'); io.unobserve(entry.target); }
+            });
+          }, { threshold: 0.15 });
+          targets.forEach(function(el){ io.observe(el); });
+        })();
+        </script>
     </body>
 </html>

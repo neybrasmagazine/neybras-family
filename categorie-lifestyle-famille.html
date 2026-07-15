@@ -119,6 +119,7 @@
                             <h1 class="alt-font fw-700 text-dark-gray ls-minus-2px">Lifestyle & Famille</h1>
                         </div>
                     </div>
+                    
                     <div class="row">
                         <div class="col-12 px-0">
                             <ul class="blog-side-image blog-wrapper grid grid-2col xs-grid-1col gutter-double-extra-large">
@@ -134,7 +135,7 @@
                     <a href="categorie-lifestyle-famille" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">Lifestyle & Famille</a>
                     <a href="articles/equilibre-travail-famille-maroc-strategies" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">Équilibre travail-famille Maroc : stratégies parents CSP+ 2026</a>
                     <p>Le taux d'activité des femmes marocaines stagne à 20 %, l'un des plus faibles au monde. Certaines solutions existent déjà dans la loi.</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 30 juin 2026 &middot; 3 min de lecture</span>
+                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 9 juillet 2026 &middot; 3 min de lecture</span>
                 </div>
             </div>
         </li>
@@ -149,7 +150,7 @@
                     <a href="categorie-lifestyle-famille" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">Lifestyle & Famille</a>
                     <a href="articles/reduire-charges-foyer-maroc-astuces-economies" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">Réduire charges foyer Maroc : 10 astuces économies quotidiennes</a>
                     <p>Les charges fixes absorbent jusqu'à 35 % des revenus d'un foyer marocain — sans qu'aucun contrat n'ait jamais été renégocié. 10 leviers chiffrés pour inverser la tendance.</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 9 avril 2026 &middot; 3 min de lecture</span>
+                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 19 avril 2026 &middot; 3 min de lecture</span>
                 </div>
             </div>
         </li>
@@ -191,5 +192,20 @@
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/vendors.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
+        <script>
+        (function(){
+          // Unique micro-interaction partagée (refonte premium) : fade-in discret au scroll
+          // pour les blocs .nf-fade-in (duo-photo À propos, grille destinations, avantages newsletter).
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          var targets = document.querySelectorAll('.nf-fade-in');
+          if (!targets.length || !('IntersectionObserver' in window)) return;
+          var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+              if (entry.isIntersecting) { entry.target.classList.add('nf-visible'); io.unobserve(entry.target); }
+            });
+          }, { threshold: 0.15 });
+          targets.forEach(function(el){ io.observe(el); });
+        })();
+        </script>
     </body>
 </html>

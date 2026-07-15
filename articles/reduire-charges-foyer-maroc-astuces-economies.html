@@ -27,7 +27,7 @@
           gtag('js', new Date());
           gtag('config', 'G-XXXXXXXXXX');
         </script>
-        <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Réduire charges foyer Maroc : 10 astuces économies quotidiennes","description":"Pour une famille de 4 à Casablanca, les charges mensuelles atteignent 5 000 à 8 000 MAD. 10 leviers d'optimisation : changement de fournisseur électricité, réduction consommation d'eau, optimisation des courses, renégociation abonnements Internet.","image":["https://neybras-family.com/images/content/2026/04/pexels-karola-g-5900081.webp"],"datePublished":"2026-04-09T15:53:01.275Z","dateModified":"2026-05-18T16:10:46.000Z","author":{"@type":"Organization","name":"Neybras Family Magazine"},"publisher":{"@type":"Organization","name":"Neybras Publishing SARLAU","logo":{"@type":"ImageObject","url":"https://neybras-family.com/images/favicon.svg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://neybras-family.com/articles/reduire-charges-foyer-maroc-astuces-economies"}}</script>
+        <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Réduire charges foyer Maroc : 10 astuces économies quotidiennes","description":"Pour une famille de 4 à Casablanca, les charges mensuelles atteignent 5 000 à 8 000 MAD. 10 leviers d'optimisation : changement de fournisseur électricité, réduction consommation d'eau, optimisation des courses, renégociation abonnements Internet.","image":["https://neybras-family.com/images/content/2026/04/pexels-karola-g-5900081.webp"],"datePublished":"2026-04-19T01:58:31.498Z","dateModified":"2026-05-18T16:10:46.000Z","author":{"@type":"Organization","name":"Neybras Family Magazine"},"publisher":{"@type":"Organization","name":"Neybras Publishing SARLAU","logo":{"@type":"ImageObject","url":"https://neybras-family.com/images/favicon.svg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://neybras-family.com/articles/reduire-charges-foyer-maroc-astuces-economies"}}</script>
         <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://neybras-family.com/"},{"@type":"ListItem","position":2,"name":"Lifestyle & Famille","item":"https://neybras-family.com/categorie-lifestyle-famille"},{"@type":"ListItem","position":3,"name":"Réduire charges foyer Maroc : 10 astuces économies quotidiennes","item":"https://neybras-family.com/articles/reduire-charges-foyer-maroc-astuces-economies"}]}</script>
     </head>
     <body data-mobile-nav-style="classic">
@@ -117,7 +117,7 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-10 text-center">
-                            <span class="fs-18 mb-3 d-inline-block">Par <span class="text-dark-gray fw-500">Rédaction Neybras Family</span> &middot; <a href="../categorie-lifestyle-famille" class="text-dark-gray fw-500 text-decoration-line-bottom">Lifestyle & Famille</a> &middot; 9 avril 2026 &middot; 3 min de lecture</span>
+                            <span class="fs-18 mb-3 d-inline-block">Par <span class="text-dark-gray fw-500">Rédaction Neybras Family</span> &middot; <a href="../categorie-lifestyle-famille" class="text-dark-gray fw-500 text-decoration-line-bottom">Lifestyle & Famille</a> &middot; 19 avril 2026 &middot; 3 min de lecture</span>
                             <h1 class="alt-font fw-700 text-dark-gray ls-minus-2px mb-0">Réduire charges foyer Maroc : 10 astuces économies quotidiennes</h1>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
                     <a href="../categorie-lifestyle-famille" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">Lifestyle & Famille</a>
                     <a href="../articles/equilibre-travail-famille-maroc-strategies" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">Équilibre travail-famille Maroc : stratégies parents CSP+ 2026</a>
                     <p>Le taux d'activité des femmes marocaines stagne à 20 %, l'un des plus faibles au monde. Certaines solutions existent déjà dans la loi.</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 30 juin 2026 &middot; 3 min de lecture</span>
+                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 9 juillet 2026 &middot; 3 min de lecture</span>
                 </div>
             </div>
         </li>
@@ -202,5 +202,20 @@
         <script type="text/javascript" src="../js/jquery.js"></script>
         <script type="text/javascript" src="../js/vendors.min.js"></script>
         <script type="text/javascript" src="../js/main.js"></script>
+        <script>
+        (function(){
+          // Unique micro-interaction partagée (refonte premium) : fade-in discret au scroll
+          // pour les blocs .nf-fade-in (duo-photo À propos, grille destinations, avantages newsletter).
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          var targets = document.querySelectorAll('.nf-fade-in');
+          if (!targets.length || !('IntersectionObserver' in window)) return;
+          var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+              if (entry.isIntersecting) { entry.target.classList.add('nf-visible'); io.unobserve(entry.target); }
+            });
+          }, { threshold: 0.15 });
+          targets.forEach(function(el){ io.observe(el); });
+        })();
+        </script>
     </body>
 </html>

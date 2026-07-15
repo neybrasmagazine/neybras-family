@@ -119,41 +119,27 @@
                             <h1 class="alt-font fw-700 text-dark-gray ls-minus-2px">Voyage & Découverte</h1>
                         </div>
                     </div>
+                    
                     <div class="row">
-                        <div class="col-12 px-0">
-                            <ul class="blog-side-image blog-wrapper grid grid-2col xs-grid-1col gutter-double-extra-large">
-                                <li class="grid-sizer"></li>
+                        <div class="col-12">
+                            <div class="nf-destination-grid">
 
-        <li class="grid-item">
-            <div class="blog-box d-lg-flex d-block flex-row h-100 overflow-hidden box-shadow-double-large">
-                <div class="blog-image w-45 md-w-100 position-relative overflow-hidden">
-                    <img src="images/content/2026/04/pexels-rahib-oussama-2147578878-29735561.webp" alt="Week-ends nature Casablanca : 8 escapades famille moins 2h" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-                    <a href="articles/week-ends-nature-casablanca-escapades-famille" class="blog-post-image-overlay"></a>
-                </div>
-                <div class="blog-content w-55 md-w-100 p-50px bg-white d-flex flex-column justify-content-center align-items-start lg-p-30px last-paragraph-no-margin">
-                    <a href="categorie-voyage-decouverte" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">Voyage & Découverte</a>
-                    <a href="articles/week-ends-nature-casablanca-escapades-famille" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">Week-ends nature Casablanca : 8 escapades famille moins 2h</a>
-                    <p>À moins de 30 minutes de Casablanca, un poumon vert gratuit attend les familles en mal de nature. 7 autres échappées sont à moins de 2 heures.</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 11 juin 2026 &middot; 3 min de lecture</span>
-                </div>
-            </div>
-        </li>
+                        <a href="articles/week-ends-nature-casablanca-escapades-famille" class="nf-destination-card nf-fade-in">
+                            <img src="images/content/2026/04/pexels-rahib-oussama-2147578878-29735561.webp" alt="Week-ends nature Casablanca : 8 escapades famille moins 2h" loading="lazy">
+                            <div class="nf-destination-label">
+                                <span class="nf-dest-tag">Voyage & Découverte</span>
+                                <span class="nf-dest-title">Week-ends nature Casablanca : 8 escapades famille moins 2h</span>
+                            </div>
+                        </a>
 
-        <li class="grid-item">
-            <div class="blog-box d-lg-flex d-block flex-row h-100 overflow-hidden box-shadow-double-large">
-                <div class="blog-image w-45 md-w-100 position-relative overflow-hidden">
-                    <img src="images/content/2026/04/pexels-zakk-w-2150587326-35979213.webp" alt="10 escapades familiales Maroc moins 3000 MAD budget serré" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-                    <a href="articles/escapades-familiales-maroc-budget-3000-mad" class="blog-post-image-overlay"></a>
-                </div>
-                <div class="blog-content w-55 md-w-100 p-50px bg-white d-flex flex-column justify-content-center align-items-start lg-p-30px last-paragraph-no-margin">
-                    <a href="categorie-voyage-decouverte" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">Voyage & Découverte</a>
-                    <a href="articles/escapades-familiales-maroc-budget-3000-mad" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">10 escapades familiales Maroc moins 3000 MAD budget serré</a>
-                    <p>Cascades, océan, oasis, médinas : le Maroc regorge d'escapades familiales sous les 3 000 MAD. Laquelle de ces 10 adresses correspond à votre budget week-end ?</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 19 avril 2026 &middot; 3 min de lecture</span>
-                </div>
-            </div>
-        </li>
-                            </ul>
+                        <a href="articles/escapades-familiales-maroc-budget-3000-mad" class="nf-destination-card nf-fade-in">
+                            <img src="images/content/2026/04/pexels-zakk-w-2150587326-35979213.webp" alt="10 escapades familiales Maroc moins 3000 MAD budget serré" loading="lazy">
+                            <div class="nf-destination-label">
+                                <span class="nf-dest-tag">Voyage & Découverte</span>
+                                <span class="nf-dest-title">10 escapades familiales Maroc moins 3000 MAD budget serré</span>
+                            </div>
+                        </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -191,5 +177,20 @@
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/vendors.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
+        <script>
+        (function(){
+          // Unique micro-interaction partagée (refonte premium) : fade-in discret au scroll
+          // pour les blocs .nf-fade-in (duo-photo À propos, grille destinations, avantages newsletter).
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          var targets = document.querySelectorAll('.nf-fade-in');
+          if (!targets.length || !('IntersectionObserver' in window)) return;
+          var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+              if (entry.isIntersecting) { entry.target.classList.add('nf-visible'); io.unobserve(entry.target); }
+            });
+          }, { threshold: 0.15 });
+          targets.forEach(function(el){ io.observe(el); });
+        })();
+        </script>
     </body>
 </html>
