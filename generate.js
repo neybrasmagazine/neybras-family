@@ -414,6 +414,18 @@ const TOOLS = [
   }
 ];
 
+// Carte "solo" affichée à gauche de la pile ci-dessus (pas de rotation/chevauchement).
+const TOOL_VACANCES = {
+  href: 'calculateur-vacances-famille.html',
+  category: 'Finance',
+  image: 'images/calculateur-vacances-famille-cover.webp',
+  imagePosition: '50% 18%',
+  alt: 'Famille marocaine en vacances devant un hôtel bordé de palmiers',
+  speechBubble: "Vacances vs budget : chkoun ghadi yrbeh ?",
+  title: 'Combien coûtent vraiment vos vacances en famille ?',
+  meta: 'Calculateur gratuit · 2 min'
+};
+
 function toolCard(tool) {
   return `
                         <a href="${tool.href}" class="nf-tool-card nf-fade-in">
@@ -468,6 +480,20 @@ function toolCardViral(tool, i) {
                                 </a>`;
 }
 
+function toolCardSolo(tool) {
+  return `
+                                <a href="${tool.href}" class="nf-viral-solo nf-fade-in">
+                                    <img src="${tool.image}" alt="${tool.alt}" loading="lazy" style="object-position:${tool.imagePosition};">
+                                    <span class="nf-game-badge">Nouveau</span>
+                                    ${tool.speechBubble ? `<span class="nf-speech-bubble nf-speech-bubble-lg">${tool.speechBubble}</span>` : ''}
+                                    <div class="nf-viral-scrim">
+                                        <span class="nf-tool-cat" style="color:#fff;">${tool.category}</span>
+                                        <h3 class="nf-viral-title">${tool.title}</h3>
+                                        <span class="nf-game-cta" style="color:#fff;">${tool.meta} <i class="feather icon-feather-arrow-right"></i></span>
+                                    </div>
+                                </a>`;
+}
+
 // ---- Homepage ----
 function buildIndex(pageNum, totalPages, pageItems) {
   const featured = pageNum === 1 ? allPosts.slice(0, 3) : [];
@@ -507,15 +533,18 @@ ${secondary.map(p => heroTile(p, false)).join('\n')}
             <section class="pt-0">
                 <div class="container">
                     <div class="row align-items-center">
-                        <div class="col-lg-5 mb-4 mb-lg-0 nf-fade-in">
+                        <div class="col-lg-4 mb-4 mb-lg-0 nf-fade-in">
                             <span class="nf-tool-cat d-block mb-10px">Interactif</span>
                             <h2 class="alt-font text-dark-gray fw-700 ls-minus-1px mb-15px">À essayer en famille</h2>
-                            <p class="text-dark-gray">Des jeux et quiz courts, gratuits, à faire à deux — pas juste des articles à lire.</p>
-                            <span class="nf-games-hook"><span class="nf-bounce">🎮</span> ${TOOLS.length} jeux gratuits, sans inscription</span>
+                            <p class="text-dark-gray">Des jeux, quiz et outils courts, gratuits, à faire à deux — pas juste des articles à lire.</p>
+                            <span class="nf-games-hook"><span class="nf-bounce">🎮</span> ${TOOLS.length + 1} outils gratuits, sans inscription</span>
                         </div>
-                        <div class="col-lg-6 offset-lg-1">
-                            <div class="nf-viral-games nf-fade-in">
+                        <div class="col-lg-8">
+                            <div class="nf-viral-row">
+${toolCardSolo(TOOL_VACANCES)}
+                                <div class="nf-viral-games nf-fade-in">
 ${TOOLS.map(toolCardViral).join('\n')}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -142,18 +142,44 @@
 .nf-viral-card:hover { transform: rotate(0deg) scale(1.04); box-shadow: 0 22px 50px rgba(46, 36, 48, .32); z-index: 5; }
 .nf-viral-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(20, 12, 16, .85) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; }
 .nf-viral-title { font-family: 'Fraunces', serif; font-weight: 600; color: #fff; font-size: 23px; line-height: 1.25; margin: 8px 0 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-@media (max-width: 1199px) { .nf-viral-games { max-width: 460px; } .nf-viral-title { font-size: 19px; } }
+
+/* Carte "solo" (calculateur vacances) posée à gauche de la pile — même style visuel,
+   pas de rotation/chevauchement puisqu'elle est seule dans sa colonne flex. */
+.nf-viral-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: 20px; }
+.nf-viral-row .nf-viral-games { margin: 0; max-width: 380px; flex: 2 1 320px; }
+.nf-viral-solo { position: relative; display: block; flex: 1 1 220px; max-width: 260px; aspect-ratio: 4 / 5; border-radius: 20px; overflow: hidden; border: 6px solid #fff; box-shadow: 0 16px 40px rgba(46, 36, 48, .22); text-decoration: none; transition: transform .35s ease, box-shadow .35s ease; }
+.nf-viral-solo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.nf-viral-solo:hover { transform: scale(1.04); box-shadow: 0 22px 50px rgba(46, 36, 48, .32); }
+
+@media (max-width: 1199px) {
+  .nf-viral-games { max-width: 460px; }
+  .nf-viral-row .nf-viral-games { max-width: 300px; flex-basis: 260px; }
+  .nf-viral-solo { max-width: 190px; flex-basis: 160px; }
+  .nf-viral-title { font-size: 19px; }
+  /* Les cartes de .nf-viral-row rétrécissent pour laisser de la place à la 3e carte :
+     badge/bulle/titre doivent suivre, sinon ils débordent de cartes devenues plus petites. */
+  .nf-viral-row .nf-viral-title { font-size: 15px; margin: 4px 0 6px; }
+  .nf-viral-row .nf-tool-cat { font-size: 9.5px; letter-spacing: .5px; }
+  .nf-viral-row .nf-game-cta { font-size: 10.5px; }
+  .nf-viral-row .nf-game-badge { font-size: 9px; padding: 3px 8px; top: 8px; left: 8px; }
+  /* Cartes trop étroites ici pour loger badge + bulle côte à côte (contrairement au
+     mobile où la carte solo repasse en pleine largeur) : la bulle descend sous le badge,
+     avec assez de marge verticale pour ne jamais chevaucher son cadre (badge ~36px de haut). */
+  .nf-viral-row .nf-speech-bubble-lg { max-width: 140px; font-size: 11px; padding: 7px 10px; top: 50px; right: 8px; }
+}
 @media (max-width: 575px) {
   .nf-viral-games { max-width: 320px; aspect-ratio: 1 / 1.25; }
+  .nf-viral-row { flex-direction: column; align-items: center; gap: 24px; }
+  .nf-viral-solo { max-width: 320px; width: 100%; aspect-ratio: 4 / 5; }
   /* Le dégradé ne couvre plus qu'une petite bande basse — le visage de Mamoune/Aya doit rester visible */
   .nf-viral-scrim { background: linear-gradient(180deg, transparent 62%, rgba(20, 12, 16, .92) 100%); padding: 12px; justify-content: flex-end; }
   .nf-viral-title { font-size: 13px; line-height: 1.25; margin: 3px 0 5px; -webkit-line-clamp: 2; }
-  .nf-viral-card .nf-tool-cat { font-size: 8.5px; letter-spacing: .5px; }
-  .nf-viral-card .nf-game-cta { font-size: 9.5px; }
-  .nf-viral-card .nf-game-badge { font-size: 8px; padding: 3px 7px; top: 8px; left: 8px; }
-  .nf-viral-card .nf-speech-bubble-lg { max-width: 118px; font-size: 10px; padding: 6px 9px; top: 8px; right: 8px; border-radius: 12px; }
+  .nf-viral-card .nf-tool-cat, .nf-viral-solo .nf-tool-cat { font-size: 8.5px; letter-spacing: .5px; }
+  .nf-viral-card .nf-game-cta, .nf-viral-solo .nf-game-cta { font-size: 9.5px; }
+  .nf-viral-card .nf-game-badge, .nf-viral-solo .nf-game-badge { font-size: 8px; padding: 3px 7px; top: 8px; left: 8px; }
+  .nf-viral-card .nf-speech-bubble-lg, .nf-viral-solo .nf-speech-bubble-lg { max-width: 118px; font-size: 10px; padding: 6px 9px; top: 8px; right: 8px; border-radius: 12px; }
 }
-@media (prefers-reduced-motion: reduce) { .nf-viral-card:hover { transform: rotate(var(--nf-rot, 0deg)); } }
+@media (prefers-reduced-motion: reduce) { .nf-viral-card:hover, .nf-viral-solo:hover { transform: rotate(var(--nf-rot, 0deg)); } }
 
 /* ---- Micro-interaction unique : fade-in discret au scroll (une seule par bloc) ---- */
 .nf-fade-in { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }

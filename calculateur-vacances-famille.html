@@ -1,0 +1,552 @@
+<!doctype html>
+<html class="no-js" lang="fr">
+    <head>
+        <title>Vacances en famille au Maroc : combien ça coûte vraiment ? | Neybras Family</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="author" content="Neybras Family">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <meta name="description" content="Estimez en 2 minutes le budget réel de vos vacances en famille au Maroc : destination, nombre d'enfants, durée du séjour, type d'hébergement. Calculateur gratuit avec suggestion d'épargne mensuelle.">
+        <link rel="canonical" href="https://neybras-family.com/calculateur-vacances-famille">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+        <link rel="manifest" href="site.webmanifest">
+
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://neybras-family.com/calculateur-vacances-famille">
+        <meta property="og:site_name" content="Neybras Family">
+        <meta property="og:locale" content="fr_FR">
+        <meta property="og:title" content="Combien coûtent vraiment vos vacances en famille ?">
+        <meta property="og:description" content="Destination, nombre d'enfants, durée, hébergement : estimez votre budget vacances en famille au Maroc en 2 minutes, gratuitement.">
+        <meta property="og:image" content="https://neybras-family.com/images/calculateur-vacances-famille-cover.webp">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+        <link rel="stylesheet" href="css/vendors.min.css"/>
+        <link rel="stylesheet" href="css/icon.min.css"/>
+        <link rel="stylesheet" href="css/style.min.css"/>
+        <link rel="stylesheet" href="css/responsive.min.css"/>
+        <link rel="stylesheet" href="demos/magazine/magazine.css" />
+        <link rel="stylesheet" href="css/ghost-content.css" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        </script>
+
+        <style>
+          /* Calculateur "vacances en famille" — entièrement scopé sous #nf-vacances
+             pour ne jamais entrer en collision avec le Bootstrap/Crafto du site
+             (qui définit déjà .card, .group-label, .switch, .result comme classes
+             potentiellement globales). Toutes les classes propres au calculateur
+             commencent par "vac-". Ne jamais styler body/* directement : ça
+             déborderait sur le reste de la page une fois ce bloc dans un gabarit Crefto. */
+          #nf-vacances{
+            --mauve:#7A5268;
+            --mauve-dark:#5E3E50;
+            --plum:#3B2430;
+            --grey:#D9D9D9;
+            --grey-line:#E7E1DE;
+            --sand:#C9A15C;
+            --sage:#6B8F71;
+            --cream:#FAF6F3;
+            --white:#FFFFFF;
+          }
+
+          #nf-vacances, #nf-vacances *{ box-sizing: border-box; }
+
+          #nf-vacances{
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--plum);
+            display: flex;
+            justify-content: center;
+            padding: 40px 16px 56px;
+          }
+
+          #nf-vacances .vac-card{
+            width: 100%;
+            max-width: 640px;
+            background: var(--white);
+            border-radius: 20px;
+            padding: 36px 32px 32px;
+            box-shadow: 0 1px 2px rgba(59,36,48,0.04), 0 12px 32px rgba(59,36,48,0.06);
+          }
+
+          #nf-vacances .vac-eyebrow{
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--mauve);
+            background: rgba(122,82,104,0.08);
+            padding: 6px 12px;
+            border-radius: 100px;
+            margin-bottom: 18px;
+          }
+
+          #nf-vacances h1.vac-title{
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 28px;
+            line-height: 1.25;
+            margin: 0 0 8px;
+            color: var(--plum);
+          }
+
+          #nf-vacances p.vac-sub{
+            font-size: 15px;
+            color: #7A6B72;
+            margin: 0 0 28px;
+            line-height: 1.5;
+          }
+
+          #nf-vacances .vac-group{ margin-bottom: 24px; }
+          #nf-vacances .vac-group-label{
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--mauve-dark);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+          }
+          #nf-vacances .vac-group-label span.vac-value{
+            font-weight: 700;
+            color: var(--plum);
+            font-family: 'Fraunces', serif;
+            font-size: 15px;
+          }
+
+          #nf-vacances .vac-seg{ display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+          #nf-vacances .vac-seg button{
+            border: 1.5px solid var(--grey-line);
+            background: var(--cream);
+            color: var(--plum);
+            border-radius: 12px;
+            padding: 10px 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            line-height: 1.3;
+          }
+          #nf-vacances .vac-seg button.vac-active{
+            background: var(--mauve);
+            border-color: var(--mauve);
+            color: var(--white);
+          }
+          #nf-vacances .vac-seg-3{ grid-template-columns: repeat(3,1fr); }
+
+          #nf-vacances input[type=range]{
+            width: 100%;
+            -webkit-appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--grey-line);
+            outline: none;
+          }
+          #nf-vacances input[type=range]::-webkit-slider-thumb{
+            -webkit-appearance: none;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: var(--mauve);
+            border: 3px solid var(--white);
+            box-shadow: 0 1px 4px rgba(59,36,48,0.35);
+            cursor: pointer;
+          }
+          #nf-vacances input[type=range]::-moz-range-thumb{
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: var(--mauve);
+            border: 3px solid var(--white);
+            box-shadow: 0 1px 4px rgba(59,36,48,0.35);
+            cursor: pointer;
+          }
+
+          #nf-vacances .vac-toggle-row{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--cream);
+            border-radius: 12px;
+            padding: 12px 14px;
+            border: 1.5px solid var(--grey-line);
+          }
+          #nf-vacances .vac-toggle-row .vac-label{ font-size: 13.5px; font-weight: 600; color: var(--plum); }
+          #nf-vacances .vac-toggle-row .vac-hint{ font-size: 12px; color: #8A7B81; margin-top: 2px; }
+
+          #nf-vacances .vac-switch{ position: relative; width: 44px; height: 26px; flex-shrink: 0; }
+          #nf-vacances .vac-switch input{ opacity: 0; width: 0; height: 0; }
+          #nf-vacances .vac-slider-switch{
+            position: absolute; cursor: pointer; inset: 0;
+            background: var(--grey-line);
+            border-radius: 100px;
+            transition: 0.2s;
+          }
+          #nf-vacances .vac-slider-switch:before{
+            content: "";
+            position: absolute;
+            height: 20px; width: 20px;
+            left: 3px; top: 3px;
+            background: var(--white);
+            border-radius: 50%;
+            transition: 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+          }
+          #nf-vacances .vac-switch input:checked + .vac-slider-switch{ background: var(--mauve); }
+          #nf-vacances .vac-switch input:checked + .vac-slider-switch:before{ transform: translateX(18px); }
+
+          #nf-vacances .vac-result{
+            margin-top: 32px;
+            padding-top: 28px;
+            border-top: 1.5px dashed var(--grey-line);
+            text-align: center;
+          }
+          #nf-vacances .vac-result-label{
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #8A7B81;
+            margin-bottom: 6px;
+          }
+          #nf-vacances .vac-result-number{
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: 44px;
+            color: var(--mauve-dark);
+            letter-spacing: -0.01em;
+          }
+          #nf-vacances .vac-result-number sup{ font-size: 18px; font-weight: 600; margin-left: 4px; }
+
+          #nf-vacances .vac-breakdown{
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #7A6B72;
+          }
+          #nf-vacances .vac-breakdown b{ color: var(--plum); font-weight: 700; }
+
+          #nf-vacances .vac-savings-box{
+            margin-top: 22px;
+            background: rgba(107,143,113,0.09);
+            border: 1.5px solid rgba(107,143,113,0.25);
+            border-radius: 14px;
+            padding: 16px 18px;
+            text-align: left;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+          }
+          #nf-vacances .vac-savings-box .vac-icon{ font-size: 20px; line-height: 1; }
+          #nf-vacances .vac-savings-box .vac-text{ font-size: 13.5px; line-height: 1.5; color: var(--plum); }
+          #nf-vacances .vac-savings-box .vac-text b{ color: var(--sage); font-family: 'Fraunces', serif; font-size: 15px; }
+
+          #nf-vacances .vac-disclaimer{ margin-top: 20px; font-size: 11.5px; color: #A79AA0; text-align: center; line-height: 1.5; }
+
+          #nf-vacances .vac-footer-link{ margin-top: 18px; text-align: center; }
+          #nf-vacances .vac-footer-link a{
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--mauve);
+            text-decoration: none;
+            border-bottom: 1.5px solid rgba(122,82,104,0.3);
+            padding-bottom: 1px;
+          }
+
+          @media (max-width: 420px){
+            #nf-vacances .vac-card{ padding: 26px 20px 24px; }
+            #nf-vacances h1.vac-title{ font-size: 23px; }
+            #nf-vacances .vac-result-number{ font-size: 36px; }
+            #nf-vacances .vac-breakdown{ gap: 14px; flex-wrap: wrap; }
+          }
+        </style>
+    </head>
+    <body data-mobile-nav-style="classic">
+        <div class="box-layout">
+
+            <header>
+                <nav class="navbar navbar-expand-lg bg-white header-light disable-fixed">
+                    <div class="container-fluid">
+                        <div class="col-auto col-xxl-3 col-lg-2 me-lg-0 me-auto">
+                            <div class="header-icon">
+                                <div class="header-push-button icon">
+                                    <div class="push-button"><span></span><span></span><span></span><span></span></div>
+                                </div>
+                            </div>
+                            <a class="navbar-brand d-flex align-items-center" href="/">
+                                <img src="images/favicon.png" alt="Neybras Family" width="40" height="40" style="border-radius:6px;">
+                                <span class="d-inline-block ms-15px lh-14">
+                                    <span class="d-block ls-1px" style="font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:#7A5268;">Neybras Family</span>
+                                    <span class="d-block fs-11 text-uppercase opacity-6" style="letter-spacing:2px;">Magazine</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="col-auto menu-order position-static">
+                            <button class="navbar-toggler float-start" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
+                                    <li class="nav-item"><a href="categorie-finance" class="nav-link">Finance</a></li>
+<li class="nav-item"><a href="categorie-education" class="nav-link">Éducation</a></li>
+<li class="nav-item"><a href="categorie-droit" class="nav-link">Droit</a></li>
+<li class="nav-item"><a href="categorie-sante-bien-etre" class="nav-link">Santé & Bien-être</a></li>
+<li class="nav-item"><a href="categorie-lifestyle-famille" class="nav-link">Lifestyle & Famille</a></li>
+<li class="nav-item"><a href="categorie-voyage-decouverte" class="nav-link">Voyage & Découverte</a></li>
+<li class="nav-item"><a href="categorie-tech" class="nav-link">Tech</a></li>
+                                    <li class="nav-item"><a href="a-propos" class="nav-link">À propos</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-auto col-xxl-3 col-xl-2 text-end md-pe-0">
+                            <div class="header-icon">
+                                <div class="header-search-icon icon d-none d-md-flex">
+                                    <a href="#" class="search-form-icon header-search-form fw-800 text-uppercase"><i class="feather icon-feather-search text-dark-gray align-middle me-5px xl-me-0"></i><span class="fs-15 align-middle d-none d-xxl-inline-block">Rechercher</span></a>
+                                    <div class="search-form-wrapper">
+                                        <button title="Fermer" type="button" class="search-close">×</button>
+                                        <form id="search-form" role="search" method="get" class="search-form text-left" onsubmit="return false;">
+                                            <div class="search-form-box">
+                                                <h2 class="text-dark-gray text-center mb-4 fw-700 ls-minus-2px">Que recherchez-vous ?</h2>
+                                                <input class="search-input border-color-dark-gray" placeholder="Entrez un mot-clé..." name="s" type="text" autocomplete="off">
+                                                <button type="submit" class="search-button"><i class="feather icon-feather-search" aria-hidden="true"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <div class="push-menu push-menu-style-2 ps-50px pe-50px pt-4 pb-4 bg-white">
+                    <span class="close-menu text-dark-gray text-dark-gray-hover"><i class="fa-solid fa-xmark fs-20"></i></span>
+                    <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                        <div class="hamburger-menu menu-list-wrapper w-90 lg-w-100 lg-no-margin" data-scroll-options='{ "theme": "light" }'>
+                            <ul class="text-dark-gray menu-item-list alt-font fw-700 ls-minus-1px">
+                                <li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
+                                <li class="nav-item"><a href="categorie-finance" class="nav-link">Finance</a></li>
+<li class="nav-item"><a href="categorie-education" class="nav-link">Éducation</a></li>
+<li class="nav-item"><a href="categorie-droit" class="nav-link">Droit</a></li>
+<li class="nav-item"><a href="categorie-sante-bien-etre" class="nav-link">Santé & Bien-être</a></li>
+<li class="nav-item"><a href="categorie-lifestyle-famille" class="nav-link">Lifestyle & Famille</a></li>
+<li class="nav-item"><a href="categorie-voyage-decouverte" class="nav-link">Voyage & Découverte</a></li>
+<li class="nav-item"><a href="categorie-tech" class="nav-link">Tech</a></li>
+                                <li class="nav-item"><a href="a-propos" class="nav-link">À propos</a></li>
+                            </ul>
+                        </div>
+                        <div class="text-center elements-social social-icon-style-04">
+                            <ul class="medium-icon dark">
+                                <li class="mx-0"><a class="facebook" href="https://web.facebook.com/profile.php?id=61580744324089" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i><span></span></a></li>
+                                <li class="mx-0"><a class="instagram" href="https://instagram.com/neybrasfamily" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i><span></span></a></li>
+                                <li class="mx-0"><a class="linkedin" href="https://linkedin.com/company/neybrasfamily/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i><span></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="top-space-margin pt-0">
+                <div id="nf-vacances">
+                  <div class="vac-card">
+                    <div class="vac-eyebrow">🧳 Simulateur · Neybras Family</div>
+                    <h1 class="vac-title">Combien coûtent vraiment vos vacances en famille ?</h1>
+                    <p class="vac-sub">Ajustez selon votre situation. Le total se met à jour en direct — et à la fin, on vous dit combien épargner par mois pour ne pas le sentir passer.</p>
+
+                    <div class="vac-group">
+                      <div class="vac-group-label">Destination</div>
+                      <div class="vac-seg" id="vac-destSeg">
+                        <button data-key="plage" class="vac-active">Plage<br>Maroc</button>
+                        <button data-key="montagne">Montagne<br>Maroc</button>
+                        <button data-key="europe">Ville<br>Europe</button>
+                        <button data-key="lointain">Long<br>courrier</button>
+                      </div>
+                    </div>
+
+                    <div class="vac-group">
+                      <div class="vac-group-label">Nombre d'enfants <span class="vac-value" id="vac-kidsVal">2</span></div>
+                      <input type="range" id="vac-kids" min="0" max="4" step="1" value="2">
+                    </div>
+
+                    <div class="vac-group">
+                      <div class="vac-group-label">Durée du séjour <span class="vac-value" id="vac-nightsVal">7 nuits</span></div>
+                      <input type="range" id="vac-nights" min="3" max="14" step="1" value="7">
+                    </div>
+
+                    <div class="vac-group">
+                      <div class="vac-group-label">Type d'hébergement</div>
+                      <div class="vac-seg vac-seg-3" id="vac-hebSeg">
+                        <button data-key="eco">Économique</button>
+                        <button data-key="confort" class="vac-active">Confort</button>
+                        <button data-key="haut">Haut de gamme</button>
+                      </div>
+                    </div>
+
+                    <div class="vac-group">
+                      <div class="vac-toggle-row">
+                        <div>
+                          <div class="vac-label">Activités enfants incluses</div>
+                          <div class="vac-hint">Parc aquatique, excursions, clubs enfants</div>
+                        </div>
+                        <label class="vac-switch">
+                          <input type="checkbox" id="vac-activities">
+                          <span class="vac-slider-switch"></span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="vac-result">
+                      <div class="vac-result-label">Budget total estimé</div>
+                      <div class="vac-result-number"><span id="vac-total">0</span><sup>MAD</sup></div>
+                      <div class="vac-breakdown">
+                        <div><b id="vac-perNight">0</b> MAD / nuit</div>
+                        <div><b id="vac-perPerson">0</b> MAD / personne</div>
+                      </div>
+
+                      <div class="vac-savings-box">
+                        <div class="vac-icon">🏦</div>
+                        <div class="vac-text">Étalé sur <b id="vac-months">6 mois</b>, cela représente <b id="vac-perMonth">0 MAD</b> à mettre de côté chaque mois pour partir sans y penser.</div>
+                      </div>
+                    </div>
+
+                    <p class="vac-disclaimer">Estimation indicative basée sur des ordres de grandeur du marché marocain (hébergement, repas, transport local, activités). Hors vols internationaux pour les destinations lointaines selon les cas. À ajuster selon votre destination précise.</p>
+
+                    <div class="vac-footer-link">
+                      <a href="categorie-finance">Plus d'outils Finance sur Neybras Family →</a>
+                    </div>
+                  </div>
+                </div>
+            </section>
+
+            <footer class="bg-very-light-gray">
+                <div class="container position-relative">
+                    <div class="footer-bottom pt-6">
+                        <div class="row justify-content-center">
+                            <div class="col-12 text-center mb-15px">
+                                <span class="fs-11 text-uppercase fw-600 d-inline-block px-15px py-5px border-radius-20px" style="letter-spacing:1.5px;color:#7A5268;border:1px solid #7A5268;">Neybras Média Group</span>
+                            </div>
+                            <div class="col-12 last-paragraph-no-margin text-center mb-30px">
+                                <p class="fs-15 text-dark-gray">&copy; 2026 Neybras Publishing SARLAU — Tous droits réservés.</p>
+                                <a href="mentions-legales" class="fs-14 text-dark-gray text-decoration-line-bottom">Mentions légales</a>
+                            </div>
+                            <div class="col-12 text-center">
+                                <div class="elements-social social-icon-style-02">
+                                    <ul class="large-icon dark">
+                                        <li><a class="facebook" href="https://web.facebook.com/profile.php?id=61580744324089" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                        <li><a class="instagram" href="https://instagram.com/neybrasfamily" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a></li>
+                                        <li><a class="linkedin" href="https://linkedin.com/company/neybrasfamily/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <div class="scroll-progress d-none d-xxl-block">
+            <a href="#" class="scroll-top" aria-label="scroll"><span class="scroll-text">Scroll</span><span class="scroll-line"><span class="scroll-point"></span></span></a>
+        </div>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/vendors.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script>
+        (function(){
+          const state = { dest: 'plage', kids: 2, nights: 7, heb: 'confort', activities: false };
+
+          // Coût de base par nuit pour 2 adultes, par destination (MAD)
+          const destData = {
+            plage:    { base: 900,  childNight: 180, fixed: 0 },
+            montagne: { base: 700,  childNight: 150, fixed: 0 },
+            europe:   { base: 1800, childNight: 300, fixed: 4000 },
+            lointain: { base: 2500, childNight: 450, fixed: 12000 }
+          };
+
+          const hebMultiplier = { eco: 0.7, confort: 1.0, haut: 1.8 };
+
+          function setupSeg(id, key){
+            document.querySelectorAll('#' + id + ' button').forEach(btn=>{
+              btn.addEventListener('click', ()=>{
+                document.querySelectorAll('#' + id + ' button').forEach(b=>b.classList.remove('vac-active'));
+                btn.classList.add('vac-active');
+                state[key] = btn.dataset.key;
+                update();
+              });
+            });
+          }
+          setupSeg('vac-destSeg','dest');
+          setupSeg('vac-hebSeg','heb');
+
+          const kidsSlider = document.getElementById('vac-kids');
+          const nightsSlider = document.getElementById('vac-nights');
+          const activitiesToggle = document.getElementById('vac-activities');
+
+          kidsSlider.addEventListener('input', e=>{
+            state.kids = parseInt(e.target.value);
+            document.getElementById('vac-kidsVal').textContent = state.kids;
+            update();
+          });
+          nightsSlider.addEventListener('input', e=>{
+            state.nights = parseInt(e.target.value);
+            document.getElementById('vac-nightsVal').textContent = state.nights + (state.nights>1?' nuits':' nuit');
+            update();
+          });
+          activitiesToggle.addEventListener('change', e=>{
+            state.activities = e.target.checked;
+            update();
+          });
+
+          function animateNumber(el, to){
+            const from = parseInt(el.textContent.replace(/\s/g,'')) || 0;
+            const duration = 350;
+            const start = performance.now();
+            function frame(now){
+              const p = Math.min(1, (now-start)/duration);
+              const eased = 1 - Math.pow(1-p, 3);
+              const val = Math.round(from + (to-from)*eased);
+              el.textContent = val.toLocaleString('fr-FR').replace(/,/g,' ');
+              if(p<1) requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+          }
+
+          function update(){
+            const d = destData[state.dest];
+            const mult = hebMultiplier[state.heb];
+
+            let nightly = d.base * mult;
+            nightly += state.kids * d.childNight * mult;
+            if(state.activities){
+              nightly += state.kids * 150;
+            }
+
+            let total = Math.round(nightly * state.nights + d.fixed);
+            const people = 2 + state.kids;
+            const perNight = Math.round(total / state.nights);
+            const perPerson = Math.round(total / people);
+
+            animateNumber(document.getElementById('vac-total'), total);
+            animateNumber(document.getElementById('vac-perNight'), perNight);
+            animateNumber(document.getElementById('vac-perPerson'), perPerson);
+
+            // horizon d'épargne suggéré, proportionnel au montant total
+            let months = total < 8000 ? 3 : total < 18000 ? 6 : total < 35000 ? 9 : 12;
+            document.getElementById('vac-months').textContent = months + ' mois';
+            const perMonth = Math.round(total / months);
+            document.getElementById('vac-perMonth').textContent = perMonth.toLocaleString('fr-FR').replace(/,/g,' ') + ' MAD';
+          }
+
+          update();
+        })();
+        </script>
+    </body>
+</html>
