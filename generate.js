@@ -387,6 +387,18 @@ function paginationNav(basePath, pageNum, totalPages) {
             </section>`;
 }
 
+// Émojis pour la grille de catégories de la home — mappés sur les vrais slugs de
+// catégories du site (data.tags), pas de catégorie inventée.
+const CATEGORY_ICONS = {
+  'finance': '💰',
+  'education': '🎓',
+  'droit': '⚖️',
+  'sante-bien-etre': '❤️',
+  'lifestyle-famille': '👨‍👩‍👧',
+  'voyage-decouverte': '✈️',
+  'tech': '📱'
+};
+
 // ---- "À essayer en famille" promo block (homepage only) ----
 // Standalone interactive tools (games/quizzes) — not Ghost posts, so they're
 // curated here by hand. Add an entry to feature a new tool on the homepage.
@@ -394,6 +406,7 @@ const TOOLS = [
   {
     href: 'jeu-memory-darija.html',
     category: 'Éducation',
+    type: 'Jeu',
     image: 'images/mamoune-memory-darija.webp',
     imagePosition: '50% 22%', // recadré sur le visage — photo verticale, beaucoup de mur vide en haut
     alt: 'Enfant souriant, illustration du jeu Memory Darija',
@@ -405,6 +418,7 @@ const TOOLS = [
   {
     href: 'quiz-routine-skincare-ado.html',
     category: 'Santé & Bien-être',
+    type: 'Quiz',
     image: 'images/aya-quiz-skincare.webp',
     imagePosition: '50% 20%', // recadré sur le visage
     alt: 'Adolescente souriante, illustration du quiz routine skincare',
@@ -418,6 +432,7 @@ const TOOLS = [
 const TOOL_VACANCES = {
   href: 'calculateur-vacances-famille.html',
   category: 'Finance',
+  type: 'Calculateur',
   image: 'images/calculateur-vacances-famille-cover.webp',
   imagePosition: '50% 18%',
   alt: 'Famille marocaine en vacances devant un hôtel bordé de palmiers',
@@ -494,6 +509,43 @@ function toolCardSolo(tool) {
                                 </a>`;
 }
 
+// Cartes premium (refonte éditoriale "Hero + secondaires") — remplacent la pile
+// superposée nf-viral-* sur la home. Même structure, taille et échelle de titre
+// différentes selon le rôle de la carte dans la grille.
+function toolCardHero(tool) {
+  return `
+                                <a href="${tool.href}" class="nf-premium-card nf-tools-hero-card nf-fade-in">
+                                    <img src="${tool.image}" alt="${tool.alt}" loading="lazy" style="object-position:${tool.imagePosition};">
+                                    <div class="nf-premium-badges">
+                                        <span class="nf-glass-badge nf-glass-badge-accent">Nouveau</span>
+                                        <span class="nf-glass-badge">${tool.type}</span>
+                                    </div>
+                                    ${tool.speechBubble ? `<span class="nf-speech-bubble nf-speech-bubble-lg">${tool.speechBubble}</span>` : ''}
+                                    <div class="nf-premium-scrim">
+                                        <span class="nf-tool-cat" style="color:#fff;">${tool.category}</span>
+                                        <h3 class="nf-premium-title">${tool.title}</h3>
+                                        <span class="nf-premium-cta">${tool.meta} <i class="feather icon-feather-arrow-right"></i></span>
+                                    </div>
+                                </a>`;
+}
+
+function toolCardSecondary(tool) {
+  return `
+                                <a href="${tool.href}" class="nf-premium-card nf-tools-secondary-card nf-fade-in">
+                                    <img src="${tool.image}" alt="${tool.alt}" loading="lazy" style="object-position:${tool.imagePosition};">
+                                    <div class="nf-premium-badges">
+                                        <span class="nf-glass-badge nf-glass-badge-accent">Nouveau</span>
+                                        <span class="nf-glass-badge">${tool.type}</span>
+                                    </div>
+                                    ${tool.speechBubble ? `<span class="nf-speech-bubble nf-speech-bubble-lg">${tool.speechBubble}</span>` : ''}
+                                    <div class="nf-premium-scrim">
+                                        <span class="nf-tool-cat" style="color:#fff;">${tool.category}</span>
+                                        <h3 class="nf-premium-title">${tool.title}</h3>
+                                        <span class="nf-premium-cta">${tool.meta} <i class="feather icon-feather-arrow-right"></i></span>
+                                    </div>
+                                </a>`;
+}
+
 // ---- Homepage ----
 function buildIndex(pageNum, totalPages, pageItems) {
   const featured = pageNum === 1 ? allPosts.slice(0, 3) : [];
@@ -525,27 +577,26 @@ ${secondary.map(p => heroTile(p, false)).join('\n')}
   const cards = pageItems.map(p => articleCard(p, false)).join('\n');
 
   const categoryLinks = data.tags.map(t => `
-                        <div class="col-6 col-md-3 mb-30px text-center">
-                            <a href="categorie-${t.slug}.html" class="btn btn-transparent-dark-gray border-2 btn-rounded btn-small text-uppercase fw-700 w-100">${t.name}</a>
-                        </div>`).join('\n');
+                        <a href="categorie-${t.slug}.html" class="nf-cat-card">
+                            <span class="nf-cat-icon">${CATEGORY_ICONS[t.slug] || '📚'}</span>
+                            <span>${t.name}</span>
+                        </a>`).join('\n');
 
   const toolsSection = pageNum === 1 ? `
-            <section class="pt-0">
+            <section class="pt-0" id="nf-tools-section">
                 <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-4 mb-4 mb-lg-0 nf-fade-in">
+                    <div class="nf-tools-grid nf-fade-in">
+                        <div class="nf-tools-intro">
                             <span class="nf-tool-cat d-block mb-10px">Interactif</span>
-                            <h2 class="alt-font text-dark-gray fw-700 ls-minus-1px mb-15px">À essayer en famille</h2>
-                            <p class="text-dark-gray">Des jeux, quiz et outils courts, gratuits, à faire à deux — pas juste des articles à lire.</p>
+                            <h2 class="nf-tools-title">À essayer en famille</h2>
+                            <p class="nf-tools-sub">Des jeux, quiz et outils courts, gratuits, à faire à deux — pas juste des articles à lire.</p>
                             <span class="nf-games-hook"><span class="nf-bounce">🎮</span> ${TOOLS.length + 1} outils gratuits, sans inscription</span>
                         </div>
-                        <div class="col-lg-8">
-                            <div class="nf-viral-row">
-${toolCardSolo(TOOL_VACANCES)}
-                                <div class="nf-viral-games nf-fade-in">
-${TOOLS.map(toolCardViral).join('\n')}
-                                </div>
-                            </div>
+                        <div class="nf-tools-hero-wrap">
+${toolCardHero(TOOL_VACANCES)}
+                        </div>
+                        <div class="nf-tools-secondary">
+${TOOLS.map(toolCardSecondary).join('\n')}
                         </div>
                     </div>
                 </div>
@@ -560,14 +611,14 @@ ${heroMarkup}
                 </div>
             </section>
 ${toolsSection}
-            <section class="pt-0">
+            <section class="pt-0" id="nf-categories-section">
                 <div class="container">
                     <div class="row justify-content-center mb-4">
                         <div class="col-12 text-center">
                             <h2 class="alt-font text-dark-gray fw-700 ls-minus-1px">Nos catégories</h2>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
+                    <div class="nf-cat-grid">
 ${categoryLinks}
                     </div>
                 </div>
