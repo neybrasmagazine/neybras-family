@@ -198,10 +198,36 @@ function header(fromArticlesDir) {
 
 function footer(fromArticlesDir) {
   const prefix = fromArticlesDir ? '../' : '';
+  const footerCatLinks = data.tags.map(t => `
+                                <li class="mb-10px"><a href="${prefix}categorie-${t.slug}.html" class="fs-14 text-dark-gray text-decoration-line-bottom">${t.name}</a></li>`).join('');
+  const footerTools = [TOOL_VACANCES, ...TOOLS];
+  const footerToolLinks = footerTools.map(t => `
+                                <li class="mb-10px"><a href="${prefix}${t.href}" class="fs-14 text-dark-gray text-decoration-line-bottom">${t.navLabel}</a></li>`).join('');
   return `
             <footer class="bg-very-light-gray">
                 <div class="container position-relative">
-                    <div class="footer-bottom pt-6">
+                    <div class="footer-top pt-6 pb-5">
+                        <div class="row">
+                            <div class="col-lg-4 mb-30px mb-lg-0">
+                                <a href="${prefix}index.html" class="d-inline-flex align-items-center mb-15px">
+                                    <img src="${prefix}images/favicon.png" alt="Neybras Family" width="36" height="36" style="border-radius:6px;">
+                                    <span class="ms-10px" style="font-family:'Fraunces',serif;font-weight:600;font-size:18px;color:${SITE.prune};">Neybras Family</span>
+                                </a>
+                                <p class="fs-14 text-dark-gray" style="max-width:280px;">Le magazine des familles marocaines exigeantes — argent, éducation, droit et vie de famille, sans bruit.</p>
+                            </div>
+                            <div class="col-6 col-lg-4 mb-30px mb-lg-0">
+                                <span class="fs-13 fw-700 text-uppercase d-block mb-15px" style="letter-spacing:1px;color:${SITE.prune};">Catégories</span>
+                                <ul class="list-unstyled mb-0">${footerCatLinks}
+                                </ul>
+                            </div>
+                            <div class="col-6 col-lg-4">
+                                <span class="fs-13 fw-700 text-uppercase d-block mb-15px" style="letter-spacing:1px;color:${SITE.prune};">Outils gratuits</span>
+                                <ul class="list-unstyled mb-0">${footerToolLinks}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom pt-6" style="border-top:1px solid #e7e1de;">
                         <div class="row justify-content-center">
                             <div class="col-12 text-center mb-15px">
                                 <span class="fs-11 text-uppercase fw-600 d-inline-block px-15px py-5px border-radius-20px" style="letter-spacing:1.5px;color:${SITE.prune};border:1px solid ${SITE.prune};">Neybras Média Group</span>
@@ -405,6 +431,7 @@ const CATEGORY_ICONS = {
 const TOOLS = [
   {
     href: 'jeu-memory-darija.html',
+    navLabel: 'Memory Darija',
     category: 'Éducation',
     type: 'Jeu',
     image: 'images/mamoune-memory-darija.webp',
@@ -417,6 +444,7 @@ const TOOLS = [
   },
   {
     href: 'quiz-routine-skincare-ado.html',
+    navLabel: 'Quiz routine skincare',
     category: 'Santé & Bien-être',
     type: 'Quiz',
     image: 'images/aya-quiz-skincare.webp',
@@ -431,6 +459,7 @@ const TOOLS = [
 // Carte "solo" affichée à gauche de la pile ci-dessus (pas de rotation/chevauchement).
 const TOOL_VACANCES = {
   href: 'calculateur-vacances-famille.html',
+  navLabel: 'Calculateur vacances',
   category: 'Finance',
   type: 'Calculateur',
   image: 'images/calculateur-vacances-famille-cover.webp',
