@@ -181,60 +181,62 @@
 }
 @media (prefers-reduced-motion: reduce) { .nf-viral-card:hover, .nf-viral-solo:hover { transform: rotate(var(--nf-rot, 0deg)); } }
 
-/* ---- "À essayer en famille" v2 — refonte éditoriale premium (Hero + 2 secondaires) ----
-   Remplace la pile nf-viral-* ci-dessus sur la home (composants conservés au cas où). */
-#nf-tools-section { padding-top: 90px; padding-bottom: 40px; background: linear-gradient(180deg, #fff 0%, var(--very-light-gray) 100%); }
-#nf-categories-section { padding-top: 20px; padding-bottom: 90px; }
+/* ---- "À essayer en famille" v3 — 3 cartes égales alignées sur une seule ligne ----
+   Remplace la pile nf-viral-* et la mise en page Hero+secondaires ci-dessus (composants
+   conservés au cas où). */
+#nf-tools-section { padding-top: 90px; padding-bottom: 90px; background: linear-gradient(180deg, #fff 0%, var(--very-light-gray) 100%); }
 
-.nf-tools-grid { display: grid; grid-template-columns: 1fr 1.6fr; grid-template-areas: "intro hero" "secondary secondary"; gap: 36px; align-items: start; }
-.nf-tools-intro { grid-area: intro; padding-top: 8px; }
-.nf-tools-hero-wrap { grid-area: hero; }
-.nf-tools-secondary { grid-area: secondary; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.nf-tools-intro { max-width: 560px; margin: 0 auto 40px; text-align: center; }
+.nf-tools-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 32px; line-height: 1.15; color: #292023; margin: 10px 0 16px; }
+.nf-tools-sub { font-size: 15px; color: #6b5c66; margin: 0 auto 24px; line-height: 1.55; }
 
-.nf-tools-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 38px; line-height: 1.12; color: #292023; margin: 10px 0 16px; }
-.nf-tools-sub { font-size: 16px; color: #6b5c66; max-width: 380px; margin: 0 0 24px; line-height: 1.55; }
+.nf-tools-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
-.nf-premium-card { position: relative; display: block; border-radius: 28px; overflow: hidden; text-decoration: none; box-shadow: 0 10px 30px rgba(46, 36, 48, .10); transition: transform .35s ease, box-shadow .35s ease; }
-.nf-premium-card:hover { transform: translateY(-8px); box-shadow: 0 18px 40px rgba(46, 36, 48, .18); }
+.nf-premium-card { position: relative; display: block; border-radius: 20px; overflow: hidden; text-decoration: none; box-shadow: 0 8px 22px rgba(46, 36, 48, .10); transition: transform .35s ease, box-shadow .35s ease; }
+.nf-premium-card:hover { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(46, 36, 48, .16); }
 .nf-premium-card img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.nf-tools-hero-card { aspect-ratio: 4 / 5; }
-.nf-tools-secondary-card { aspect-ratio: 4 / 5; }
-.nf-premium-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20, 12, 16, 0) 45%, rgba(20, 12, 16, .82) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 26px; }
-.nf-premium-badges { position: absolute; top: 20px; left: 20px; right: 20px; display: flex; gap: 8px; flex-wrap: wrap; z-index: 2; }
-.nf-glass-badge { background: rgba(255, 255, 255, .18); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #fff; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 7px 14px; border-radius: var(--nf-radius-pill); border: 1px solid rgba(255, 255, 255, .25); }
+.nf-tools-card { aspect-ratio: 4 / 5; }
+.nf-premium-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20, 12, 16, 0) 42%, rgba(20, 12, 16, .82) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; }
+.nf-premium-badges { position: absolute; top: 14px; left: 14px; right: 14px; display: flex; gap: 6px; flex-wrap: wrap; z-index: 2; }
+.nf-glass-badge { background: rgba(255, 255, 255, .18); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #fff; font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 5px 11px; border-radius: var(--nf-radius-pill); border: 1px solid rgba(255, 255, 255, .25); }
 .nf-glass-badge.nf-glass-badge-accent { background: var(--nf-mauve); border-color: var(--nf-mauve); }
-.nf-premium-title { font-family: 'Fraunces', serif; font-weight: 600; color: #fff; margin: 6px 0 10px; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
-.nf-tools-hero-card .nf-premium-title { font-size: 25px; line-height: 1.25; -webkit-line-clamp: 2; }
-.nf-tools-secondary-card .nf-premium-title { font-size: 16px; line-height: 1.3; -webkit-line-clamp: 2; }
-.nf-premium-cta { color: #fff; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; display: inline-flex; align-items: center; gap: 6px; }
-.nf-premium-card .nf-speech-bubble-lg { top: 20px; }
+.nf-premium-title { font-family: 'Fraunces', serif; font-weight: 600; color: #fff; font-size: 16px; line-height: 1.3; margin: 4px 0 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.nf-premium-cta { color: #fff; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; display: inline-flex; align-items: center; gap: 6px; }
+/* La bulle reste toujours sous les badges (jamais à côté) : ces cartes étant compactes à
+   toutes les largeurs, mettre badges et bulle côte à côte les fait systématiquement se chevaucher. */
+.nf-premium-card .nf-speech-bubble-lg { top: 62px; right: 14px; max-width: 65%; font-size: 10.5px; padding: 7px 10px; }
 
-@media (max-width: 991px) {
-  .nf-tools-grid { grid-template-columns: 1fr; grid-template-areas: "intro" "hero" "secondary"; gap: 24px; }
-  .nf-tools-sub { max-width: none; }
-  /* Les 2 cartes secondaires restent trop étroites ici (~300-450px) pour loger les 2 badges
-     et la bulle côte à côte : la bulle descend sous les badges. */
-  .nf-tools-secondary-card .nf-speech-bubble-lg { top: 70px; right: 20px; max-width: 65%; }
-}
-@media (max-width: 575px) {
-  .nf-tools-title { font-size: 28px; }
-  .nf-tools-secondary { grid-template-columns: 1fr; gap: 20px; }
-  .nf-premium-badges { top: 14px; left: 14px; right: 14px; }
-  .nf-glass-badge { font-size: 9.5px; padding: 5px 11px; }
-  /* Ici le Hero repasse aussi à pleine largeur téléphone (~315px) : même contrainte que les
-     cartes secondaires au breakpoint précédent, la bulle descend sous les 2 badges. */
-  .nf-premium-card .nf-speech-bubble-lg { top: 62px; right: 14px; max-width: 65%; font-size: 11px; padding: 8px 11px; }
-  .nf-tools-hero-card .nf-premium-title { font-size: 19px; }
-  .nf-tools-secondary-card .nf-premium-title { font-size: 15px; }
-  .nf-premium-scrim { padding: 16px; }
+@media (max-width: 767px) {
+  .nf-tools-title { font-size: 26px; }
+  .nf-tools-cards { grid-template-columns: 1fr; gap: 20px; max-width: 340px; margin: 0 auto; }
 }
 
-/* ---- Grille de catégories premium (remplace les boutons pilule) ---- */
-.nf-cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.nf-cat-card { background: #fff; border-radius: 20px; padding: 24px 16px; text-align: center; box-shadow: 0 6px 20px rgba(46, 36, 48, .06); text-decoration: none; color: #292023; font-weight: 700; font-size: 14px; transition: transform .25s ease, box-shadow .25s ease; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.nf-cat-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(46, 36, 48, .12); color: var(--nf-mauve); }
-.nf-cat-icon { font-size: 26px; line-height: 1; }
-@media (max-width: 767px) { .nf-cat-grid { grid-template-columns: repeat(2, 1fr); } }
+/* ---- Footer bleu nuit — Fraunces pour le titre, Inter pour le texte courant ---- */
+footer.nf-footer-navy { background: #1E3557; font-family: 'Inter', sans-serif; }
+.nf-footer-brand { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; font-size: 19px; color: #fff; }
+.nf-footer-text { color: rgba(255, 255, 255, .68); }
+.nf-footer-label { color: rgba(255, 255, 255, .5); letter-spacing: 1.5px; }
+.nf-footer-link { color: rgba(255, 255, 255, .78); text-decoration: none; border-bottom: 1px solid rgba(255, 255, 255, .25); padding-bottom: 1px; transition: color .2s ease, border-color .2s ease; }
+.nf-footer-link:hover { color: #fff; border-color: rgba(255, 255, 255, .6); }
+.nf-footer-badge { color: rgba(255, 255, 255, .85); border: 1px solid rgba(255, 255, 255, .3); }
+.nf-footer-bottom { border-top: 1px solid rgba(255, 255, 255, .14); }
+.nf-footer-social .large-icon li a { color: rgba(255, 255, 255, .8); }
+.nf-footer-social .large-icon li a:hover { color: #fff; }
+.nf-footer-cat-list { columns: 2; column-gap: 20px; }
+@media (max-width: 575px) { .nf-footer-cat-list { columns: 1; } }
+
+/* ---- Cartes "Derniers articles" : équilibre image/texte ----
+   Le thème Crafto fixe .blog-image à height/min-height:300px, indépendamment de la hauteur
+   du bloc texte (variable selon la longueur du titre/résumé) — ce qui laisse un vide sur le
+   côté le plus court dès que l'autre dépasse 300px. On clampe titre + résumé à 2 lignes pour
+   des hauteurs de texte homogènes, et sur desktop (où .blog-box passe en ligne via d-lg-flex),
+   l'image suit la hauteur réelle du bloc texte au lieu d'être bornée à une valeur fixe.
+   Le mobile empilé (d-block, image hors flex) garde le comportement Crafto d'origine. */
+.blog-box .card-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.blog-box .card-excerpt { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+@media (min-width: 992px) {
+  .blog-side-image .blog-box .blog-image, .blog-wrapper .blog-box .blog-image { height: auto; min-height: 220px; }
+}
 
 /* ---- Micro-interaction unique : fade-in discret au scroll (une seule par bloc) ---- */
 .nf-fade-in { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }

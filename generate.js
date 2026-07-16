@@ -102,7 +102,7 @@ function head(title, description, fromArticlesDir, canonicalPath = '', extraHead
         <link rel="manifest" href="${prefix}site.webmanifest">
         <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap">
         <link rel="stylesheet" href="${prefix}css/vendors.min.css"/>
         <link rel="stylesheet" href="${prefix}css/icon.min.css"/>
         <link rel="stylesheet" href="${prefix}css/style.min.css"/>
@@ -199,46 +199,46 @@ function header(fromArticlesDir) {
 function footer(fromArticlesDir) {
   const prefix = fromArticlesDir ? '../' : '';
   const footerCatLinks = data.tags.map(t => `
-                                <li class="mb-10px"><a href="${prefix}categorie-${t.slug}.html" class="fs-14 text-dark-gray text-decoration-line-bottom">${t.name}</a></li>`).join('');
+                                <li class="mb-10px" style="break-inside:avoid;"><a href="${prefix}categorie-${t.slug}.html" class="nf-footer-link">${t.name}</a></li>`).join('');
   const footerTools = [TOOL_VACANCES, ...TOOLS];
   const footerToolLinks = footerTools.map(t => `
-                                <li class="mb-10px"><a href="${prefix}${t.href}" class="fs-14 text-dark-gray text-decoration-line-bottom">${t.navLabel}</a></li>`).join('');
+                                <li class="mb-10px"><a href="${prefix}${t.href}" class="nf-footer-link">${t.navLabel}</a></li>`).join('');
   return `
-            <footer class="bg-very-light-gray">
+            <footer class="nf-footer-navy">
                 <div class="container position-relative">
                     <div class="footer-top pt-6 pb-5">
                         <div class="row">
-                            <div class="col-lg-4 mb-30px mb-lg-0">
+                            <div class="col-lg-5 mb-30px mb-lg-0">
                                 <a href="${prefix}index.html" class="d-inline-flex align-items-center mb-15px">
                                     <img src="${prefix}images/favicon.png" alt="Neybras Family" width="36" height="36" style="border-radius:6px;">
-                                    <span class="ms-10px" style="font-family:'Fraunces',serif;font-weight:600;font-size:18px;color:${SITE.prune};">Neybras Family</span>
+                                    <span class="ms-10px nf-footer-brand">Neybras Family</span>
                                 </a>
-                                <p class="fs-14 text-dark-gray" style="max-width:280px;">Le magazine des familles marocaines exigeantes — argent, éducation, droit et vie de famille, sans bruit.</p>
+                                <p class="fs-14 nf-footer-text" style="max-width:280px;">Le magazine des familles marocaines exigeantes — argent, éducation, droit et vie de famille, sans bruit.</p>
                             </div>
-                            <div class="col-6 col-lg-4 mb-30px mb-lg-0">
-                                <span class="fs-13 fw-700 text-uppercase d-block mb-15px" style="letter-spacing:1px;color:${SITE.prune};">Catégories</span>
-                                <ul class="list-unstyled mb-0">${footerCatLinks}
+                            <div class="col-7 col-lg-4 mb-30px mb-lg-0">
+                                <span class="fs-13 fw-700 text-uppercase d-block mb-15px nf-footer-label">Catégories</span>
+                                <ul class="list-unstyled mb-0 nf-footer-cat-list">${footerCatLinks}
                                 </ul>
                             </div>
-                            <div class="col-6 col-lg-4">
-                                <span class="fs-13 fw-700 text-uppercase d-block mb-15px" style="letter-spacing:1px;color:${SITE.prune};">Outils gratuits</span>
+                            <div class="col-5 col-lg-3">
+                                <span class="fs-13 fw-700 text-uppercase d-block mb-15px nf-footer-label">Outils gratuits</span>
                                 <ul class="list-unstyled mb-0">${footerToolLinks}
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="footer-bottom pt-6" style="border-top:1px solid #e7e1de;">
+                    <div class="footer-bottom pt-6 nf-footer-bottom">
                         <div class="row justify-content-center">
                             <div class="col-12 text-center mb-15px">
-                                <span class="fs-11 text-uppercase fw-600 d-inline-block px-15px py-5px border-radius-20px" style="letter-spacing:1.5px;color:${SITE.prune};border:1px solid ${SITE.prune};">Neybras Média Group</span>
+                                <span class="fs-11 text-uppercase fw-600 d-inline-block px-15px py-5px border-radius-20px nf-footer-badge">Neybras Média Group</span>
                             </div>
                             <div class="col-12 last-paragraph-no-margin text-center mb-30px">
-                                <p class="fs-15 text-dark-gray">&copy; ${new Date().getFullYear()} Neybras Publishing SARLAU — Tous droits réservés.</p>
-                                <a href="${prefix}mentions-legales.html" class="fs-14 text-dark-gray text-decoration-line-bottom">Mentions légales</a>
+                                <p class="fs-15 nf-footer-text">&copy; ${new Date().getFullYear()} Neybras Publishing SARLAU — Tous droits réservés.</p>
+                                <a href="${prefix}mentions-legales.html" class="fs-14 nf-footer-link">Mentions légales</a>
                             </div>
                             <div class="col-12 text-center">
-                                <div class="elements-social social-icon-style-02">
-                                    <ul class="large-icon dark">
+                                <div class="elements-social social-icon-style-02 nf-footer-social">
+                                    <ul class="large-icon">
                                         <li><a class="facebook" href="${SITE.social.facebook}" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a></li>
                                         <li><a class="instagram" href="${SITE.social.instagram}" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a></li>
                                         <li><a class="linkedin" href="${SITE.social.linkedin}" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i></a></li>
@@ -334,7 +334,7 @@ function articleCard(post, fromArticlesDir) {
                 <div class="blog-content w-55 md-w-100 p-50px bg-white d-flex flex-column justify-content-center align-items-start lg-p-30px last-paragraph-no-margin">
                     ${tag ? `<a href="${prefix}categorie-${tag.slug}.html" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">${tag.name}</a>` : ''}
                     <a href="${href}" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">${post.title}</a>
-                    <p>${excerpt}</p>
+                    <p class="card-excerpt">${excerpt}</p>
                     <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; ${dateFmt(post.published_at)} &middot; ${readingTime(post)} min de lecture</span>
                 </div>
             </div>
@@ -412,18 +412,6 @@ function paginationNav(basePath, pageNum, totalPages) {
                 </div>
             </section>`;
 }
-
-// Émojis pour la grille de catégories de la home — mappés sur les vrais slugs de
-// catégories du site (data.tags), pas de catégorie inventée.
-const CATEGORY_ICONS = {
-  'finance': '💰',
-  'education': '🎓',
-  'droit': '⚖️',
-  'sante-bien-etre': '❤️',
-  'lifestyle-famille': '👨‍👩‍👧',
-  'voyage-decouverte': '✈️',
-  'tech': '📱'
-};
 
 // ---- "À essayer en famille" promo block (homepage only) ----
 // Standalone interactive tools (games/quizzes) — not Ghost posts, so they're
@@ -538,29 +526,11 @@ function toolCardSolo(tool) {
                                 </a>`;
 }
 
-// Cartes premium (refonte éditoriale "Hero + secondaires") — remplacent la pile
-// superposée nf-viral-* sur la home. Même structure, taille et échelle de titre
-// différentes selon le rôle de la carte dans la grille.
-function toolCardHero(tool) {
+// Carte premium unique — les 3 outils alignés à égalité sur une seule ligne
+// horizontale (plus de hiérarchie hero/secondaires).
+function toolCardGrid(tool) {
   return `
-                                <a href="${tool.href}" class="nf-premium-card nf-tools-hero-card nf-fade-in">
-                                    <img src="${tool.image}" alt="${tool.alt}" loading="lazy" style="object-position:${tool.imagePosition};">
-                                    <div class="nf-premium-badges">
-                                        <span class="nf-glass-badge nf-glass-badge-accent">Nouveau</span>
-                                        <span class="nf-glass-badge">${tool.type}</span>
-                                    </div>
-                                    ${tool.speechBubble ? `<span class="nf-speech-bubble nf-speech-bubble-lg">${tool.speechBubble}</span>` : ''}
-                                    <div class="nf-premium-scrim">
-                                        <span class="nf-tool-cat" style="color:#fff;">${tool.category}</span>
-                                        <h3 class="nf-premium-title">${tool.title}</h3>
-                                        <span class="nf-premium-cta">${tool.meta} <i class="feather icon-feather-arrow-right"></i></span>
-                                    </div>
-                                </a>`;
-}
-
-function toolCardSecondary(tool) {
-  return `
-                                <a href="${tool.href}" class="nf-premium-card nf-tools-secondary-card nf-fade-in">
+                                <a href="${tool.href}" class="nf-premium-card nf-tools-card nf-fade-in">
                                     <img src="${tool.image}" alt="${tool.alt}" loading="lazy" style="object-position:${tool.imagePosition};">
                                     <div class="nf-premium-badges">
                                         <span class="nf-glass-badge nf-glass-badge-accent">Nouveau</span>
@@ -605,28 +575,17 @@ ${secondary.map(p => heroTile(p, false)).join('\n')}
 
   const cards = pageItems.map(p => articleCard(p, false)).join('\n');
 
-  const categoryLinks = data.tags.map(t => `
-                        <a href="categorie-${t.slug}.html" class="nf-cat-card">
-                            <span class="nf-cat-icon">${CATEGORY_ICONS[t.slug] || '📚'}</span>
-                            <span>${t.name}</span>
-                        </a>`).join('\n');
-
   const toolsSection = pageNum === 1 ? `
             <section class="pt-0" id="nf-tools-section">
                 <div class="container">
-                    <div class="nf-tools-grid nf-fade-in">
-                        <div class="nf-tools-intro">
-                            <span class="nf-tool-cat d-block mb-10px">Interactif</span>
-                            <h2 class="nf-tools-title">À essayer en famille</h2>
-                            <p class="nf-tools-sub">Des jeux, quiz et outils courts, gratuits, à faire à deux — pas juste des articles à lire.</p>
-                            <span class="nf-games-hook"><span class="nf-bounce">🎮</span> ${TOOLS.length + 1} outils gratuits, sans inscription</span>
-                        </div>
-                        <div class="nf-tools-hero-wrap">
-${toolCardHero(TOOL_VACANCES)}
-                        </div>
-                        <div class="nf-tools-secondary">
-${TOOLS.map(toolCardSecondary).join('\n')}
-                        </div>
+                    <div class="nf-tools-intro nf-fade-in">
+                        <span class="nf-tool-cat d-block mb-10px">Interactif</span>
+                        <h2 class="nf-tools-title">À essayer en famille</h2>
+                        <p class="nf-tools-sub">Des jeux, quiz et outils courts, gratuits, à faire à deux — pas juste des articles à lire.</p>
+                        <span class="nf-games-hook"><span class="nf-bounce">🎮</span> ${TOOLS.length + 1} outils gratuits, sans inscription</span>
+                    </div>
+                    <div class="nf-tools-cards nf-fade-in">
+${[TOOL_VACANCES, ...TOOLS].map(toolCardGrid).join('\n')}
                     </div>
                 </div>
             </section>` : '';
@@ -640,18 +599,6 @@ ${heroMarkup}
                 </div>
             </section>
 ${toolsSection}
-            <section class="pt-0" id="nf-categories-section">
-                <div class="container">
-                    <div class="row justify-content-center mb-4">
-                        <div class="col-12 text-center">
-                            <h2 class="alt-font text-dark-gray fw-700 ls-minus-1px">Nos catégories</h2>
-                        </div>
-                    </div>
-                    <div class="nf-cat-grid">
-${categoryLinks}
-                    </div>
-                </div>
-            </section>
             <section class="bg-very-light-gray nf-nl-benefits-section">
                 <div class="container">
                     <div class="row align-items-center mb-5 nf-fade-in">
