@@ -350,7 +350,7 @@ const TOOLS = [
     image: 'images/mamoune-memory-darija.webp',
     imagePosition: '50% 22%', // recadré sur le visage — photo verticale, beaucoup de mur vide en haut
     alt: 'Enfant souriant, illustration du jeu Memory Darija',
-    speechBubble: '1000 dh / chhar ?',
+    speechBubble: 'Mama, wach n9der n3ich b 1000 dh f chhar ?',
     title: 'Memory Darija : le jeu pour retenir des mots en famille',
     excerpt: "8 paires à retrouver, un mot darija par carte retournée. Un jeu gratuit à faire à deux, parent et enfant.",
     meta: 'Jeu gratuit · 5 min'
@@ -358,9 +358,9 @@ const TOOLS = [
   {
     href: 'quiz-routine-skincare-ado.html',
     category: 'Santé & Bien-être',
-    image: 'images/quiz-skincare-ado-cover.webp',
-    imagePosition: '50% 0%', // garde le visage visible plutôt que la main/le menton
-    alt: 'Illustration du quiz routine skincare ado',
+    image: 'images/aya-quiz-skincare.webp',
+    imagePosition: '50% 20%', // recadré sur le visage
+    alt: 'Adolescente souriante, illustration du quiz routine skincare',
     title: 'Quelle routine skincare pour mon ado ?',
     excerpt: "6 questions pour découvrir la routine adaptée à son âge, et recevoir le guide complet gratuit par email.",
     meta: 'Quiz gratuit · 2 min'
