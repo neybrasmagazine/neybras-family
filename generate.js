@@ -350,7 +350,7 @@ const TOOLS = [
     image: 'images/mamoune-memory-darija.webp',
     imagePosition: '50% 22%', // recadré sur le visage — photo verticale, beaucoup de mur vide en haut
     alt: 'Enfant souriant, illustration du jeu Memory Darija',
-    speechBubble: 'Mama, wach n9der n3ich b 1000 dh f chhar ?',
+    speechBubble: "Mama, kif kaytqal 'papillon' bel darija ?!",
     title: 'Memory Darija : le jeu pour retenir des mots en famille',
     excerpt: "8 paires à retrouver, un mot darija par carte retournée. Un jeu gratuit à faire à deux, parent et enfant.",
     meta: 'Jeu gratuit · 5 min'
