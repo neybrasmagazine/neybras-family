@@ -102,7 +102,7 @@ function head(title, description, fromArticlesDir, canonicalPath = '', extraHead
         <link rel="manifest" href="${prefix}site.webmanifest">
         <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital@1&display=swap">
         <link rel="stylesheet" href="${prefix}css/vendors.min.css"/>
         <link rel="stylesheet" href="${prefix}css/icon.min.css"/>
         <link rel="stylesheet" href="${prefix}css/style.min.css"/>
@@ -199,55 +199,70 @@ function header(fromArticlesDir) {
 function footer(fromArticlesDir) {
   const prefix = fromArticlesDir ? '../' : '';
   const footerCatLinks = data.tags.map(t => `
-                                <li class="mb-10px" style="break-inside:avoid;"><a href="${prefix}categorie-${t.slug}.html" class="nf-footer-link">${t.name}</a></li>`).join('');
+          <li><a href="${prefix}categorie-${t.slug}.html">${t.name}</a></li>`).join('');
   const footerTools = [TOOL_VACANCES, ...TOOLS];
   const footerToolLinks = footerTools.map(t => `
-                                <li class="mb-10px"><a href="${prefix}${t.href}" class="nf-footer-link">${t.navLabel}</a></li>`).join('');
+          <li><a href="${prefix}${t.href}">${t.navLabel}</a></li>`).join('');
   return `
-            <footer class="nf-footer-navy">
-                <div class="container position-relative">
-                    <div class="footer-top pt-6 pb-5">
-                        <div class="row">
-                            <div class="col-lg-5 mb-30px mb-lg-0">
-                                <a href="${prefix}index.html" class="d-inline-flex align-items-center mb-15px">
-                                    <img src="${prefix}images/favicon.png" alt="Neybras Family" width="36" height="36" style="border-radius:6px;">
-                                    <span class="ms-10px nf-footer-brand">Neybras Family</span>
-                                </a>
-                                <p class="fs-14 nf-footer-text" style="max-width:280px;">Le magazine des familles marocaines exigeantes — argent, éducation, droit et vie de famille, sans bruit.</p>
-                            </div>
-                            <div class="col-7 col-lg-4 mb-30px mb-lg-0">
-                                <span class="fs-13 fw-700 text-uppercase d-block mb-15px nf-footer-label">Catégories</span>
-                                <ul class="list-unstyled mb-0 nf-footer-cat-list">${footerCatLinks}
-                                </ul>
-                            </div>
-                            <div class="col-5 col-lg-3">
-                                <span class="fs-13 fw-700 text-uppercase d-block mb-15px nf-footer-label">Outils gratuits</span>
-                                <ul class="list-unstyled mb-0">${footerToolLinks}
-                                </ul>
-                            </div>
-                        </div>
+            <footer class="site-footer">
+              <div class="container">
+                <div class="ft-main">
+                  <div class="ft-brand">
+                    <div class="logo-wrap" style="margin-bottom:2px">
+                      <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <defs>
+                          <clipPath id="nff-c"><circle cx="50" cy="50" r="43"></circle></clipPath>
+                          <pattern id="nff-v" x="0" y="0" width="5" height="100" patternUnits="userSpaceOnUse"><line x1="2.5" y1="0" x2="2.5" y2="100" stroke="#B8965A" stroke-width="2"></line></pattern>
+                          <pattern id="nff-d" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse"><line x1="0" y1="6" x2="6" y2="0" stroke="#B8965A" stroke-width="2"></line></pattern>
+                          <pattern id="nff-h" x="0" y="0" width="100" height="5" patternUnits="userSpaceOnUse"><line x1="0" y1="2.5" x2="100" y2="2.5" stroke="#B8965A" stroke-width="2"></line></pattern>
+                        </defs>
+                        <circle cx="50" cy="50" r="43" fill="#0E3D52"></circle>
+                        <circle cx="50" cy="50" r="43" fill="none" stroke="#B8965A" stroke-width="2.5"></circle>
+                        <g clip-path="url(#nff-c)">
+                          <polygon points="7,5 27,5 27,95 7,95" fill="url(#nff-v)"></polygon>
+                          <polygon points="27,5 40,5 73,95 60,95" fill="url(#nff-d)"></polygon>
+                          <polygon points="73,5 93,5 93,95 73,95" fill="url(#nff-h)"></polygon>
+                        </g>
+                      </svg>
+                      <div class="logo-txt">
+                        <div class="logo-name">Neybras Family</div>
+                        <div class="logo-tag">Le magazine des familles marocaines exigeantes</div>
+                      </div>
                     </div>
-                    <div class="footer-bottom pt-6 nf-footer-bottom">
-                        <div class="row justify-content-center">
-                            <div class="col-12 text-center mb-15px">
-                                <span class="fs-11 text-uppercase fw-600 d-inline-block px-15px py-5px border-radius-20px nf-footer-badge">Neybras Média Group</span>
-                            </div>
-                            <div class="col-12 last-paragraph-no-margin text-center mb-30px">
-                                <p class="fs-15 nf-footer-text">&copy; ${new Date().getFullYear()} Neybras Publishing SARLAU — Tous droits réservés.</p>
-                                <a href="${prefix}mentions-legales.html" class="fs-14 nf-footer-link">Mentions légales</a>
-                            </div>
-                            <div class="col-12 text-center">
-                                <div class="elements-social social-icon-style-02 nf-footer-social">
-                                    <ul class="large-icon">
-                                        <li><a class="facebook" href="${SITE.social.facebook}" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                        <li><a class="instagram" href="${SITE.social.instagram}" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a></li>
-                                        <li><a class="linkedin" href="${SITE.social.linkedin}" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                    <p>Argent, éducation, droit et vie de famille au Maroc — sans bruit.</p>
+                    <div class="ft-social">
+                      <a href="${SITE.social.facebook}" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                      <a href="${SITE.social.instagram}" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                      <a href="${SITE.social.linkedin}" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
                     </div>
+                  </div>
+                  <div class="ft-col">
+                    <h5>Catégories</h5>
+                    <ul>${footerCatLinks}
+                    </ul>
+                  </div>
+                  <div class="ft-col">
+                    <h5>Outils gratuits</h5>
+                    <ul>${footerToolLinks}
+                    </ul>
+                  </div>
+                  <div class="ft-col">
+                    <h5>Neybras Family</h5>
+                    <ul>
+          <li><a href="${prefix}a-propos.html">À propos</a></li>
+          <li><a href="${prefix}le-magazine.html">Le Magazine</a></li>
+          <li><a href="${prefix}partenaires.html">Partenaires</a></li>
+          <li><a href="${prefix}mentions-legales.html">Mentions légales</a></li>
+                    </ul>
+                  </div>
                 </div>
+                <div class="ft-bottom">
+                  <span>&copy; ${new Date().getFullYear()} Neybras Publishing SARLAU · Tous droits réservés</span>
+                  <div class="ft-bl">
+                    <a href="${prefix}mentions-legales.html">Mentions légales</a>
+                  </div>
+                </div>
+              </div>
             </footer>
         </div>
         <div class="scroll-progress d-none d-xxl-block">
@@ -536,7 +551,6 @@ function toolCardGrid(tool) {
                                         <span class="nf-glass-badge nf-glass-badge-accent">Nouveau</span>
                                         <span class="nf-glass-badge">${tool.type}</span>
                                     </div>
-                                    ${tool.speechBubble ? `<span class="nf-speech-bubble nf-speech-bubble-lg">${tool.speechBubble}</span>` : ''}
                                     <div class="nf-premium-scrim">
                                         <span class="nf-tool-cat" style="color:#fff;">${tool.category}</span>
                                         <h3 class="nf-premium-title">${tool.title}</h3>

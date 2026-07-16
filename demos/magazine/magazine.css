@@ -211,19 +211,30 @@
   .nf-tools-cards { grid-template-columns: 1fr; gap: 20px; max-width: 340px; margin: 0 auto; }
 }
 
-/* ---- Footer bleu nuit — Fraunces pour le titre, Inter pour le texte courant ---- */
-footer.nf-footer-navy { background: #1E3557; font-family: 'Inter', sans-serif; }
-.nf-footer-brand { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; font-size: 19px; color: #fff; }
-.nf-footer-text { color: rgba(255, 255, 255, .68); }
-.nf-footer-label { color: rgba(255, 255, 255, .5); letter-spacing: 1.5px; }
-.nf-footer-link { color: rgba(255, 255, 255, .78); text-decoration: none; border-bottom: 1px solid rgba(255, 255, 255, .25); padding-bottom: 1px; transition: color .2s ease, border-color .2s ease; }
-.nf-footer-link:hover { color: #fff; border-color: rgba(255, 255, 255, .6); }
-.nf-footer-badge { color: rgba(255, 255, 255, .85); border: 1px solid rgba(255, 255, 255, .3); }
-.nf-footer-bottom { border-top: 1px solid rgba(255, 255, 255, .14); }
-.nf-footer-social .large-icon li a { color: rgba(255, 255, 255, .8); }
-.nf-footer-social .large-icon li a:hover { color: #fff; }
-.nf-footer-cat-list { columns: 2; column-gap: 20px; }
-@media (max-width: 575px) { .nf-footer-cat-list { columns: 1; } }
+/* ---- Footer — réplique fidèle de la structure/CSS du footer de neybras-magazine.com
+   (même palette bleu nuit + or, mêmes classes ft-*, même logo géométrique), contenu propre
+   à Neybras Family. Inter pour le texte courant, Cormorant Garamond italique pour l'accroche. */
+.site-footer { background: #0a3044; border-top: 1px solid rgba(201, 168, 76, .1); font-family: 'Inter', sans-serif; }
+.site-footer .logo-wrap { display: flex; align-items: center; gap: 13px; }
+.site-footer .logo-txt { display: flex; flex-direction: column; }
+.site-footer .logo-name { font-family: 'Inter', 'Helvetica Neue', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: .2em; color: #fff; text-transform: uppercase; line-height: 1; }
+.site-footer .logo-tag { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 11px; color: #B8965A; letter-spacing: .06em; margin-top: 2px; }
+.ft-main { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 38px; padding: 56px 0 38px; }
+.ft-brand p { font-size: 12px; color: rgba(255, 255, 255, .36); line-height: 1.8; max-width: 280px; margin: 14px 0 18px; }
+.ft-social { display: flex; gap: 10px; }
+.ft-social a { width: 32px; height: 32px; border: 1px solid rgba(255, 255, 255, .1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(255, 255, 255, .36); font-size: 12px; transition: all .3s cubic-bezier(.4,0,.2,1); }
+.ft-social a:hover { border-color: #B8965A; color: #B8965A; }
+.ft-col h5 { font-size: 9.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #B8965A; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(201, 168, 76, .15); }
+.ft-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.ft-col ul li a { font-size: 12px; color: rgba(255, 255, 255, .36); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: all .3s cubic-bezier(.4,0,.2,1); }
+.ft-col ul li a::before { content: "\203a"; color: #B8965A; font-size: 13px; }
+.ft-col ul li a:hover { color: #B8965A; padding-left: 3px; }
+.ft-bottom { border-top: 1px solid rgba(255, 255, 255, .06); padding: 18px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 10.5px; color: rgba(255, 255, 255, .2); }
+.ft-bottom a { color: rgba(255, 255, 255, .28); text-decoration: none; }
+.ft-bottom a:hover { color: #B8965A; }
+.ft-bl { display: flex; gap: 18px; }
+@media (max-width: 900px) { .ft-main { grid-template-columns: 1fr 1fr; gap: 28px; } }
+@media (max-width: 680px) { .ft-main { grid-template-columns: 1fr; } }
 
 /* ---- Cartes "Derniers articles" : équilibre image/texte ----
    Le thème Crafto fixe .blog-image à height/min-height:300px, indépendamment de la hauteur
