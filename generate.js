@@ -315,6 +315,53 @@ function articleCard(post, fromArticlesDir) {
         </li>`;
 }
 
+// ---- Sidebar "Sélection de la rédaction" + "Explorer les catégories" (home, page 1 uniquement) ----
+// Nommé "Sélection de la rédaction" et non "Articles populaires" : le site n'a pas encore de
+// données de trafic réelles, on ne prétend pas en avoir (voir règle "pas de faux chiffres").
+function sidebarPickItem(post) {
+  const img = imagePath(post.feature_image, false);
+  return `
+                                <li class="d-flex align-items-start mb-20px">
+                                    <a href="articles/${post.slug}.html" class="flex-shrink-0 d-block position-relative overflow-hidden border-radius-6px" style="width:64px;height:64px;">
+                                        <img src="${img}" alt="${post.title}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                                    </a>
+                                    <div class="ps-15px">
+                                        <a href="articles/${post.slug}.html" class="d-block text-dark-gray fw-600 fs-14" style="line-height:1.35;">${post.title}</a>
+                                        <span class="fs-11 text-uppercase" style="color:${SITE.prune};letter-spacing:.5px;">${dateFmt(post.published_at)}</span>
+                                    </div>
+                                </li>`;
+}
+
+function sidebarCategoryTile(tag) {
+  const repPost = allPosts.find(p => (postTagByPostId.get(p.id) || []).some(t => t.id === tag.id));
+  const img = repPost ? imagePath(repPost.feature_image, false) : 'https://placehold.co/300x200';
+  return `
+                                <a href="categorie-${tag.slug}.html" class="d-block position-relative overflow-hidden border-radius-6px mb-10px" style="height:84px;">
+                                    <img src="${img}" alt="${tag.name}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease;">
+                                    <span class="position-absolute inset-0" style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(15,10,12,.78) 100%);"></span>
+                                    <span class="position-absolute bottom-0 start-0 w-100 p-15px text-white fw-700 fs-14">${tag.name}</span>
+                                </a>`;
+}
+
+function buildHomeSidebar() {
+  const picks = allPosts.slice(3, 8); // 5 posts distincts des 3 déjà en hero
+  return `
+                        <div class="col-lg-4">
+                            <div class="ps-lg-30px mt-5 mt-lg-0">
+                                <div class="mb-50px">
+                                    <h3 class="alt-font text-dark-gray fw-700 fs-19 mb-25px position-relative pb-15px" style="border-bottom:2px solid ${SITE.prune};">Sélection de la rédaction</h3>
+                                    <ul class="list-unstyled mb-0">
+${picks.map(sidebarPickItem).join('\n')}
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3 class="alt-font text-dark-gray fw-700 fs-19 mb-25px position-relative pb-15px" style="border-bottom:2px solid ${SITE.prune};">Explorer les catégories</h3>
+${data.tags.map(sidebarCategoryTile).join('\n')}
+                                </div>
+                            </div>
+                        </div>`;
+}
+
 // ---- Pagination ----
 const PAGE_SIZE = 12;
 function paginate(items, pageSize = PAGE_SIZE) {
@@ -350,7 +397,7 @@ const TOOLS = [
     image: 'images/mamoune-memory-darija.webp',
     imagePosition: '50% 22%', // recadré sur le visage — photo verticale, beaucoup de mur vide en haut
     alt: 'Enfant souriant, illustration du jeu Memory Darija',
-    speechBubble: "Mama, kif kaytqal 'papillon' bel darija ?!",
+    speechBubble: "Maman, comment on dit 'khti' en darija ?",
     title: 'Memory Darija : le jeu pour retenir des mots en famille',
     excerpt: "8 paires à retrouver, un mot darija par carte retournée. Un jeu gratuit à faire à deux, parent et enfant.",
     meta: 'Jeu gratuit · 5 min'
@@ -555,12 +602,12 @@ ${heroSection}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 px-0">
-                            <ul class="blog-side-image blog-wrapper grid grid-2col xs-grid-1col gutter-double-extra-large">
+                        <div class="${pageNum === 1 ? 'col-lg-8' : 'col-12'} px-0">
+                            <ul class="blog-side-image blog-wrapper grid ${pageNum === 1 ? 'grid-1col' : 'grid-2col'} xs-grid-1col gutter-double-extra-large">
                                 <li class="grid-sizer"></li>
 ${cards}
                             </ul>
-                        </div>
+                        </div>${pageNum === 1 ? buildHomeSidebar() : ''}
                     </div>
                 </div>
             </section>
