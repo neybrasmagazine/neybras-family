@@ -347,9 +347,10 @@ const TOOLS = [
   {
     href: 'jeu-memory-darija.html',
     category: 'Éducation',
-    image: 'images/jeu-memory-darija-cover.webp',
-    imagePosition: '50% 15%', // garde la bulle darija entière visible + le visage de l'enfant
-    alt: 'Illustration du jeu Memory Darija',
+    image: 'images/mamoune-memory-darija.webp',
+    imagePosition: '50% 22%', // recadré sur le visage — photo verticale, beaucoup de mur vide en haut
+    alt: 'Enfant souriant, illustration du jeu Memory Darija',
+    speechBubble: '1000 dh / chhar ?',
     title: 'Memory Darija : le jeu pour retenir des mots en famille',
     excerpt: "8 paires à retrouver, un mot darija par carte retournée. Un jeu gratuit à faire à deux, parent et enfant.",
     meta: 'Jeu gratuit · 5 min'
@@ -368,38 +369,57 @@ const TOOLS = [
 
 function toolCard(tool) {
   return `
-                        <div class="col-md-6 mb-3 mb-md-0">
-                            <a href="${tool.href}" class="d-block nf-promo-card text-decoration-none h-100">
-                                <div class="nf-promo-visual">
-                                    <img src="${tool.image}" alt="${tool.alt}" loading="lazy" style="object-position:${tool.imagePosition};">
-                                    <span class="nf-promo-badge nf-promo-badge-new">Nouveau</span>
-                                    <span class="nf-promo-badge nf-promo-badge-cat">${tool.category}</span>
-                                </div>
-                                <div class="nf-promo-body">
-                                    <div class="nf-promo-title">${tool.title}</div>
-                                    <p class="nf-promo-excerpt">${tool.excerpt}</p>
-                                    <span class="nf-promo-meta">${tool.meta}</span>
-                                </div>
-                            </a>
-                        </div>`;
+                        <a href="${tool.href}" class="nf-tool-card nf-fade-in">
+                            <div class="nf-tool-visual">
+                                <img src="${tool.image}" alt="${tool.alt}" loading="lazy" style="object-position:${tool.imagePosition};">
+                                <span class="nf-tool-badge">Nouveau</span>
+                                <span class="nf-tool-cta" aria-hidden="true"><i class="feather icon-feather-arrow-right"></i></span>
+                                ${tool.speechBubble ? `<span class="nf-speech-bubble nf-speech-bubble-lg">${tool.speechBubble}</span>` : ''}
+                            </div>
+                            <div class="nf-tool-body">
+                                <span class="nf-tool-cat">${tool.category}</span>
+                                <h3 class="nf-tool-title">${tool.title}</h3>
+                                <p class="nf-tool-excerpt">${tool.excerpt}</p>
+                                <span class="nf-tool-meta">${tool.meta}</span>
+                            </div>
+                        </a>`;
 }
 
-const TOOLS_STYLE = `
-        <style>
-          .nf-promo-card{ display:flex; flex-direction:column; border-radius:14px; overflow:hidden; background:#fff; box-shadow:0 1px 2px rgba(46,36,48,.05), 0 10px 26px rgba(46,36,48,.08); transition:transform .18s ease, box-shadow .18s ease; }
-          .nf-promo-card:hover{ transform: translateY(-3px); box-shadow:0 4px 10px rgba(46,36,48,.08), 0 16px 34px rgba(46,36,48,.12); }
-          .nf-promo-visual{ position:relative; height:180px; overflow:hidden; }
-          .nf-promo-visual img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-          .nf-promo-visual::after{ content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(46,36,48,0) 45%, rgba(46,36,48,.55) 100%); }
-          .nf-promo-badge{ position:absolute; top:14px; left:14px; z-index:2; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:5px 12px; border-radius:20px; }
-          .nf-promo-badge-new{ background:#C9A26B; color:#fff; }
-          .nf-promo-badge-cat{ left:auto; right:14px; background:rgba(255,255,255,.92); color:#5E3E50; }
-          .nf-promo-body{ padding:22px 24px; flex:1; display:flex; flex-direction:column; }
-          .nf-promo-title{ font-family:'Fraunces',serif; font-weight:600; font-size:19px; color:#2E2430; margin-bottom:8px; line-height:1.3; }
-          .nf-promo-excerpt{ font-size:14px; color:#6b5c66; line-height:1.5; margin:0 0 14px; flex:1; }
-          .nf-promo-meta{ font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#7A5268; font-weight:600; }
-          @media (max-width:767px){ .nf-promo-visual{ height:140px; } }
-        </style>`;
+// Bloc vertical (liste compacte) — utilisé pour le regroupement "À essayer en famille" en
+// colonne de droite sur la home. Carte plus compacte que nf-tool-card, pensée pour s'empiler.
+function toolCardVertical(tool, i) {
+  return `
+                                <a href="${tool.href}" class="nf-game-row nf-fade-in" style="transition-delay:${i * 90}ms">
+                                    <div class="nf-game-thumb">
+                                        <img src="${tool.image}" alt="${tool.alt}" loading="lazy" style="object-position:${tool.imagePosition};">
+                                        <span class="nf-game-badge">Nouveau</span>
+                                        ${tool.speechBubble ? `<span class="nf-speech-bubble">${tool.speechBubble}</span>` : ''}
+                                    </div>
+                                    <div class="nf-game-info">
+                                        <span class="nf-tool-cat">${tool.category}</span>
+                                        <h3 class="nf-game-title">${tool.title}</h3>
+                                        <p class="nf-game-excerpt">${tool.excerpt}</p>
+                                        <span class="nf-game-cta">Jouer maintenant <i class="feather icon-feather-arrow-right"></i></span>
+                                    </div>
+                                </a>`;
+}
+
+// Duo de cartes "fancy" décalées/superposées — inspiré Crafto "Fancy Images", adapté en
+// version plus affirmée ("virale") pour la vitrine jeux de la home : grandes photos,
+// titre incrusté sur l'image, légère rotation qui se redresse au survol.
+function toolCardViral(tool, i) {
+  return `
+                                <a href="${tool.href}" class="nf-viral-card nf-viral-card-${i + 1} nf-fade-in">
+                                    <img src="${tool.image}" alt="${tool.alt}" loading="lazy" style="object-position:${tool.imagePosition};">
+                                    <span class="nf-game-badge">Nouveau</span>
+                                    ${tool.speechBubble ? `<span class="nf-speech-bubble nf-speech-bubble-lg">${tool.speechBubble}</span>` : ''}
+                                    <div class="nf-viral-scrim">
+                                        <span class="nf-tool-cat" style="color:#fff;">${tool.category}</span>
+                                        <h3 class="nf-viral-title">${tool.title}</h3>
+                                        <span class="nf-game-cta" style="color:#fff;">${tool.meta} <i class="feather icon-feather-arrow-right"></i></span>
+                                    </div>
+                                </a>`;
+}
 
 // ---- Homepage ----
 function buildIndex(pageNum, totalPages, pageItems) {
@@ -439,13 +459,18 @@ ${secondary.map(p => heroTile(p, false)).join('\n')}
   const toolsSection = pageNum === 1 ? `
             <section class="pt-0">
                 <div class="container">
-                    <div class="row justify-content-center mb-4">
-                        <div class="col-12 text-center">
-                            <h2 class="alt-font text-dark-gray fw-700 ls-minus-1px">À essayer en famille</h2>
+                    <div class="row align-items-center">
+                        <div class="col-lg-5 mb-4 mb-lg-0 nf-fade-in">
+                            <span class="nf-tool-cat d-block mb-10px">Interactif</span>
+                            <h2 class="alt-font text-dark-gray fw-700 ls-minus-1px mb-15px">À essayer en famille</h2>
+                            <p class="text-dark-gray">Des jeux et quiz courts, gratuits, à faire à deux — pas juste des articles à lire.</p>
+                            <span class="nf-games-hook"><span class="nf-bounce">🎮</span> ${TOOLS.length} jeux gratuits, sans inscription</span>
                         </div>
-                    </div>
-                    <div class="row">
-${TOOLS.map(toolCard).join('\n')}
+                        <div class="col-lg-6 offset-lg-1">
+                            <div class="nf-viral-games nf-fade-in">
+${TOOLS.map(toolCardViral).join('\n')}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>` : '';
@@ -471,10 +496,18 @@ ${categoryLinks}
                     </div>
                 </div>
             </section>
-            <section class="bg-very-light-gray">
+            <section class="bg-very-light-gray nf-nl-benefits-section">
                 <div class="container">
-                    <div class="row justify-content-center mb-5 nf-fade-in">
-                        <div class="col-lg-7 text-center">
+                    <div class="row align-items-center mb-5 nf-fade-in">
+                        <div class="col-lg-5 mb-4 mb-lg-0">
+                            <div class="nf-fancy-images">
+                                <div class="nf-fancy-img nf-fancy-img-1"><img src="images/content/2026/04/pexels-zakk-w-2150587326-35979213.webp" alt="Escapade en famille au Maroc" loading="lazy"></div>
+                                <div class="nf-fancy-img nf-fancy-img-2"><img src="images/content/2026/04/pexels-cottonbro-7118214.webp" alt="Enfant qui apprend à épargner" loading="lazy"></div>
+                                <div class="nf-fancy-img nf-fancy-img-3"><img src="images/content/2026/04/pexels-alexandra-matviets-101599139-18416900.webp" alt="Repas familial équilibré" loading="lazy"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <span class="nf-tool-cat d-block mb-10px">Newsletter</span>
                             <h2 class="alt-font text-dark-gray fw-700 ls-minus-1px mb-15px">Pourquoi s'abonner à la newsletter</h2>
                             <p class="text-dark-gray">Un seul e-mail, chaque vendredi. Ce que vous y trouvez — rien de plus, rien de moins.</p>
                         </div>
@@ -510,7 +543,7 @@ ${categoryLinks}
 
   const canonicalPath = pageNum === 1 ? '' : `page-${pageNum}`;
 
-  return `${head(pageNum === 1 ? SITE.title : `Derniers articles — page ${pageNum} — ${SITE.title}`, SITE.description, false, canonicalPath, pageNum === 1 ? TOOLS_STYLE : '')}
+  return `${head(pageNum === 1 ? SITE.title : `Derniers articles — page ${pageNum} — ${SITE.title}`, SITE.description, false, canonicalPath)}
 ${header(false)}
             <h1 class="visually-hidden">Neybras Family — Magazine famille, éducation et vie quotidienne au Maroc</h1>
 ${heroSection}
