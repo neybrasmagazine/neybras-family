@@ -135,7 +135,7 @@
                     <a href="categorie-finance" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">Finance</a>
                     <a href="articles/epargne-enfants-maroc-placements-strategie" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">Épargne enfants Maroc 2026 : placements & stratégies long terme</a>
                     <p class="card-excerpt">1 000 MAD épargnés chaque mois dès la naissance peuvent devenir plus de 324 000 MAD au bac de votre enfant. Voici le calcul — et pourquoi si peu de familles l'utilisent.</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 15 juin 2026 &middot; 3 min de lecture</span>
+                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 17 juin 2026 &middot; 3 min de lecture</span>
                 </div>
             </div>
         </li>
@@ -150,7 +150,7 @@
                     <a href="categorie-finance" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">Finance</a>
                     <a href="articles/budget-familial-maroc-methodes-outils" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">Budget familial Maroc 2026 : méthodes gestion & outils pratiques</a>
                     <p class="card-excerpt">Selon le HCP, l'alimentation et le logement absorbent l'essentiel du budget des ménages marocains. Ce que ce constat national révèle sur la vraie marge de manœuvre des familles.</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 3 juin 2026 &middot; 3 min de lecture</span>
+                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 4 juin 2026 &middot; 3 min de lecture</span>
                 </div>
             </div>
         </li>
@@ -165,7 +165,7 @@
                     <a href="categorie-finance" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">Finance</a>
                     <a href="articles/finance-patrimoine-familial-maroc-strategies" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">Finance & patrimoine familial Maroc : stratégies 2026</a>
                     <p class="card-excerpt">De la gestion budgétaire quotidienne à la transmission patrimoniale : notre rubrique décrypte ce qui compte vraiment pour les familles marocaines CSP+.</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 30 mai 2026 &middot; 1 min de lecture</span>
+                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 1 juin 2026 &middot; 1 min de lecture</span>
                 </div>
             </div>
         </li>
@@ -180,7 +180,7 @@
                     <a href="categorie-finance" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">Finance</a>
                     <a href="articles/erreurs-financieres-familles-maroc-pieges" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">Erreurs financières familles Maroc : 7 pièges à éviter 2026</a>
                     <p class="card-excerpt">De l'absence d'épargne de précaution au surendettement immobilier, certaines erreurs reviennent sans cesse chez les familles marocaines. 7 pièges à repérer à temps.</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 27 mai 2026 &middot; 3 min de lecture</span>
+                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 29 mai 2026 &middot; 3 min de lecture</span>
                 </div>
             </div>
         </li>
@@ -195,7 +195,7 @@
                     <a href="categorie-finance" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">Finance</a>
                     <a href="articles/strategie-financiere-famille-maroc-plan" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">Stratégie financière famille Maroc : plan patrimonial solide 2026</a>
                     <p class="card-excerpt">Structurer les finances d'un foyer n'est plus réservé aux grandes fortunes marocaines — c'est devenu une nécessité pour tous. Par où commencer, concrètement.</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 24 mai 2026 &middot; 3 min de lecture</span>
+                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; 26 mai 2026 &middot; 3 min de lecture</span>
                 </div>
             </div>
         </li>
@@ -276,6 +276,31 @@
             });
           }, { threshold: 0.15 });
           targets.forEach(function(el){ io.observe(el); });
+        })();
+        (function(){
+          // Popup newsletter (bouton "Je m'abonne" du bloc newsletter, home uniquement) —
+          // TODO: remplacer YOUR_FORM_ID_NEWSLETTER par un vrai endpoint Formspree avant mise en ligne.
+          var form = document.getElementById('nf-popup-form');
+          if (!form) return;
+          var note = document.getElementById('nf-popup-note');
+          form.addEventListener('submit', function(e){
+            e.preventDefault();
+            var btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            fetch('https://formspree.io/f/YOUR_FORM_ID_NEWSLETTER', {
+              method: 'POST',
+              body: new FormData(form),
+              headers: { 'Accept': 'application/json' }
+            }).catch(function(){ /* l'inscription reste confirmée côté UI même si l'envoi réseau échoue en aperçu */ })
+              .finally(function(){
+                form.style.display = 'none';
+                note.textContent = 'Merci ! Vérifiez votre boîte mail pour confirmer votre inscription.';
+              });
+          });
+          var closeBtn = document.getElementById('nf-popup-close');
+          if (closeBtn && window.jQuery && jQuery.magnificPopup) {
+            closeBtn.addEventListener('click', function(){ jQuery.magnificPopup.close(); });
+          }
         })();
         </script>
     </body>

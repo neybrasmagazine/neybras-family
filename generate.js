@@ -265,6 +265,31 @@ function footer(fromArticlesDir) {
           }, { threshold: 0.15 });
           targets.forEach(function(el){ io.observe(el); });
         })();
+        (function(){
+          // Popup newsletter (bouton "Je m'abonne" du bloc newsletter, home uniquement) —
+          // TODO: remplacer YOUR_FORM_ID_NEWSLETTER par un vrai endpoint Formspree avant mise en ligne.
+          var form = document.getElementById('nf-popup-form');
+          if (!form) return;
+          var note = document.getElementById('nf-popup-note');
+          form.addEventListener('submit', function(e){
+            e.preventDefault();
+            var btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            fetch('https://formspree.io/f/YOUR_FORM_ID_NEWSLETTER', {
+              method: 'POST',
+              body: new FormData(form),
+              headers: { 'Accept': 'application/json' }
+            }).catch(function(){ /* l'inscription reste confirmée côté UI même si l'envoi réseau échoue en aperçu */ })
+              .finally(function(){
+                form.style.display = 'none';
+                note.textContent = 'Merci ! Vérifiez votre boîte mail pour confirmer votre inscription.';
+              });
+          });
+          var closeBtn = document.getElementById('nf-popup-close');
+          if (closeBtn && window.jQuery && jQuery.magnificPopup) {
+            closeBtn.addEventListener('click', function(){ jQuery.magnificPopup.close(); });
+          }
+        })();
         </script>
     </body>
 </html>`;
@@ -636,7 +661,19 @@ ${toolsSection}
                         </div>
                     </div>
                 </div>
-            </section>` : '';
+            </section>
+            <div id="subscribe-popup" class="mfp-hide nf-popup">
+                <button type="button" class="nf-popup-close" id="nf-popup-close" aria-label="Fermer">×</button>
+                <span class="nf-tool-cat d-block mb-10px">Newsletter</span>
+                <h3 class="nf-popup-title">Recevez le meilleur de Neybras Family</h3>
+                <p class="nf-popup-sub">Un seul e-mail, chaque vendredi. Sélectionné par la rédaction, jamais revendu.</p>
+                <form id="nf-popup-form" class="nf-popup-form">
+                    <input type="email" name="email" placeholder="Votre e-mail" required>
+                    <input type="hidden" name="source" value="popup-homepage">
+                    <button type="submit">Je m'abonne</button>
+                </form>
+                <p class="nf-popup-note" id="nf-popup-note">Désinscription en un clic. Votre adresse n'est ni revendue ni partagée.</p>
+            </div>` : '';
 
   const canonicalPath = pageNum === 1 ? '' : `page-${pageNum}`;
 
