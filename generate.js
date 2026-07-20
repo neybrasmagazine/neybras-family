@@ -18,7 +18,7 @@ const SITE = {
     instagram: 'https://instagram.com/neybrasfamily',
     linkedin: 'https://linkedin.com/company/neybrasfamily/'
   },
-  ga: 'G-XXXXXXXXXX', // TODO: replace with a real GA4 measurement ID for neybras-family.com before going live
+  ga: 'G-E6F112PTL2',
   // Sampled directly from the real brand asset (site-dalal/images/Neybras Family Logo.png)
   prune: '#7A5268'
 };
