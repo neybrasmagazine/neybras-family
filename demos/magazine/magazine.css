@@ -424,3 +424,12 @@ footer .elements-social.social-icon-style-02 li {
 .nf-popup-form button:hover { background: #5E3E50; }
 .nf-popup-form button:disabled { opacity: .6; cursor: not-allowed; }
 .nf-popup-note { font-size: 12px; color: #9b8a94; margin: 16px 0 0; line-height: 1.5; }
+
+/* nf-entete-sans-recherche (12/09/2026) : la recherche du theme, inoperante sur ce site statique, est retiree de l'en-tete.
+   Les 9 rubriques ne tiennent pas en ligne sous 1280 px : le bouton ☰ du logo ouvre alors le menu lateral. */
+@media (min-width: 992px) and (max-width: 1279.98px) {
+  header nav.navbar .menu-order { display: none !important; }
+}
+@media (min-width: 1280px) and (max-width: 1399.98px) {
+  header nav.navbar .navbar-nav .nav-link { padding-left: 10px !important; padding-right: 10px !important; }
+}

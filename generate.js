@@ -134,7 +134,7 @@ function header(fromArticlesDir) {
                                 </span>
                             </a>
                         </div>
-                        <div class="col-auto menu-order position-static">
+                        <div class="col-auto menu-order position-static ms-lg-auto">
                             <button class="navbar-toggler float-start" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span><span class="navbar-toggler-line"></span>
                             </button>
@@ -144,23 +144,6 @@ function header(fromArticlesDir) {
                                     ${navTags}
                                     <li class="nav-item"><a href="${prefix}a-propos.html" class="nav-link">À propos</a></li>
                                 </ul>
-                            </div>
-                        </div>
-                        <div class="col-auto col-xxl-3 col-xl-2 text-end md-pe-0">
-                            <div class="header-icon">
-                                <div class="header-search-icon icon d-none d-md-flex">
-                                    <a href="#" class="search-form-icon header-search-form fw-800 text-uppercase"><i class="feather icon-feather-search text-dark-gray align-middle me-5px xl-me-0"></i><span class="fs-15 align-middle d-none d-xxl-inline-block">Rechercher</span></a>
-                                    <div class="search-form-wrapper">
-                                        <button title="Fermer" type="button" class="search-close">×</button>
-                                        <form id="search-form" role="search" method="get" class="search-form text-left" onsubmit="return false;">
-                                            <div class="search-form-box">
-                                                <h2 class="text-dark-gray text-center mb-4 fw-700 ls-minus-2px">Que recherchez-vous ?</h2>
-                                                <input class="search-input border-color-dark-gray" placeholder="Entrez un mot-clé..." name="s" type="text" autocomplete="off">
-                                                <button type="submit" class="search-button"><i class="feather icon-feather-search" aria-hidden="true"></i></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
