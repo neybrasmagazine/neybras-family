@@ -78,6 +78,8 @@ function imagePath(ghostUrl, fromArticlesDir) {
     .replace(/\.(jpe?g|png)$/i, '.webp');
 }
 
+// Les dates de publication ne sont plus affichees (decision editoriale du 12/09/2026).
+// dateFmt reste disponible mais n'est plus appele dans les gabarits.
 const dateFmt = iso => new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 const readingTime = post => {
   const words = (post.plaintext || '').split(/\s+/).filter(Boolean).length;
@@ -354,7 +356,7 @@ function articleCard(post, fromArticlesDir) {
                     ${tag ? `<a href="${prefix}categorie-${tag.slug}.html" class="categories-btn bg-base-color text-white btn-box-shadow text-uppercase fw-600 mb-20px">${tag.name}</a>` : ''}
                     <a href="${href}" class="card-title text-dark-gray mb-15px fw-600 fs-22 alt-font w-95">${post.title}</a>
                     <p class="card-excerpt">${excerpt}</p>
-                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; ${dateFmt(post.published_at)} &middot; ${readingTime(post)} min de lecture</span>
+                    <span class="card-meta text-uppercase mt-15px d-block">Par Rédaction Neybras Family &middot; ${readingTime(post)} min de lecture</span>
                 </div>
             </div>
         </li>`;
@@ -372,7 +374,6 @@ function sidebarPickItem(post) {
                                     </a>
                                     <div class="ps-15px">
                                         <a href="articles/${post.slug}.html" class="d-block text-dark-gray fw-600 fs-14" style="line-height:1.35;">${post.title}</a>
-                                        <span class="fs-11 text-uppercase" style="color:${SITE.prune};letter-spacing:.5px;">${dateFmt(post.published_at)}</span>
                                     </div>
                                 </li>`;
 }
@@ -578,7 +579,7 @@ function buildIndex(pageNum, totalPages, pageItems) {
                             <div class="position-absolute bottom-0 start-0 w-100 p-30px sm-p-20px text-white">
                                 ${tag ? `<span class="btn btn-very-small btn-rounded btn-white text-uppercase fw-700 mb-10px d-inline-block">${tag.name}</span>` : ''}
                                 <div class="alt-font fw-700 text-white ${isDominant ? 'fs-32 sm-fs-22' : 'fs-18'} ls-minus-1px mb-5px">${post.title}</div>
-                                <span class="fs-12 text-uppercase text-white opacity-7">${dateFmt(post.published_at)} &middot; ${readingTime(post)} min de lecture</span>
+                                <span class="fs-12 text-uppercase text-white opacity-7">${readingTime(post)} min de lecture</span>
                             </div>
                         </a>`;
   };
@@ -807,7 +808,7 @@ ${header(true)}
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-10 text-center">
-                            <span class="fs-18 mb-3 d-inline-block">Par <span class="text-dark-gray fw-500">Rédaction Neybras Family</span>${tag ? ` &middot; <a href="../categorie-${tag.slug}.html" class="text-dark-gray fw-500 text-decoration-line-bottom">${tag.name}</a>` : ''} &middot; ${dateFmt(post.published_at)} &middot; ${readingTime(post)} min de lecture</span>
+                            <span class="fs-18 mb-3 d-inline-block">Par <span class="text-dark-gray fw-500">Rédaction Neybras Family</span>${tag ? ` &middot; <a href="../categorie-${tag.slug}.html" class="text-dark-gray fw-500 text-decoration-line-bottom">${tag.name}</a>` : ''} &middot; ${readingTime(post)} min de lecture</span>
                             <h1 class="alt-font fw-700 text-dark-gray ls-minus-2px mb-0">${post.title}</h1>
                         </div>
                     </div>
@@ -907,7 +908,7 @@ function aProposIntro() {
                         </div>
                         <div class="nf-about-text last-paragraph-no-margin article-body">
                             <h3>Notre mission</h3>
-                            <p>Neybras Family est un média indépendant pour les familles marocaines qui veulent avancer sur ce qui compte&nbsp;: argent, éducation, parentalité, bien-être, voyages et intelligence artificielle. Lancé en avril 2026, le site couvre aujourd'hui ${A_PROPOS_STATS.themes} thématiques avec des conseils concrets, sans jargon ni bruit inutile.</p>
+                            <p>Neybras Family est un média indépendant pour les familles marocaines qui veulent avancer sur ce qui compte&nbsp;: argent, éducation, parentalité, bien-être, voyages et intelligence artificielle. Le site couvre aujourd'hui ${A_PROPOS_STATS.themes} thématiques avec des conseils concrets, sans jargon ni bruit inutile.</p>
                             <p>Le site est piloté par une rédaction resserrée — pas une salle de rédaction de plusieurs dizaines de journalistes. C'est un choix&nbsp;: mieux vaut peu d'articles bien sourcés qu'un flux permanent.</p>
                         </div>
                     </div>
@@ -917,7 +918,9 @@ function aProposIntro() {
 
 // ---- Static page ----
 function buildPage(page) {
-  let rawHtml = page.html;
+  // Pas de date affichee (decision editoriale du 12/09/2026) : l'export Ghost
+  // porte encore « Vol. 001 — Avril 2026 » dans la page Le magazine.
+  let rawHtml = (page.html || '').replace(/Vol\. 001 — Avril 2026/g, 'Vol. 001');
   if (page.slug === 'partenaires') rawHtml = stripPricingTable(rawHtml);
   if (page.slug === 'a-propos') rawHtml = A_PROPOS_CONTACT_HTML;
   const body = rewriteContent(rawHtml, false);
