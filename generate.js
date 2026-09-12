@@ -35,20 +35,9 @@ const allPosts = data.posts.filter(p => p.type === 'post' && p.status === 'publi
   .sort((a, b) => new Date(a.published_at) - new Date(b.published_at));
 const allPages = data.posts.filter(p => p.type === 'page' && p.status === 'published');
 
-// Spread original publish dates (all clustered in April 2026) evenly across the
-// 3 months up to today, preserving relative order, so the relaunched site looks
-// freshly and continuously active rather than dormant since April.
-{
-  const today = new Date();
-  const start = new Date(today);
-  start.setMonth(start.getMonth() - 3);
-  const spanMs = today - start;
-  const n = allPosts.length;
-  allPosts.forEach((p, i) => {
-    const t = n === 1 ? spanMs : (i / (n - 1)) * spanMs;
-    p.published_at = new Date(start.getTime() + t).toISOString();
-  });
-}
+// Dates de publication : celles de l'export Ghost, sans retouche.
+// (Jusqu'au 12/09/2026, elles etaient reparties artificiellement sur les 3 mois
+// precedant la generation ; supprime une fois les dates retirees de l'affichage.)
 allPosts.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
 
 // slug -> local relative path (from site root), used to rewrite internal __GHOST_URL__ links
