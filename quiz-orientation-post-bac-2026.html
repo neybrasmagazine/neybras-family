@@ -527,6 +527,7 @@
                         <div class="qz-label">Filières à explorer en priorité</div>
                         <ul id="qz-resultTracks"></ul>
                       </div>
+                      <a href="orientation-post-bac-maroc-2026-guide-complet" class="qz-btn qz-saffron qz-cta-full" style="display:block;text-align:center;text-decoration:none;margin-bottom:10px;">Voir le guide complet</a>
                       <p class="qz-sent-note" id="qz-sentNote"></p>
                     </div>
 
@@ -676,16 +677,12 @@
             }
           };
 
-          // Un endpoint Formspree distinct par profil = une autoréponse personnalisée par profil.
-          // Remplace chaque valeur par l'ID réel du formulaire Formspree correspondant (créés dans le même projet Formspree).
-          const formIds = {
-            sci:   "YOUR_FORM_ID_SCI",
-            com:   "YOUR_FORM_ID_COM",
-            droit: "YOUR_FORM_ID_DROIT",
-            sante: "YOUR_FORM_ID_SANTE",
-            pro:   "YOUR_FORM_ID_PRO",
-            art:   "YOUR_FORM_ID_ART"
-          };
+          // Un seul formulaire Formspree pour les 6 profils (le guide complet couvre déjà
+          // toutes les filières sur une seule page, pas besoin d'un endpoint par profil).
+          // TODO: remplacer par l'ID réel une fois le formulaire créé sur formspree.io
+          // (le champ caché "profil_resultat" du formulaire permet de distinguer les
+          // profils dans les notifications/exports Formspree).
+          const FORM_ID = "xgogkggb";
 
           const scores = { sci:0, com:0, droit:0, sante:0, pro:0, art:0 };
           const answers = new Array(questions.length).fill(null);
@@ -794,9 +791,7 @@
               li.textContent = t;
               list.appendChild(li);
             });
-            document.getElementById('qz-sentNote').textContent = email
-              ? `Ton résultat détaillé vient aussi d'être envoyé à ${email}.`
-              : '';
+            document.getElementById('qz-sentNote').textContent = '';
           }
 
           document.getElementById('qz-gateForm').addEventListener('submit', function(e){
@@ -809,13 +804,20 @@
               showScreen('qz-screen-result');
             }, 850);
 
-            // Chaque profil a son propre formulaire Formspree, donc sa propre autoréponse personnalisée.
-            const endpoint = `https://formspree.io/f/${formIds[winningProfile]}`;
+            // Le guide est déjà affiché directement à l'écran (bouton ci-dessus),
+            // donc l'envoi ci-dessous sert uniquement à collecter l'email pour la
+            // liste — la promesse faite au visiteur ne dépend pas de sa réussite.
+            const endpoint = `https://formspree.io/f/${FORM_ID}`;
             fetch(endpoint, {
               method: 'POST',
               body: new FormData(this),
               headers: { 'Accept': 'application/json' }
-            }).catch(() => { /* la démo continue même si l'envoi réseau échoue en aperçu */ });
+            }).then(res => {
+              if (res.ok){
+                document.getElementById('qz-sentNote').textContent =
+                  `On a aussi noté ton email — tu recevras nos prochaines ressources orientation.`;
+              }
+            }).catch(() => { /* email non collecté (endpoint pas encore configuré) — le guide reste accessible ci-dessus */ });
           });
 
           buildProgress();

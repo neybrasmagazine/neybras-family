@@ -478,6 +478,7 @@
                         <div class="sk-label">Sa routine en 3 gestes</div>
                         <div id="sk-resultSteps"></div>
                       </div>
+                      <a href="guide-routine-skincare-ado" class="sk-btn sk-gold sk-cta-full" style="display:block;text-align:center;text-decoration:none;margin-bottom:10px;">Voir le guide complet</a>
                       <p class="sk-sent-note" id="sk-sentNote"></p>
                     </div>
 
@@ -636,15 +637,12 @@
             }
           };
 
-          // Un endpoint Formspree distinct par profil = une autoréponse (email PDF)
-          // personnalisée par profil. Remplace chaque valeur par l'ID réel du
-          // formulaire Formspree correspondant (créés dans le même projet Formspree
-          // que le quiz orientation post-bac).
-          const formIds = {
-            min: "YOUR_FORM_ID_MIN",
-            imp: "YOUR_FORM_ID_IMP",
-            sol: "YOUR_FORM_ID_SOL"
-          };
+          // Un seul formulaire Formspree pour les 3 profils (le guide complet couvre
+          // déjà les 3 routines sur une seule page, pas besoin d'un endpoint par profil).
+          // TODO: remplacer par l'ID réel une fois le formulaire créé sur formspree.io
+          // (le champ caché "profil_resultat" du formulaire permet de distinguer les
+          // profils dans les notifications/exports Formspree).
+          const FORM_ID = "xgogkggb";
 
           const scores = { min: 0, imp: 0, sol: 0 };
           const answers = new Array(questions.length).fill(null);
@@ -744,9 +742,7 @@
               row.innerHTML = `<span class="sk-step-num">${i + 1}</span><span>${step}</span>`;
               stepsEl.appendChild(row);
             });
-            document.getElementById('sk-sentNote').textContent = email
-              ? `Le guide complet vient aussi d'être envoyé à ${email}.`
-              : '';
+            document.getElementById('sk-sentNote').textContent = '';
           }
 
           document.getElementById('sk-gateForm').addEventListener('submit', function(e){
@@ -759,14 +755,20 @@
               showScreen('sk-screen-result');
             }, 850);
 
-            // Chaque profil a son propre formulaire Formspree, donc sa propre
-            // autoréponse personnalisée (guide PDF adapté au profil obtenu).
-            const endpoint = `https://formspree.io/f/${formIds[winningProfile]}`;
+            // Le guide est déjà affiché directement à l'écran (bouton ci-dessus),
+            // donc l'envoi ci-dessous sert uniquement à collecter l'email pour la
+            // liste — la promesse faite à la visiteuse ne dépend pas de sa réussite.
+            const endpoint = `https://formspree.io/f/${FORM_ID}`;
             fetch(endpoint, {
               method: 'POST',
               body: new FormData(this),
               headers: { 'Accept': 'application/json' }
-            }).catch(() => { /* le quiz continue même si l'envoi réseau échoue en aperçu */ });
+            }).then(res => {
+              if (res.ok){
+                document.getElementById('sk-sentNote').textContent =
+                  `On a aussi noté ton email — tu recevras nos prochaines ressources bien-être.`;
+              }
+            }).catch(() => { /* email non collecté (endpoint pas encore configuré) — le guide reste accessible ci-dessus */ });
           });
 
           renderQuestion();
